@@ -1,0 +1,28 @@
+@use '../../styles/palette' as colors;
+
+.header {
+  width: 100%;
+  background-color: colors.$black;
+  margin-bottom: 1.75em;
+
+  &__inner {
+    padding-block: 1.125em;
+    display: flex;
+    align-items: center;
+  }
+
+  &__logoWrapper {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: 0 auto;
+  }
+
+  &__pageTitle {
+    font-family: MontserratBold, Arial, Helvetica, sans-serif;
+    font-weight: 800;
+    font-size: 32px;
+    line-height: (39px / 32px) * 100%;
+    color: colors.$light-grey;
+  }
+}
