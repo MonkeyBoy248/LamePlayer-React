@@ -1,0 +1,16 @@
+@use '../../styles/palette' as colors;
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+  width: 100%;
+  border-right: 2px solid colors.$light-grey;
+
+  &__title {
+    font-family: MontserratBold, Arial, Helvetica, sans-serif;
+    padding-left: 1.5rem;
+    color: colors.$light-grey;
+    margin-bottom: 1.75em;
+  }
+}
