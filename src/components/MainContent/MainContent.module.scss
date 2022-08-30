@@ -1,0 +1,11 @@
+@use '../../styles/palette' as colors;
+
+.mainContent {
+  width: 100%;
+  background-color: colors.$black;
+
+  &__inner {
+    width: 100%;
+    display: flex;
+  }
+}

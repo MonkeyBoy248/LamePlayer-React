@@ -1,0 +1,10 @@
+.mainContent {
+  width: 100%;
+  background-color: #000000;
+}
+.mainContent__inner {
+  width: 100%;
+  display: flex;
+}
+
+/*# sourceMappingURL=MainContent.module.css.map */
