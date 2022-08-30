@@ -1,0 +1,48 @@
+@use '../../styles/palette' as colors;
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  position: relative;
+  cursor: pointer;
+  padding: 1.25em 1.5em;
+  transition: .2s ease-in-out;
+
+  &::before {
+    content: '';
+    position: absolute;
+    display: block;
+    opacity: 0;
+    height: 1.875em;
+    width: 4px;
+    background-color: colors.$green;
+    transition: .2s ease-in-out;
+    left: 0;
+  }
+
+  &__name {
+    color: colors.$light-grey;
+    transition: .2s ease-in-out;
+  }
+
+  & svg {
+    transition: .2s ease-in-out;
+  }
+
+  &:hover {
+    background-color: colors.$light-grey;
+  }
+
+  &:hover &__name {
+    color: colors.$black;
+  }
+
+  &:hover::before {
+    opacity: 1;
+  }
+
+  &:hover svg {
+    fill: colors.$black;
+  }
+}

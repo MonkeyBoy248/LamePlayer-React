@@ -1,0 +1,41 @@
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  position: relative;
+  cursor: pointer;
+  padding: 1.25em 1.5em;
+  transition: 0.2s ease-in-out;
+}
+.navItem::before {
+  content: "";
+  position: absolute;
+  display: block;
+  opacity: 0;
+  height: 1.875em;
+  width: 4px;
+  background-color: #0FA750;
+  transition: 0.2s ease-in-out;
+  left: 0;
+}
+.navItem__name {
+  color: #E5E5E5;
+  transition: 0.2s ease-in-out;
+}
+.navItem svg {
+  transition: 0.2s ease-in-out;
+}
+.navItem:hover {
+  background-color: #E5E5E5;
+}
+.navItem:hover .navItem__name {
+  color: #000000;
+}
+.navItem:hover::before {
+  opacity: 1;
+}
+.navItem:hover svg {
+  fill: #000000;
+}
+
+/*# sourceMappingURL=NavItem.module.css.map */
