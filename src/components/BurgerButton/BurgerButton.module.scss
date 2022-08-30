@@ -1,0 +1,43 @@
+@use '../../styles/palette' as colors;
+
+.burgerButton {
+  width: 4.375em;
+  height: 4.375em;
+  border: none;
+  background-color: colors.$black;
+  padding: 0;
+  //transition: .3s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  &:hover {
+    outline: 2px solid colors.$light-grey;
+  }
+
+  &__line, &__line::before, &__line:after {
+    height: 0.25em;
+    border-radius: 5px;
+    width: 3.125em;
+    background-color: colors.$light-grey;
+    display: block;
+  }
+
+  &__line::before, &__line::after {
+    content: '';
+    position: absolute;
+  }
+
+  &__line {
+    position: relative;
+  }
+
+  &__line::before {
+    top: -0.75em;
+  }
+
+  &__line::after {
+    top: 0.75em;
+  }
+}
