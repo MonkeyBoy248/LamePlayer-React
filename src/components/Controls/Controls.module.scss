@@ -1,0 +1,85 @@
+@use '../../styles/palette' as colors;
+
+.controls {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    
+    button {
+        background-color: colors.$black;
+        border: none;
+    }
+
+
+    &__progressBar {
+        width: 50%;
+        position: absolute;
+        top: -0.75em;
+        height: 0.75em;
+        background-color: colors.$green; 
+
+        &::before {
+            position: absolute;
+            content: '';
+            height: 100%;
+            width: 100vw;
+            background-color: colors.$light-grey;
+            z-index: -1;
+        }
+    }
+
+    &__inner {
+        padding-block: 1em;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__mainControls {
+        display: flex;
+        align-items: center;
+        gap: 1.5em;
+    }
+
+    &__trackInfo {
+        display: flex;
+        align-items: center;
+        gap: 1em;
+        margin-left: 0.75em;
+    }
+
+    &__trackCoverWrapper {
+        height: 5em;
+        flex-basis: 5em;
+        flex-shrink: 0;
+
+        img {
+            display: block;
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
+    }
+
+    &__trackDetails {
+        text-align: left;
+        color: colors.$light-grey;
+    }
+
+    &__artist {
+        font-size: 1em;
+        opacity: 0.8;
+    }
+
+    &__trackTitle {
+        font-family: MontserratMedium;
+        font-size: 1.125em;
+        margin-bottom: 0.25em;
+    }
+
+    &__secondaryControls {
+        display: flex;
+        align-items: center;
+        gap: 1.5em;
+    }
+}
