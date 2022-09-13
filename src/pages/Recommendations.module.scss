@@ -1,0 +1,11 @@
+@use "../styles/palette" as colors;
+
+.recommendations {
+  padding-left: 2.5em;
+
+  &__pageTitle {
+    font-family: MontserratBold, Arial, Helvetica, sans-serif;
+    margin-bottom: 1em;
+    color: colors.$light-grey;
+  }
+}
