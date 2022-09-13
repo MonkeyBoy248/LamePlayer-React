@@ -3,10 +3,10 @@
 .navItem {
   display: flex;
   align-items: center;
-  gap: 30px;
+  gap: 1.875em;
   position: relative;
   cursor: pointer;
-  padding: 1.25em 1.5em;
+  padding: 1rem 1.5rem;
   transition: .2s ease-in-out;
 
   &::before {
