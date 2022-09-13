@@ -13,19 +13,19 @@ const Controls = () => {
       <div className={`${styles.controls__inner} _container`}>
         <div className={styles.controls__mainControls}>
           <button>
-            <Icon id={iconIds.prev} width='2.5em' height='2.5em' blockName={blockName} fill='#E5E5E5'/>
+            <Icon id={iconIds.prev} width='1.5em' height='1.5em' blockName={blockName} fill='#E5E5E5'/>
           </button>
           <button>
-            <Icon id={iconIds.play} width='3em' height='3em' blockName={blockName} fill='#E5E5E5' />
+            <Icon id={iconIds.play} width='1.75em' height='1.75em' blockName={blockName} fill='#E5E5E5' />
           </button>
           <button>
-            <Icon id={iconIds.next} width='2.5em' height='2.5em' blockName={blockName} fill='#E5E5E5'/>
+            <Icon id={iconIds.next} width='1.5em' height='1.5em' blockName={blockName} fill='#E5E5E5'/>
           </button>
           <button>
-            <Icon id={iconIds.repeat} fill='#E5E5E5' width='3em' height='3em' blockName={blockName}/>
+            <Icon id={iconIds.repeat} fill='#E5E5E5' width='1.75em' height='1.75em' blockName={blockName}/>
           </button>
           <button>
-            <Icon id={iconIds.playlists} fill='#E5E5E5' width='3em' height='3em' blockName={blockName}/>
+            <Icon id={iconIds.playlists} fill='#E5E5E5' width='1.75em' height='1.75em' blockName={blockName}/>
           </button>
             <div className={styles.controls__trackInfo}>
             <figure className={styles.controls__trackCoverWrapper}>
@@ -39,13 +39,13 @@ const Controls = () => {
         </div>
         <div className={styles.controls__secondaryControls}>
           <button>
-            <Icon id={iconIds.dots} fill='#E5E5E5' width='3em' height='3em' blockName={blockName}/>
+            <Icon id={iconIds.dots} fill='#E5E5E5' width='2em' height='2em' blockName={blockName}/>
           </button>
           <button>
-            <Icon id={iconIds.mid} fill='#E5E5E5' width='3em' height='3em' blockName={blockName}/>
+            <Icon id={iconIds.mid} fill='#E5E5E5' width='2em' height='2em' blockName={blockName}/>
           </button>
           <button>
-            <Icon id={iconIds.shuffle} fill='#E5E5E5' width='3em' height='3em' blockName={blockName}/>
+            <Icon id={iconIds.shuffle} fill='#E5E5E5' width='2em' height='2em' blockName={blockName}/>
           </button>
         </div>
       </div>

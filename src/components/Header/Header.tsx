@@ -10,7 +10,7 @@ const Header = () => {
       <div className={`${styles.header__inner} _container`}>
           <BurgerButton></BurgerButton>
           <div className={styles.header__logoWrapper}>
-            <Logo width={'80'} height={'80'}></Logo>
+            <Logo width={'60'} height={'60'}></Logo>
             <h1 className={styles.header__pageTitle}>LamePlayer</h1>
           </div>
         </div>
