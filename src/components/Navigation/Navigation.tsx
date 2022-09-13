@@ -11,7 +11,7 @@ const Navigation = () => {
 
   const navigationItems: NavigationItem[] = [
     {
-      title: 'Треки',
+      title: 'Tracks',
       svg: {
         id: 'icon-tracks',
         width,
@@ -21,7 +21,7 @@ const Navigation = () => {
       }
     },
     {
-      title: 'Альбомы',
+      title: 'Albums',
       svg: {
         id: 'icon-albums',
         width,
@@ -31,7 +31,7 @@ const Navigation = () => {
       }
     },
     {
-      title: 'Плейлисты',
+      title: 'Playlists',
       svg: {
         id: 'icon-playlists',
         width,
@@ -41,7 +41,7 @@ const Navigation = () => {
       }
     },
     {
-      title: 'Настройки',
+      title: 'Settings',
       svg: {
         id: 'icon-settings',
         width,
