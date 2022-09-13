@@ -1,0 +1,9 @@
+.recommendationCard {
+  position: relative;
+  width: 200px;
+  height: 250px;
+
+  &__inner {
+    width: 100%;
+  }
+}
