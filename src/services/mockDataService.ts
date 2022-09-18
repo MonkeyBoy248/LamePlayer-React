@@ -1,151 +1,157 @@
-import { Track } from "../interfaces/TrackInfo";
+import { TrackData } from "../interfaces/Track";
+import { v4 as uuidv4 } from "uuid";
 
-export const mockTracks: Track[] = [
+const mockTracks: Omit<TrackData, 'id'>[] = [
   {
-      trackName: 'Judith',
+      name: 'Judith',
       artist: 'A Perfect Circle',
       album: 'Mer de Noms',
-      cover: 'mer-de-noms',
-      trackSrc: 'A Perfect Circle - Judith'
+      cover: 'mer-de-noms.jpg',
+      src: 'A Perfect Circle - Judith.mp3'
   },
   {
-      trackName: 'The Outsider',
+      name: 'The Outsider',
       artist: 'A Perfect Circle',
       album: 'Thirteenth Step',
-      cover: 'thirteenth-step',
-      trackSrc: 'A Perfect Circle - The Outsider'
+      cover: 'thirteenth-step.jpg',
+      src: 'A Perfect Circle - The Outsider.mp3'
   },
   {
-      trackName: 'Parasite Eve',
+      name: 'Parasite Eve',
       artist: 'Bring Me The Horizon',
       album: 'Post Human: Survival Horror',
-      cover: 'post-human-survival-horror',
-      trackSrc: 'Bring Me The Horizon - Parasite Eve'
+      cover: 'post-human-survival-horror.jpg',
+      src: 'Bring Me The Horizon - Parasite Eve.mp3'
   },
   {
-      trackName: 'Teardrops',
+      name: 'Teardrops',
       artist: 'Bring Me The Horizon',
       album: 'Post Human: Survival Horror',
-      cover: 'post-human-survival-horror',
-      trackSrc: 'Bring Me The Horizon - Teardrops'
+      cover: 'post-human-survival-horror.jpg',
+      src: 'Bring Me The Horizon - Teardrops.mp3'
   },
   {
-      trackName: 'Anna Molly',
+      name: 'Anna Molly',
       artist: 'Incubus',
       album: 'Light Grenades',
-      cover: 'light-grenades',
-      trackSrc: 'Incubus - Anna Molly'
+      cover: 'light-grenades.jpg',
+      src: 'Incubus - Anna Molly.mp3'
   },
   {
-      trackName: 'Drive',
+      name: 'Drive',
       artist: 'Incubus',
       album: 'Make Yourself',
-      cover: 'make-yourself',
-      trackSrc: 'Incubus - Drive'
+      cover: 'make-yourself.jpg',
+      src: 'Incubus - Drive.mp3'
   },
   {
-      trackName: 'Love Hurts',
+      name: 'Love Hurts',
       artist: 'Incubus',
       album: 'Light Grenades',
-      cover: 'light-grenades',
-      trackSrc: 'Incubus - Love Hurts'
+      cover: 'light-grenades.jpg',
+      src: 'Incubus - Love Hurts.mp3'
   },
   {
-      trackName: 'This Love',
+      name: 'This Love',
       artist: 'Maroon 5',
       album: 'Songs About Jane',
-      cover: 'songs-about-jane',
-      trackSrc: 'Maroon 5 - This Love'
+      cover: 'songs-about-jane.jpg',
+      src: 'Maroon 5 - This Love.mp3'
   },
   {
-      trackName: 'Wake Up Call',
+      name: 'Wake Up Call',
       artist: 'Maroon 5',
       album: "It Won`t Be Soon Before Long",
-      cover: 'wake-up-call',
-      trackSrc: 'Maroon 5 - Wake Up Call'
+      cover: 'wake-up-call.jpg',
+      src: 'Maroon 5 - Wake Up Call.mp3'
   },
   {
-      trackName: 'Carnival Of Rust',
+      name: 'Carnival Of Rust',
       artist: 'Poets Of The Fall',
       album: 'Carnival Of Rust',
-      cover: 'carnival-of-rust',
-      trackSrc: 'Poets Of The Fall - Carnival Of Rust'
+      cover: 'carnival-of-rust.jpg',
+      src: 'Poets Of The Fall - Carnival Of Rust.mp3'
   },
   {
-      trackName: 'Given And Denied',
+      name: 'Given And Denied',
       artist: 'Poets Of The Fall',
       album: 'Twilight Theater',
-      cover: 'twilight-theater',
-      trackSrc: 'Poets Of The Fall - Given And Denied'
+      cover: 'twilight-theater.jpg',
+      src: 'Poets Of The Fall - Given And Denied.mp3'
   },
   {
-      trackName: 'King Of Fools',
+      name: 'King Of Fools',
       artist: 'Poets Of The Fall',
       album: 'Carnival Of Rust',
-      cover: 'carnival-of-rust',
-      trackSrc: 'Poets Of The Fall - King Of Fools'
+      cover: 'carnival-of-rust.jpg',
+      src: 'Poets Of The Fall - King Of Fools.mp3'
   },
   {
-      trackName: "Fur Cue",
+      name: "Fur Cue",
       artist: 'Seether',
       album: 'Holding Onto Strings Better Left To Fray',
-      cover: 'holding-onto-strings-better-left-to-fray',
-      trackSrc: 'Seether - Fur Cue'
+      cover: 'holding-onto-strings-better-left-to-fray.jpg',
+      src: 'Seether - Fur Cue.mp3'
   },
   {
-      trackName: 'Simplest Mistake',
+      name: 'Simplest Mistake',
       artist: 'Seether',
       album: 'Karma And Effect',
-      cover: 'karma-and-effect',
-      trackSrc: 'Seether - Simplest Mistake'
+      cover: 'karma-and-effect.jpg',
+      src: 'Seether - Simplest Mistake.mp3'
   },
   {
-      trackName: "The Guardian (Ellie's Song)",
+      name: "The Guardian (Ellie's Song)",
       artist: 'Shawn James',
       album: 'The Guardian',
-      cover: 'the-guardian',
-      trackSrc: "Shawn James - The Guardian (Ellie's Song)"
+      cover: 'the-guardian.jpg',
+      src: "Shawn James - The Guardian (Ellie's Song).mp3"
   },
   {
-      trackName: 'All The Same',
+      name: 'All The Same',
       artist: 'Sick Puppies',
       album: 'Dressed Up As Life',
-      cover: 'dressed-up-as-life',
-      trackSrc: 'Sick Puppies - All The Same'
+      cover: 'dressed-up-as-life.jpg',
+      src: 'Sick Puppies - All The Same.mp3'
   },
   {
-      trackName: "You're Going Down",
+      name: "You're Going Down",
       artist: 'Sick Puppies',
       album: 'Tri-Polar',
-      cover: 'tri-polar',
-      trackSrc: "Sick Puppies - You're Going Down"
+      cover: 'tri-polar.jpg',
+      src: "Sick Puppies - You're Going Down.mp3"
   },
   {
-      trackName: 'Vicarious',
+      name: 'Vicarious',
       artist: 'Tool',
       album: '10, 000 Days',
-      cover: '10, 000-days',
-      trackSrc: 'Tool - Vicarious'
+      cover: '10, 000-days.jpg',
+      src: 'Tool - Vicarious.mp3'
   },
   {
-      trackName: 'Schism',
+      name: 'Schism',
       artist: 'Tool',
       album: 'Lateralus',
-      cover: 'lateralus',
-      trackSrc: 'Tool - Schism'
+      cover: 'lateralus.jpg',
+      src: 'Tool - Schism.mp3'
   },
   {
-      trackName: 'Parabola',
+      name: 'Parabola',
       artist: 'Tool',
       album: 'Lateralus',
-      cover: 'lateralus',
-      trackSrc: 'Tool - Parabola'
+      cover: 'lateralus.jpg',
+      src: 'Tool - Parabola.mp3'
   },
   {
-      trackName: 'The Pot',
+      name: 'The Pot',
       artist: 'Tool',
       album: '10, 000 Days',
-      cover: '10, 000-days',
-      trackSrc: 'Tool - The Pot'
+      cover: '10, 000-days.jpg',
+      src: 'Tool - The Pot.mp3'
   },
-]
+];
+
+export const tracks = mockTracks.map((track) => {
+    return {...track, id: uuidv4()};
+})
+
