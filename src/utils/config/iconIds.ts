@@ -1,7 +1,7 @@
 interface IconId {
     [id: string]: string;
 }
-  
+
 export const iconIds: IconId = {
     tracks: 'icon-tracks',
     albums: 'icon-albums',
@@ -15,5 +15,8 @@ export const iconIds: IconId = {
     mute: 'icon-volume_mute',
     mid: 'icon-volume_mid',
     full: 'icon-volume_full',
-    repeat: 'icon-repeat'
+    repeat: 'icon-repeat',
+    bands: 'icon-bands',
+    like: 'icon-like',
+    delete: 'icon-delete'
 }
