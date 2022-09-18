@@ -21,6 +21,16 @@ const Navigation = () => {
       }
     },
     {
+      title: 'Bands',
+      svg: {
+        id: 'icon-bands',
+        width,
+        height,
+        fill,
+        blockName,
+      }
+    },
+    {
       title: 'Albums',
       svg: {
         id: 'icon-albums',
