@@ -1,20 +1,20 @@
 import React from "react";
 import styles from './RecommendationsList.module.scss';
-import { mockTracks } from "../../../../services/mockDataService";
+import { tracks } from "../../../../services/mockDataService";
 import RecommendationCard from "../RecommendationCard/RecommendationCard";
-import { Track } from "../../../../interfaces/TrackInfo";
+import { TrackData } from "../../../../interfaces/Track";
 import { v4 as uuidv4 } from 'uuid';
 
 
 const RecommendationsList = () => {
-  const mockRecommendations = mockTracks.slice(12, 15);
+  const mockRecommendations = tracks.slice(12, 15);
 
   return (
-    <div className={styles.recommendationsList}>
-      {mockRecommendations.length > 0 && mockRecommendations.map((item: Track) => {
-        return <RecommendationCard key={uuidv4()} trackInfo={item} />
+    <ul className={styles.recommendationsList}>
+      {mockRecommendations.length > 0 && mockRecommendations.map((item: TrackData) => {
+        return <RecommendationCard key={item.id} trackInfo={item} />
       })}
-    </div>
+    </ul>
   )
 }
 
