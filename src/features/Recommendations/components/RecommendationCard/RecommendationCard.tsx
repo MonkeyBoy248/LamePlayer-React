@@ -11,7 +11,7 @@ interface RecommendationCardProps {
 const RecommendationCard = ({trackInfo}: RecommendationCardProps) => {
   return (
     <div className={styles.recommendationCard}>
-      <div className={styles.recommendationCard__inner}>
+      <div className={styles.recommendationCard__inner} style={{backgroundImage: `url(/images/covers/${trackInfo.cover}.jpg)` }}>
         <button className={styles.recommendationCard__playButton}>
           <Icon id={iconIds.play} width='2em' height='2em' blockName='recommendationCard' fill='#000000' />
         </button>
