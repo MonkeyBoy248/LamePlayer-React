@@ -3,7 +3,7 @@
 .header {
   width: 100%;
   background-color: colors.$black;
-  margin-bottom: 1.75em;
+  margin-bottom: 0.75em;
 
   &__inner {
     padding-block: 1.125em;
@@ -14,15 +14,15 @@
   &__logoWrapper {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 1em;
     margin: 0 auto;
   }
 
   &__pageTitle {
     font-family: MontserratBold, Arial, Helvetica, sans-serif;
     font-weight: 800;
-    font-size: 32px;
-    line-height: (39px / 32px) * 100%;
+    font-size: 1.5em;
+    line-height: (39 / 32) * 100%;
     color: colors.$light-grey;
   }
 }
