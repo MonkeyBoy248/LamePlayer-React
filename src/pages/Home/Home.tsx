@@ -5,10 +5,10 @@ import styles from './Home.module.scss';
 
 const Home = ({ title }: Page) => {
   return (
-    <div className={`${styles.home} _container`}>
+    <section className={`${styles.home} _container`}>
       <h2 className={`${styles.home__pageTitle} _pageTitle`}>{title}</h2>
       <RecommendationsList />
-    </div>
+    </section>
   )
 }
 
