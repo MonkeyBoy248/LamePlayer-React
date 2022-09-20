@@ -5,9 +5,10 @@
     position: fixed;
     bottom: 0;
     left: 0;
+    background-color: rgba(32, 31, 31, .95);
 
     button {
-        background-color: colors.$black;
+        background-color: transparent;
         border: none;
     }
 
@@ -15,7 +16,7 @@
     &__progressBar {
         width: 50%;
         position: absolute;
-        top: -0.75em;
+        top: -0.5em;
         height: 0.5em;
         background-color: colors.$green;
 
