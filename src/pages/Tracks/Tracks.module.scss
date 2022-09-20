@@ -1,0 +1,7 @@
+@use '../../styles/palette' as colors;
+
+.tracks {
+  &__pageTitle {
+    color: colors.$light-grey;
+  }
+}

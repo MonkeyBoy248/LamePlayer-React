@@ -6,7 +6,7 @@ import TrackList from '../../features/Tracks/components/TrackList/TrackList';
 
 const Tracks = ({ title }: Page) => {
   return (
-    <section className={styles.tracks}>
+    <section className={`${styles.tracks} _container`}>
       <h2 className={`${styles.tracks__pageTitle} _pageTitle`}>{title}</h2>
       {
         tracks.length > 0
