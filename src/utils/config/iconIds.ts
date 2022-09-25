@@ -16,7 +16,7 @@ export const iconIds: IconId = {
     mid: 'icon-volume_mid',
     full: 'icon-volume_full',
     repeat: 'icon-repeat',
-    bands: 'icon-bands',
+    artists: 'icon-artists',
     like: 'icon-like',
     delete: 'icon-delete'
 }
