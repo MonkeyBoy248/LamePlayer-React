@@ -2,6 +2,15 @@
 
 .track {
   width: 100%;
+  cursor: pointer;
+
+  &:hover {
+    outline: 2px solid colors.$green;
+  }
+
+  &:hover &__playButton{
+    opacity: 1;
+  }
 
   &__inner {
     width: 100%;
@@ -39,10 +48,6 @@
     cursor: pointer;
     opacity: 0;
     transition: .1s ease-in-out;
-
-    &:hover {
-      opacity: 1;
-    }
   }
 
   &__cover {
