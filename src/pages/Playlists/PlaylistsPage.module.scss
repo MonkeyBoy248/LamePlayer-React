@@ -1,0 +1,9 @@
+@use '../../styles/palette' as colors;
+
+.playlistsPage {
+  width: 100%;
+
+  &__title {
+    color: colors.$light-grey;
+  }
+}
