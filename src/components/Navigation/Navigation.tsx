@@ -2,6 +2,7 @@ import React from 'react';
 import NavItem from '../Navitem/NavItem';
 import { NavigationItem } from '../../interfaces/NavigationItem';
 import styles from './Navigation.module.scss';
+import { iconIds } from '../../utils/config/iconIds';
 
 const Navigation = () => {
   const blockName = 'navItem';
@@ -13,7 +14,7 @@ const Navigation = () => {
     {
       title: 'Tracks',
       svg: {
-        id: 'icon-tracks',
+        id: iconIds.tracks,
         width,
         height,
         fill,
@@ -21,9 +22,9 @@ const Navigation = () => {
       }
     },
     {
-      title: 'Bands',
+      title: 'Artists',
       svg: {
-        id: 'icon-bands',
+        id: iconIds.artists,
         width,
         height,
         fill,
@@ -33,7 +34,7 @@ const Navigation = () => {
     {
       title: 'Albums',
       svg: {
-        id: 'icon-albums',
+        id: iconIds.albums,
         width,
         height,
         fill,
@@ -43,7 +44,7 @@ const Navigation = () => {
     {
       title: 'Playlists',
       svg: {
-        id: 'icon-playlists',
+        id: iconIds.playlists,
         width,
         height,
         fill,
@@ -53,7 +54,7 @@ const Navigation = () => {
     {
       title: 'Settings',
       svg: {
-        id: 'icon-settings',
+        id: iconIds.settings,
         width,
         height,
         fill,
