@@ -1,7 +1,8 @@
-import { TrackData } from "../interfaces/Track";
+import { TrackModel } from "../interfaces/Track";
 import { v4 as uuidv4 } from "uuid";
+import { PlaylistModel } from "../interfaces/Playlist";
 
-const mockTracks: Omit<TrackData, 'id'>[] = [
+const mockTracks: Omit<TrackModel, 'id'>[] = [
   {
       name: 'Judith',
       artist: 'A Perfect Circle',
@@ -154,4 +155,16 @@ const mockTracks: Omit<TrackData, 'id'>[] = [
 export const tracks = mockTracks.map((track) => {
     return {...track, id: uuidv4()};
 })
+
+export const playlists: PlaylistModel[] = [
+    {
+        id: 55,
+        name: 'Favorites',
+        date_of_creation: `${new Date().getUTCDate()}`,
+        date_of_update: `${new Date().getUTCDate()}`,
+        tracks: [tracks[4], tracks[15], tracks[19]],
+        cover_url: tracks[17].cover!,
+        user: 'MonkeyBoy'
+    },
+]
 
