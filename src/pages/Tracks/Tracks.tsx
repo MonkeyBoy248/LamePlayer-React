@@ -3,8 +3,14 @@ import { Page } from '../../interfaces/Page';
 import styles from './Tracks.module.scss';
 import { tracks } from '../../services/mockDataService';
 import TrackList from '../../features/Tracks/components/TrackList/TrackList';
+import { TrackModel } from '../../interfaces/Track';
 
-const Tracks = ({ title }: Page) => {
+interface TracksProps {
+  title: string;
+  tracks: TrackModel[];
+}
+
+const Tracks = ({ title, tracks }: TracksProps ) => {
   return (
     <section className={`${styles.tracks} _container`}>
       <h2 className={`${styles.tracks__pageTitle} _pageTitle`}>{title}</h2>
