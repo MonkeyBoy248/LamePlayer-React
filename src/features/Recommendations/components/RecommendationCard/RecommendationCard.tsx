@@ -1,11 +1,11 @@
 import React from "react";
 import Icon from "../../../../components/Icon";
-import { TrackData } from "../../../../interfaces/Track";
+import { TrackModel } from "../../../../interfaces/Track";
 import { iconIds } from "../../../../utils/config/iconIds";
 import styles from './RecommendationCard.module.scss';
 
 interface RecommendationCardProps {
-  trackInfo: TrackData;
+  trackInfo: TrackModel;
 }
 
 const RecommendationCard = ({trackInfo}: RecommendationCardProps) => {
