@@ -6,6 +6,7 @@ import { Route, Routes } from 'react-router-dom'
 import Tracks from '../../pages/Tracks/Tracks';
 import PlaylistsPage from '../../pages/Playlists/PlaylistsPage';
 import { playlists, tracks } from '../../services/mockDataService';
+import Albums from '../../pages/Albums/Albums';
 
 const MainContent = () => {
   return (
@@ -17,6 +18,7 @@ const MainContent = () => {
           <Route path='/tracks' element={<Tracks title='Tracks' tracks={tracks} />}></Route>
           <Route path='/playlists' element={<PlaylistsPage title='Playlists' />}></Route>
           <Route path='/playlist/:id' element={<Tracks title={playlists[0].name} tracks={playlists[0].tracks} />}></Route>
+          <Route path='/albums' element={<Albums title='Albums' />}></Route>
         </Routes>
       </div>
     </main>
