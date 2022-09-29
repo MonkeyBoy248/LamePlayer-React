@@ -1,6 +1,7 @@
 import { TrackModel } from "../interfaces/Track";
-import { v4 as uuidv4 } from "uuid";
+import { v4 as uuidv4, v4 } from "uuid";
 import { PlaylistModel } from "../interfaces/Playlist";
+import { AlbumModel } from "../interfaces/Album";
 
 const mockTracks: Omit<TrackModel, 'id'>[] = [
   {
@@ -166,5 +167,116 @@ export const playlists: PlaylistModel[] = [
         cover_url: tracks[17].cover!,
         user: 'MonkeyBoy'
     },
+];
+
+const mockAlbums: Omit<AlbumModel, 'id' | 'tracks'>[] = [
+    {
+        title: 'Mer de Noms',
+        artist: 'A Perfect Circle',
+        cover: 'mer-de-noms.jpg',
+        releaseDate: '2000',
+    },
+    {
+        artist: 'A Perfect Circle',
+        title: 'Thirteenth Step',
+        cover: 'thirteenth-step.jpg',
+        releaseDate: '2003'
+    },
+    {
+        artist: 'Bring Me The Horizon',
+        title: 'Post Human: Survival Horror',
+        cover: 'post-human-survival-horror.jpg',
+        releaseDate: '2020'
+    },
+    {
+        artist: 'Incubus',
+        title: 'Light Grenades',
+        cover: 'light-grenades.jpg',
+        releaseDate: '2006',
+    },
+    {
+        artist: 'Incubus',
+        title: 'Make Yourself',
+        cover: 'make-yourself.jpg',
+        releaseDate: '1999'
+    },
+    {
+        artist: 'Maroon 5',
+        title: 'Songs About Jane',
+        cover: 'songs-about-jane.jpg',
+        releaseDate: '2002'
+    },
+    {
+        artist: 'Maroon 5',
+        title: "It Won`t Be Soon Before Long",
+        cover: 'wake-up-call.jpg',
+        releaseDate: '2007'
+    },
+    {
+        artist: 'Poets Of The Fall',
+        title: 'Carnival Of Rust',
+        cover: 'carnival-of-rust.jpg',
+        releaseDate: '2006'
+    },
+    {
+        artist: 'Poets Of The Fall',
+        title: 'Twilight Theater',
+        cover: 'twilight-theater.jpg',
+        releaseDate: '2010'
+    },
+    {
+        artist: 'Seether',
+        title: 'Holding Onto Strings Better Left To Fray',
+        cover: 'holding-onto-strings-better-left-to-fray.jpg',
+        releaseDate: '2011'
+    },
+    {
+        artist: 'Seether',
+        title: 'Karma And Effect',
+        cover: 'karma-and-effect.jpg',
+        releaseDate: '2005'
+    },
+    {
+        artist: 'Shawn James',
+        title: 'The Guardian',
+        cover: 'the-guardian.jpg',
+        releaseDate: '2020'
+    },
+    {
+        artist: 'Sick Puppies',
+        title: 'Dressed Up As Life',
+        cover: 'dressed-up-as-life.jpg',
+        releaseDate: '2007'
+    },
+    {
+        artist: 'Sick Puppies',
+        title: 'Tri-Polar',
+        cover: 'tri-polar.jpg',
+        releaseDate: '2009'
+    },
+    {
+        artist: 'Tool',
+        title: '10, 000 Days',
+        cover: '10, 000-days.jpg',
+        releaseDate: '2006'
+    },
+    {
+        artist: 'Tool',
+        title: 'Lateralus',
+        cover: 'lateralus.jpg',
+        releaseDate: '2001'
+    }
 ]
+
+function getAlbumTracks (albumTitle: string) {
+    return tracks.filter((track) => track.album === albumTitle);
+}
+
+export const albums: AlbumModel[] = mockAlbums.map((album) => {
+    return {
+        ...album,
+        id: v4(),
+        tracks: getAlbumTracks(album.title),
+    }
+})
 
