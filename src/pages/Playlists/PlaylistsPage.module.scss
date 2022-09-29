@@ -3,6 +3,10 @@
 .playlistsPage {
   width: 100%;
 
+  &__inner {
+    width: 100%;
+  }
+
   &__title {
     color: colors.$light-grey;
   }

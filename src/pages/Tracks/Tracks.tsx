@@ -12,15 +12,17 @@ interface TracksProps {
 
 const Tracks = ({ title, tracks }: TracksProps ) => {
   return (
-    <section className={`${styles.tracks} _container`}>
-      <h2 className={`${styles.tracks__pageTitle} _pageTitle`}>{title}</h2>
-      {
-        tracks.length > 0
-        ?
-        <TrackList tracks={tracks} />
-        :
-        <p className={styles.tracks__emptyMessage}>The track list is empty.</p>
-      }
+    <section className={styles.tracks}>
+      <div className={`${styles.tracks__inner} _container`}>
+        <h2 className={`${styles.tracks__pageTitle} _pageTitle`}>{title}</h2>
+        {
+          tracks.length > 0
+          ?
+          <TrackList tracks={tracks} />
+          :
+          <p className={styles.tracks__emptyMessage}>The track list is empty.</p>
+        }
+      </div>
     </section>
 
   )

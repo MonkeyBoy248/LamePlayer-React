@@ -2,7 +2,11 @@
 
 .tracks{
   width: 100%;
-  
+
+  &__inner {
+    width: 100%;
+  }
+
   &__pageTitle {
     color: colors.$light-grey;
   }
