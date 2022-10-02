@@ -20,12 +20,19 @@
 
 ._controlsSongTitle {
   font-weight: 700;
-  font-size: 30px;
-  line-height: (37px / 30px) * 100%;
+  font-size: 1.875em;
+  line-height: (37 / 30) * 100%;
 }
 
 ._controlsBandTitle {
   font-weight: 500;
-  font-size: 30px;
-  line-height: (37px / 35px) * 100% ;
+  font-size: 1.875em;
+  line-height: (37 / 30) * 100% ;
+}
+
+._itemTitle {
+  font-weight: 500;
+  font-size: 0.875em;
+  line-height: (16 / 14) * 100%;
+  margin-bottom: 0.5rem;
 }

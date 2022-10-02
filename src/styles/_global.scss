@@ -34,7 +34,13 @@ h1, h2, h3, h4, h5, h6, p, ul, li, figure {
 ._container {
   max-width: 1440px;
   width: 100%;
-  padding-inline: 2.5em;
+  padding-inline: 1.5em;
+}
+
+._grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 200px);
+  gap: 2em;
 }
 
 ._playButton {
