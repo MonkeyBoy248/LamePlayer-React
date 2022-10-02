@@ -24,7 +24,7 @@ const Playlist = ({ playlist }: PlaylistProps) => {
         <div className={styles.playlist__coverWrapper}>
           <img className={styles.playlist__cover} src={`/images/covers/${playlist.cover_url}`} alt={`${playlist.name} cover`} />
         </div>
-        <h3 className={styles.playlist__name}>{playlist.name}</h3>
+        <h3 className={`${styles.playlist__title} _itemTitle`}>{playlist.name}</h3>
         <p className={styles.playlist__tracksAmount}>{getTracksAmount(playlist.tracks)}</p>
       </Link>
     </li>

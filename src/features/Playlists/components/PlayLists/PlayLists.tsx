@@ -10,11 +10,13 @@ interface PlaylistsProps {
 
 const PlayLists = ({ playlists }: PlaylistsProps) => {
   return (
-    <ul className={styles.playlists}>
+    <ul className={`${styles.playlists} _grid`}>
       <li className={styles.playlists__createPlaylist}>
         <button className={styles.playlists__createPlaylistButton}>+</button>
       </li>
-      { playlists.map((playlist) => <Playlist key={playlist.id} playlist={playlist}/>) }
+      { playlists.map((playlist) => {
+        return <Playlist key={playlist.id} playlist={playlist}/>
+      }) }
     </ul>
   )
 }
