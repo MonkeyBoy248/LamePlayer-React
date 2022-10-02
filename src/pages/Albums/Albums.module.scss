@@ -1,0 +1,14 @@
+@use '../../styles/palette' as colors;
+
+.albums {
+  width: 100%;
+  margin-bottom: 150px;
+
+  &__inner {
+    width: 100%;
+  }
+
+  &__pageTitle {
+    color: colors.$light-grey;
+  }
+}
