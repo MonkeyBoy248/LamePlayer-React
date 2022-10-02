@@ -1,0 +1,10 @@
+.tracks {
+  width: 100%;
+  margin-bottom: 150px;
+}
+.tracks__inner {
+  width: 100%;
+}
+.tracks__pageTitle {
+  color: #E5E5E5;
+}

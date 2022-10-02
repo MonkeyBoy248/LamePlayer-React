@@ -1,14 +1,15 @@
 .sidebar {
   display: flex;
   flex-direction: column;
-  max-width: 300px;
+  max-width: 250px;
+  max-height: fit-content;
+  height: 100%;
   width: 100%;
   border-right: 2px solid #E5E5E5;
 }
 .sidebar__title {
+  font-family: MontserratBold, Arial, Helvetica, sans-serif;
   padding-left: 1.5rem;
   color: #E5E5E5;
-  margin-bottom: 1.75em;
+  margin-bottom: 0.5em;
 }
-
-/*# sourceMappingURL=Sidebar.module.css.map */

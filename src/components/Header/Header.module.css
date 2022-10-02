@@ -1,7 +1,7 @@
 .header {
   width: 100%;
-  background-color: #000000;
-  margin-bottom: 1.75em;
+  background-color: #201f1f;
+  margin-bottom: 0.75em;
 }
 .header__inner {
   padding-block: 1.125em;
@@ -11,15 +11,13 @@
 .header__logoWrapper {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 1em;
   margin: 0 auto;
 }
 .header__pageTitle {
   font-family: MontserratBold, Arial, Helvetica, sans-serif;
   font-weight: 800;
-  font-size: 32px;
+  font-size: 1.5em;
   line-height: 121.875%;
   color: #E5E5E5;
 }
-
-/*# sourceMappingURL=Header.module.css.map */
