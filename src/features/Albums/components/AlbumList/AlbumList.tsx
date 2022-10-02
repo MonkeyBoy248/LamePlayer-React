@@ -10,9 +10,9 @@ interface AlbumListProps {
 
 const AlbumList = ({ albums }: AlbumListProps) => {
   return (
-    <ul className={styles.albumList}>
+    <ul className={`${styles.albumList} _grid`}>
       { albums.map((album) => {
-        return <Album album={album}></Album>
+        return <Album key={album.id} album={album}></Album>
       }) }
     </ul>
   )
