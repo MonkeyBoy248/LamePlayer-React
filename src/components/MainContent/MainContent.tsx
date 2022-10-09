@@ -7,6 +7,7 @@ import Tracks from '../../pages/Tracks/Tracks';
 import PlaylistsPage from '../../pages/Playlists/PlaylistsPage';
 import { playlists, tracks } from '../../services/mockDataService';
 import Albums from '../../pages/Albums/Albums';
+import Artists from '../../pages/Artists/Artists';
 
 const MainContent = () => {
   return (
@@ -19,6 +20,7 @@ const MainContent = () => {
           <Route path='/playlists' element={<PlaylistsPage title='Playlists' />}></Route>
           <Route path='/playlist/:id' element={<Tracks title={playlists[0].name} tracks={playlists[0].tracks} />}></Route>
           <Route path='/albums' element={<Albums title='Albums' />}></Route>
+          <Route path='/artists' element={<Artists title='Artists' />}></Route>
         </Routes>
       </div>
     </main>
