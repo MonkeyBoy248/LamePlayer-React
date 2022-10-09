@@ -20,7 +20,7 @@ const Track = ({ track }: TrackProps) => {
             <button className={`${styles.track__playButton} _playButton`}>
               <Icon id={iconIds.play} width="1.5em" height="1.5em" blockName={blockName}></Icon>
             </button>
-            <img className={styles.track__cover} src={`/images/covers/${track.cover}`} alt={`${track.album} cover`} />
+            <img className={styles.track__cover} src={`/images/covers/${track.coverUrl}`} alt={`${track.album} cover`} />
           </div>
           <div className={styles.track__trackInfo}>
               <Link className={styles.track__name} to={`/track/${track.id}`}>{track.name}</Link>

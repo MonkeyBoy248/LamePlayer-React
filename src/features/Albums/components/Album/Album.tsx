@@ -12,7 +12,7 @@ const Album = ({ album }: AlbumProps) => {
     <li className={styles.album}>
       <Link className={styles.album__inner} to={`/album/${album.id}`}>
         <div className={styles.album__coverWrapper}>
-          <img className={styles.album__coverImage} src={`/images/covers/${album.cover}`} alt={`${album.title} cover`} />
+          <img className={styles.album__coverImage} src={`/images/covers/${album.coverUrl}`} alt={`${album.title} cover`} />
         </div>
         <div className={styles.album__infoWrapper}>
           <Link className={`${styles.album__title} _itemTitle`} to={`album/${album.id}`}>{album.title}</Link>

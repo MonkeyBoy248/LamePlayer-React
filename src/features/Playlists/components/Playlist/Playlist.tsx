@@ -22,7 +22,7 @@ const Playlist = ({ playlist }: PlaylistProps) => {
     <li className={styles.playlist}>
       <Link className={styles.playlist__inner} to={`/playlist/${playlist.id}`}>
         <div className={styles.playlist__coverWrapper}>
-          <img className={styles.playlist__cover} src={`/images/covers/${playlist.cover_url}`} alt={`${playlist.name} cover`} />
+          <img className={styles.playlist__cover} src={`/images/covers/${playlist.coverUrl}`} alt={`${playlist.name} cover`} />
         </div>
         <h3 className={`${styles.playlist__title} _itemTitle`}>{playlist.name}</h3>
         <p className={styles.playlist__tracksAmount}>{getTracksAmount(playlist.tracks)}</p>

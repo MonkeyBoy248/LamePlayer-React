@@ -4,7 +4,7 @@ export interface AlbumModel {
   id: string;
   title: string;
   artist: string;
-  cover: string;
+  coverUrl: string;
   releaseDate: string;
   tracks: TrackModel[];
 }
