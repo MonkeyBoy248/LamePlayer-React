@@ -26,7 +26,7 @@ const RecommendationCard = ({trackInfo}: RecommendationCardProps) => {
           </div>
         </div>
       </div>
-      <audio src={trackInfo.src} controls={false}></audio>
+      <audio src={ `tracks/${trackInfo.src}` } controls={false}></audio>
     </li>
   )
 }

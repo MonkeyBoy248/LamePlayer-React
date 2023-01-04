@@ -18,7 +18,7 @@ const Artist = ({ artist }: ArtistProps) => {
           <Link className={`${styles.artist__name} _itemTitle`} to={`artist/${artist.id}`}>{artist.name}</Link>
           <ul className={styles.artist__genres}>
             { artist.genres.map((genre) => {
-                return <li className={styles.artist__genre}>
+                return <li className={styles.artist__genre} key={genre}>
                   <p className={styles.artist__genreName}>{genre}</p>
                 </li>
               })
