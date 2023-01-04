@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavigationItem } from '../../interfaces/NavigationItem';
+import { NavigationItem } from '@interfaces/NavigationItem';
 import { Link } from 'react-router-dom';
 import Icon from '../Icon';
 import styles from './NavItem.module.scss';

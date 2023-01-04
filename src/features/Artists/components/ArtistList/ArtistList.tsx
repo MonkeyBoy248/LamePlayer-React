@@ -1,5 +1,5 @@
 import React from "react";
-import { ArtistModel } from "../../../../interfaces/Artist";
+import { ArtistModel } from "@interfaces/Artist";
 import styles from './ArtistList.module.scss';
 import Artist from '../Artist/Artist';
 

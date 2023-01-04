@@ -1,9 +1,9 @@
 import React from "react";
 import styles from './Track.module.scss';
 import { Link } from 'react-router-dom';
-import { TrackModel } from "../../../../interfaces/Track";
-import Icon from "../../../../components/Icon";
-import { iconIds } from "../../../../utils/config/iconIds";
+import { TrackModel } from "@interfaces/Track";
+import Icon from "@components/Icon";
+import { iconIds } from "@utils/config/iconIds";
 
 interface TrackProps {
   track: TrackModel;

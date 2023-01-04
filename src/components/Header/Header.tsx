@@ -2,7 +2,7 @@ import React from 'react';
 import BurgerButton from '../BurgerButton/BurgerButton';
 import styles from './Header.module.scss';
 import Logo from '../Logo';
-import '../../styles/_fonts.scss';
+import '@styles/_fonts.scss';
 import { Link } from 'react-router-dom';
 
 const Header = () => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { PlaylistModel } from '../../../../interfaces/Playlist';
+import { PlaylistModel } from '@interfaces/Playlist';
 import Playlist from '../Playlist/Playlist';
 import styles from './PlayLists.module.scss';
 

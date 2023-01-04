@@ -1,8 +1,7 @@
 import React from 'react';
 import Icon from '../Icon';
-import { Svg } from '../../interfaces/Svg';
 import styles from './Controls.module.scss';
-import { iconIds } from '../../utils/config/iconIds';
+import { iconIds } from '@utils/config/iconIds';
 
 const Controls = () => {
   const blockName = 'controls';

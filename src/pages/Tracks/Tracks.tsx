@@ -1,9 +1,7 @@
 import React from 'react';
-import { Page } from '../../interfaces/Page';
 import styles from './Tracks.module.scss';
-import { tracks } from '../../services/mockDataService';
-import TrackList from '../../features/Tracks/components/TrackList/TrackList';
-import { TrackModel } from '../../interfaces/Track';
+import TrackList from "@features/Tracks/components/TrackList/TrackList";
+import { TrackModel } from '@interfaces/Track';
 
 interface TracksProps {
   title: string;

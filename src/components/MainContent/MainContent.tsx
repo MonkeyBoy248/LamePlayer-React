@@ -1,13 +1,13 @@
 import React from 'react';
 import Sidebar from '../Sidebar/Sidebar';
 import styles from './MainContent.module.scss';
-import Home from '../../pages/Home/Home';
+import Home from '@pages/Home/Home';
 import { Route, Routes } from 'react-router-dom'
-import Tracks from '../../pages/Tracks/Tracks';
-import PlaylistsPage from '../../pages/Playlists/PlaylistsPage';
-import { playlists, tracks } from '../../services/mockDataService';
-import Albums from '../../pages/Albums/Albums';
-import Artists from '../../pages/Artists/Artists';
+import Tracks from '@pages/Tracks/Tracks';
+import PlaylistsPage from '@pages/Playlists/PlaylistsPage';
+import { playlists, tracks } from '@services/mockDataService';
+import Albums from '@pages/Albums/Albums';
+import Artists from '@pages/Artists/Artists';
 
 const MainContent = () => {
   return (

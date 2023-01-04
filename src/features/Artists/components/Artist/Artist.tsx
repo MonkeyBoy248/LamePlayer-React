@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { ArtistModel } from "../../../../interfaces/Artist";
+import { ArtistModel } from "@interfaces/Artist";
 import styles from './Artist.module.scss';
 
 interface ArtistProps {

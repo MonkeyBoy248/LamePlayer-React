@@ -1,8 +1,8 @@
 import React from "react";
-import PlayLists from "../../features/Playlists/components/PlayLists/PlayLists";
-import { Page } from "../../interfaces/Page";
+import PlayLists from "@features/Playlists/components/PlayLists/PlayLists";
+import { Page } from "@interfaces/Page";
 import styles from './PlaylistsPage.module.scss';
-import { playlists } from "../../services/mockDataService";
+import { playlists } from "@services/mockDataService";
 
 const PlaylistsPage = ({ title }: Page) => {
   return (

@@ -1,8 +1,8 @@
 import React from 'react';
 import NavItem from '../Navitem/NavItem';
-import { NavigationItem } from '../../interfaces/NavigationItem';
+import { NavigationItem } from '@interfaces/NavigationItem';
 import styles from './Navigation.module.scss';
-import { iconIds } from '../../utils/config/iconIds';
+import { iconIds } from '@utils/config/iconIds';
 
 const Navigation = () => {
   const blockName = 'navItem';

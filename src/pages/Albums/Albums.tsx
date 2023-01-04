@@ -1,7 +1,7 @@
 import React from "react";
-import AlbumList from "../../features/Albums/components/AlbumList/AlbumList";
-import { Page } from "../../interfaces/Page";
-import { albums } from "../../services/mockDataService";
+import AlbumList from "@features/Albums/components/AlbumList/AlbumList";
+import { Page } from "@interfaces/Page";
+import { albums } from "@services/mockDataService";
 import styles from './Albums.module.scss';
 
 const Albums = ({ title }: Page) => {

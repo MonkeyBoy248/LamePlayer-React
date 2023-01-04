@@ -1,6 +1,6 @@
 import React from "react";
-import RecommendationsList from "../../features/Recommendations/components/RecommendationsList/RecommendationsList";
-import { Page } from "../../interfaces/Page";
+import RecommendationsList from "@features/Recommendations/components/RecommendationsList/RecommendationsList";
+import { Page } from "@interfaces/Page";
 import styles from './Home.module.scss';
 
 const Home = ({ title }: Page) => {

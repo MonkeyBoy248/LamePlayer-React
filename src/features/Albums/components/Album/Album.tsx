@@ -1,7 +1,7 @@
 import React from "react";
 import styles from './Album.module.scss';
 import { Link } from "react-router-dom";
-import { AlbumModel } from "../../../../interfaces/Album";
+import { AlbumModel } from "@interfaces/Album";
 
 interface AlbumProps {
   album: AlbumModel;

@@ -1,7 +1,7 @@
 import React from "react";
-import Icon from "../../../../components/Icon";
-import { TrackModel } from "../../../../interfaces/Track";
-import { iconIds } from "../../../../utils/config/iconIds";
+import Icon from "@components/Icon";
+import { TrackModel } from "@interfaces/Track";
+import { iconIds } from "@utils/config/iconIds";
 import styles from './RecommendationCard.module.scss';
 
 interface RecommendationCardProps {

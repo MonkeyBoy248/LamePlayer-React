@@ -1,7 +1,7 @@
 import React from "react";
-import ArtistList from "../../features/Artists/components/ArtistList/ArtistList";
-import { Page } from "../../interfaces/Page";
-import { artists } from "../../services/mockDataService";
+import ArtistList from "@features/Artists/components/ArtistList/ArtistList";
+import { Page } from "@interfaces/Page";
+import { artists } from "@services/mockDataService";
 import styles from './Artists.module.scss';
 
 const Artists = ({ title }: Page) => {

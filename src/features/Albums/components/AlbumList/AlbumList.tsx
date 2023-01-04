@@ -1,5 +1,5 @@
 import React from "react";
-import { AlbumModel } from "../../../../interfaces/Album";
+import { AlbumModel } from "@interfaces/Album";
 import Album from "../Album/Album";
 import styles from './AlbumList.module.scss';
 

@@ -1,7 +1,7 @@
 import React from "react";
 import Track from "../Track/Track";
 import styles from './TrackList.module.scss';
-import { TrackModel } from '../../../../interfaces/Track'
+import { TrackModel } from '@interfaces/Track'
 
 interface TrackListProps {
   tracks: TrackModel[];

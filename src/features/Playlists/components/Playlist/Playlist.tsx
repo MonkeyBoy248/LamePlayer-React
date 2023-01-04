@@ -1,17 +1,14 @@
 import React from "react";
 import styles from './Playlist.module.scss';
 import { Link } from 'react-router-dom';
-import { PlaylistModel } from "../../../../interfaces/Playlist";
-import { TrackModel } from "../../../../interfaces/Track";
-import Icon from "../../../../components/Icon";
-import { iconIds } from "../../../../utils/config/iconIds";
+import { PlaylistModel } from "@interfaces/Playlist";
+import { TrackModel } from "@interfaces/Track";
 
 interface PlaylistProps {
   playlist: PlaylistModel;
 }
 
 const Playlist = ({ playlist }: PlaylistProps) => {
-  const blockName = 'playlist';
   const getTracksAmount = (tracks: TrackModel[]) => {
     const tracksAmount = tracks.length;
 

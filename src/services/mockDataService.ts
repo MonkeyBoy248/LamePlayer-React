@@ -1,8 +1,8 @@
-import { TrackModel } from "../interfaces/Track";
+import { TrackModel } from "@interfaces/Track";
 import { v4 as uuidv4, v4 } from "uuid";
-import { PlaylistModel } from "../interfaces/Playlist";
-import { AlbumModel } from "../interfaces/Album";
-import { ArtistModel } from "../interfaces/Artist";
+import { PlaylistModel } from "@interfaces/Playlist";
+import { AlbumModel } from "@interfaces/Album";
+import { ArtistModel } from "@interfaces/Artist";
 
 const mockTracks: Omit<TrackModel, 'id'>[] = [
   {
