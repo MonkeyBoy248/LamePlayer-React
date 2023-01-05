@@ -53,4 +53,17 @@
   &:hover svg {
     fill: colors.$black;
   }
+
+  &:has(.navItem_active) {
+    background-color: colors.$light-grey;
+    color: colors.$black;
+
+    &::before {
+      opacity: 1;
+    }
+
+    svg {
+      fill: colors.$black;
+    }
+  }
 }
