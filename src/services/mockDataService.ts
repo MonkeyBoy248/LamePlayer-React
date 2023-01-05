@@ -1,5 +1,4 @@
 import { TrackModel } from "@interfaces/Track";
-import { v4 as uuidv4, v4 } from "uuid";
 import { PlaylistModel } from "@interfaces/Playlist";
 import { AlbumModel } from "@interfaces/Album";
 import { ArtistModel } from "@interfaces/Artist";
@@ -155,12 +154,12 @@ const mockTracks: Omit<TrackModel, 'id'>[] = [
 ];
 
 export const tracks = mockTracks.map((track) => {
-    return {...track, id: uuidv4()};
+    return {...track, id: crypto.randomUUID()};
 })
 
 export const playlists: PlaylistModel[] = [
     {
-        id: uuidv4(),
+        id: crypto.randomUUID(),
         name: 'Favorites',
         dateOfCreation: `${new Date().getUTCDate()}`,
         dateOfUpdate: `${new Date().getUTCDate()}`,
@@ -276,7 +275,7 @@ function getTracks (searchField: keyof TrackModel, searchValue: string) {
 export const albums: AlbumModel[] = mockAlbums.map((album) => {
     return {
         ...album,
-        id: v4(),
+        id: crypto.randomUUID(),
         tracks: getTracks('album', album.title),
     }
 })
@@ -332,7 +331,7 @@ const mockArtists: Omit<ArtistModel, 'id' | 'tracks'>[] = [
 export const artists: ArtistModel[] = mockArtists.map((artist) => {
     return {
         ...artist,
-        id: uuidv4(),
+        id: crypto.randomUUID(),
         tracks: getTracks('artist', artist.name)
     }
 })
