@@ -9,30 +9,30 @@
 ._sectionTitle {
   font-weight: 600;
   font-size: 1.5em;
-  line-height: (39 / 32) * 100%;
+  line-height: calc(39 / 32 * 100%);
 }
 
 ._text {
   font-weight: 400;
   font-size: 1em;
-  line-height: (29 / 24) * 100%;
+  line-height: calc(29 / 24 * 100%);
 }
 
 ._controlsSongTitle {
   font-weight: 700;
   font-size: 1.875em;
-  line-height: (37 / 30) * 100%;
+  line-height: calc(37 / 30 * 100%);
 }
 
 ._controlsBandTitle {
   font-weight: 500;
   font-size: 1.875em;
-  line-height: (37 / 30) * 100% ;
+  line-height: calc(37 / 30 * 100%);
 }
 
 ._itemTitle {
   font-weight: 500;
   font-size: 0.875em;
-  line-height: (16 / 14) * 100%;
+  line-height: calc(16 / 14 * 100%);
   margin-bottom: 0.5rem;
 }

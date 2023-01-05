@@ -10,9 +10,10 @@ interface ArtistProps {
 const Artist = ({ artist }: ArtistProps) => {
   return (
     <li className={styles.artist}>
-      <Link className={styles.artist__inner} to={`/artist/${artist.id}`}>
         <div className={styles.artist__imageWrapper}>
-          <img className={styles.artist__image} src={`/images/artists/${artist.imageUrl}`} alt={`${artist.name}`} />
+          <Link className={styles.artist__inner} to={`/artist/${artist.id}`}>
+             <img className={styles.artist__image} src={`/images/artists/${artist.imageUrl}`} alt={`${artist.name}`} />
+          </Link>
         </div>
         <div className={styles.artist__infoWrapper}>
           <Link className={`${styles.artist__name} _itemTitle`} to={`artist/${artist.id}`}>{artist.name}</Link>
@@ -25,7 +26,6 @@ const Artist = ({ artist }: ArtistProps) => {
             }
           </ul>
         </div>
-      </Link>
     </li>
   )
 }

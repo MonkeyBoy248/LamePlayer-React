@@ -11,7 +11,7 @@ const TrackList = ({ tracks }: TrackListProps) => {
   return (
     <ul className={styles.trackList}>
       { tracks.length > 0 && tracks.map((track: TrackModel) => {
-        return <Track track={track}></Track>
+        return <Track track={ track } key={ track.id }></Track>
       })}
     </ul>
   )

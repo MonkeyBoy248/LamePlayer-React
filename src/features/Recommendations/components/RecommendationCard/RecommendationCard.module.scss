@@ -70,13 +70,13 @@
 
   &__trackName {
     font-size: 1em;
-    line-height: (18 / 16) * 100%;
+    line-height: calc(18 / 16 * 100%);
   }
 
   &__artist {
     font-size: 0.875em;
     opacity: 0.8;
-    line-height: (16 / 14) * 100%;
+    line-height: calc(16 / 14 * 100%);
   }
 
   &__addButton {
