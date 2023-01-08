@@ -1,13 +1,10 @@
-interface IconId {
-    [id: string]: string;
-}
-
-export const iconIds: IconId = {
+export const iconIds = {
     tracks: 'icon-tracks',
     albums: 'icon-albums',
     playlists: 'icon-playlists',
     settings: 'icon-settings',
     play: 'icon-play',
+    pause: 'icon-pause',
     prev: 'icon-prev',
     next: 'icon-next',
     dots: 'icon-dots',
@@ -19,4 +16,4 @@ export const iconIds: IconId = {
     artists: 'icon-artists',
     like: 'icon-like',
     delete: 'icon-delete'
-}
+};
