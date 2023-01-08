@@ -1,10 +1,28 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import Icon from '../Icon';
 import styles from './Controls.module.scss';
 import { iconIds } from '@utils/config/iconIds';
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/app/store";
+import { setIsPlaying } from '@features/Tracks/trackSlice';
 
 const Controls = () => {
-  const blockName = 'controls';
+  const blockName = 'controls'
+  const dispatch: AppDispatch = useDispatch();
+  const currentTrack = useSelector((state: RootState) => state.tracks.currentTrack);
+  const isPlaying = useSelector((state: RootState) => state.tracks.isPlaying);
+  const audioRef = useRef(new Audio(`tracks/${currentTrack.src}`));
+
+  useEffect(() => {
+      if (!isPlaying) {
+        audioRef.current.pause();
+
+        return;
+      }
+
+      audioRef.current.play().then();
+  },
+    [isPlaying])
 
   return (
     <div className={styles.controls}>
@@ -14,8 +32,11 @@ const Controls = () => {
           <button className={styles.controls__prevButton}>
             <Icon id={iconIds.prev} width='1.5em' height='1.5em' blockName={blockName} fill='#E5E5E5'/>
           </button>
-          <button className={styles.controls__playButton}>
-            <Icon id={iconIds.play} width='1.75em' height='1.75em' blockName={blockName} fill='#E5E5E5' />
+          <button
+            className={styles.controls__playButton}
+            onClick={() => dispatch(setIsPlaying(!isPlaying))}
+          >
+            <Icon id={isPlaying ? iconIds.pause : iconIds.play} width='2em' height='2em' blockName={blockName} fill='#E5E5E5' />
           </button>
           <button className={styles.controls__nextButton}>
             <Icon id={iconIds.next} width='1.5em' height='1.5em' blockName={blockName} fill='#E5E5E5'/>
@@ -28,11 +49,11 @@ const Controls = () => {
           </button>
             <div className={styles.controls__trackInfo}>
             <figure className={styles.controls__trackCoverWrapper}>
-              <img src="https://upload.wikimedia.org/wikipedia/ru/c/cf/Breaking_Benjamin_Phobia_2006.jpg" alt=""/>
+              <img src={ `images/covers/${currentTrack.coverUrl }` } alt={ currentTrack.src }/>
             </figure>
             <div className={styles.controls__trackDetails}>
-              <p className={`${styles.controls__trackTitle} _text`}>Breath</p>
-              <p className={`${styles.controls__artist} _text`}>Breaking Benjamin</p>
+              <p className={`${styles.controls__trackTitle} _text`}>{ currentTrack.title }</p>
+              <p className={`${styles.controls__artist} _text`}>{ currentTrack.artist }</p>
             </div>
           </div>
         </div>

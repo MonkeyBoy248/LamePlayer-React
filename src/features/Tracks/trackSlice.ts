@@ -1,29 +1,35 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { tracks } from "@services/mockDataService";
+import { TrackModel } from "@interfaces/Track";
 
 export interface TrackState {
-  currentTrackID: string;
+  currentTrack: TrackModel;
+  isPlaying: boolean;
 }
 
 export const trackSlice = createSlice({
   name: 'track',
   initialState: getInitialState(),
   reducers: {
-    setNewCurrentTrack: (state, action: PayloadAction<string>) => {
-      state.currentTrackID = action.payload;
+    setNewCurrentTrack: (state, action: PayloadAction<TrackModel>) => {
+      state.currentTrack = action.payload;
+    },
+
+    setIsPlaying: (state, action: PayloadAction<boolean>) => {
+      state.isPlaying = action.payload;
     }
   }
-
 })
 
 function getInitialState (): TrackState {
-  const currentTrackID = localStorage.getItem('currentTrackID') ?? tracks[0].id;
+  const currentTrack = JSON.parse(localStorage.getItem('currentTrackID') ?? 'null') ?? tracks[0];
 
   return {
-    currentTrackID
+    currentTrack,
+    isPlaying: false,
   }
 }
 
-export const { setNewCurrentTrack } = trackSlice.actions;
+export const { setNewCurrentTrack, setIsPlaying } = trackSlice.actions;
 export default trackSlice.reducer;
