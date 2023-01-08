@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { TrackModel } from "@interfaces/Track";
 import Icon from "@components/Icon";
 import { iconIds } from "@utils/config/iconIds";
+import { useDispatch } from "react-redux";
+import { setNewCurrentTrack } from "@features/Tracks/trackSlice";
 
 interface TrackProps {
   track: TrackModel;
@@ -11,9 +13,10 @@ interface TrackProps {
 
 const Track = ({ track }: TrackProps) => {
   const blockName = 'track';
+  const dispatch = useDispatch();
 
   return (
-    <li className={styles.track}>
+    <li className={styles.track} onClick={() => dispatch(setNewCurrentTrack(track.id))}>
       <div className={styles.track__inner}>
         <div className={styles.track__trackInfoWrapper}>
           <div className={styles.track__coverWrapper}>
