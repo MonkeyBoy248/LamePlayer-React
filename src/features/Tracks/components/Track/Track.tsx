@@ -16,7 +16,7 @@ const Track = ({ track }: TrackProps) => {
   const dispatch = useDispatch();
 
   return (
-    <li className={styles.track} onClick={() => dispatch(setNewCurrentTrack(track.id))}>
+    <li className={styles.tracks} onClick={() => dispatch(setNewCurrentTrack(track))}>
       <div className={styles.track__inner}>
         <div className={styles.track__trackInfoWrapper}>
           <div className={styles.track__coverWrapper}>
@@ -26,7 +26,7 @@ const Track = ({ track }: TrackProps) => {
             <img className={styles.track__cover} src={`/images/covers/${track.coverUrl}`} alt={`${track.album} cover`} />
           </div>
           <div className={styles.track__trackInfo}>
-              <Link className={styles.track__name} to={`/track/${track.id}`}>{track.name}</Link>
+              <Link className={styles.track__name} to={`/track/${track.id}`}>{track.title}</Link>
               <p className={styles.track__band}>{track.artist}</p>
             </div>
           </div>
