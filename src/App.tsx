@@ -1,14 +1,14 @@
 import React from 'react';
 import Header from './components/Header/Header';
 import './styles/_global.scss';
-import MainContent from './components/MainContent/MainContent';
+import MainContentContainer from '@components/MainContentContainer/MainContentContainer';
 import Controls from './components/Controls/Controls';
 
 function App() {
   return (
     <>
       <Header />
-      <MainContent />
+      <MainContentContainer />
       <Controls />
     </>
   );
