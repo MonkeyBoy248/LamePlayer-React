@@ -10,8 +10,14 @@
     button {
         background-color: transparent;
         border: none;
-    }
+        cursor: pointer;
+        opacity: 0.6;
+        transition: opacity .2s ease-in-out;
 
+        &:hover {
+            opacity: 1;
+        }
+    }
 
     &__progressBar {
         width: 50%;
@@ -53,8 +59,10 @@
         height: 3.5em;
         flex-basis: 3.5em;
         flex-shrink: 0;
+        border-radius: 5px;
 
         img {
+            border-radius: 5px;
             display: block;
             height: 100%;
             width: 100%;
@@ -73,7 +81,7 @@
     }
 
     &__trackTitle {
-        font-family: MontserratMedium;
+        font-family: MontserratMedium, Montserrat, Arial, Helvetica, sans-serif;
         font-size: 1em;
         margin-bottom: 0.25em;
     }
