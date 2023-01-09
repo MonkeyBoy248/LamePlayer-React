@@ -14,6 +14,7 @@ export const trackSlice = createSlice({
   reducers: {
     setNewCurrentTrack: (state, action: PayloadAction<TrackModel>) => {
       state.currentTrack = action.payload;
+      state.isPlaying = true;
     },
 
     setIsPlaying: (state, action: PayloadAction<boolean>) => {

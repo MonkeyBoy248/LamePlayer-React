@@ -4,32 +4,64 @@ import styles from './Controls.module.scss';
 import { iconIds } from '@utils/config/iconIds';
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/app/store";
-import { setIsPlaying } from '@features/Tracks/trackSlice';
+import { setIsPlaying, setNewCurrentTrack } from '@features/Tracks/trackSlice';
+import { tracks } from "@services/mockDataService";
 
 const Controls = () => {
   const blockName = 'controls'
   const dispatch: AppDispatch = useDispatch();
   const currentTrack = useSelector((state: RootState) => state.tracks.currentTrack);
   const isPlaying = useSelector((state: RootState) => state.tracks.isPlaying);
-  const audioRef = useRef(new Audio(`tracks/${currentTrack.src}`));
+  const { current: audio } = useRef(new Audio());
 
   useEffect(() => {
+    const play = async () => {
+      audio.src = `tracks/${currentTrack.src}`;
+
       if (!isPlaying) {
-        audioRef.current.pause();
+        audio.pause();
 
         return;
       }
 
-      audioRef.current.play().then();
+      await audio.play();
+    };
+
+    play().then();
   },
-    [isPlaying])
+    [isPlaying, currentTrack])
+
+  const previousTrack = () => {
+    const currentSongIndex = tracks.findIndex((track) => track.id === currentTrack.id);
+    const previousTrack = tracks[currentSongIndex - 1]
+
+    dispatch(setNewCurrentTrack(previousTrack));
+    audio.src = `tracks/${previousTrack.src}`
+  }
+
+  const nextTrack = () => {
+    const currentSongIndex = tracks.findIndex((track) => track.id === currentTrack.id);
+    const nextTrack = tracks[currentSongIndex + 1]
+
+    dispatch(setNewCurrentTrack(nextTrack));
+    audio.src = `tracks/${nextTrack.src}`
+  }
+
+  const isDisabled = (disableIndex: number) => {
+    const currentSongIndex = tracks.findIndex((track) => track.id === currentTrack.id);
+
+    return currentSongIndex === disableIndex;
+  }
 
   return (
     <div className={styles.controls}>
       <div className={styles.controls__progressBar}></div>
       <div className={`${styles.controls__inner} _container`}>
         <div className={styles.controls__mainControls}>
-          <button className={styles.controls__prevButton}>
+          <button className={styles.controls__prevButton}
+                  disabled={isDisabled(0)}
+                  onClick={previousTrack}
+          >
             <Icon id={iconIds.prev} width='1.5em' height='1.5em' blockName={blockName} fill='#E5E5E5'/>
           </button>
           <button
@@ -38,7 +70,10 @@ const Controls = () => {
           >
             <Icon id={isPlaying ? iconIds.pause : iconIds.play} width='2em' height='2em' blockName={blockName} fill='#E5E5E5' />
           </button>
-          <button className={styles.controls__nextButton}>
+          <button className={styles.controls__nextButton}
+                  disabled={isDisabled(tracks.length - 1)}
+                  onClick={nextTrack}
+          >
             <Icon id={iconIds.next} width='1.5em' height='1.5em' blockName={blockName} fill='#E5E5E5'/>
           </button>
           <button className={styles.controls__repeatButton}>
