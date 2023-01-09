@@ -7,29 +7,11 @@ import { AppDispatch, RootState } from "@/app/store";
 import { setIsPlaying, setNewCurrentTrack } from '@features/Tracks/trackSlice';
 import { tracks } from "@services/mockDataService";
 
+
 const Controls = () => {
   const blockName = 'controls'
   const dispatch: AppDispatch = useDispatch();
-  const currentTrack = useSelector((state: RootState) => state.tracks.currentTrack);
-  const isPlaying = useSelector((state: RootState) => state.tracks.isPlaying);
-  const { current: audio } = useRef(new Audio());
-
-  useEffect(() => {
-    const play = async () => {
-      audio.src = `tracks/${currentTrack.src}`;
-
-      if (!isPlaying) {
-        audio.pause();
-
-        return;
-      }
-
-      await audio.play();
-    };
-
-    play().then();
-  },
-    [isPlaying, currentTrack])
+  const { currentTrack, isPlaying, audio } = usePlayCurrentTrack();
 
   const previousTrack = () => {
     const currentSongIndex = tracks.findIndex((track) => track.id === currentTrack.id);
@@ -106,6 +88,31 @@ const Controls = () => {
       </div>
     </div>
   )
+}
+
+function usePlayCurrentTrack () {
+  const currentTrack = useSelector((state: RootState) => state.tracks.currentTrack);
+  const isPlaying = useSelector((state: RootState) => state.tracks.isPlaying);
+  const { current: audio } = useRef(new Audio());
+
+  useEffect(() => {
+      const play = async () => {
+        audio.src = `tracks/${currentTrack.src}`;
+
+        if (!isPlaying) {
+          audio.pause();
+
+          return;
+        }
+
+        await audio.play();
+      };
+
+      play().then();
+    },
+    [isPlaying, currentTrack])
+
+  return { currentTrack, isPlaying, audio };
 }
 
 export default Controls;
