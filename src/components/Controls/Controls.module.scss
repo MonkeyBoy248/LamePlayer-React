@@ -96,4 +96,19 @@
     align-items: center;
     gap: 1em;
   }
+
+  &__timeInfo {
+    width: 100%;
+    padding-inline: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    top: -2rem;
+    position: absolute;
+  }
+
+  &__timeLabel {
+    color: colors.$light-grey;
+    font-size: 0.75rem;
+  }
 }

@@ -6,27 +6,50 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/app/store";
 import { setIsPlaying, setNewCurrentTrack } from '@features/Tracks/trackSlice';
 import { tracks } from "@services/mockDataService";
+import { useTrackTimeData } from "@utils/hooks/useTrackTimeData";
 
+const getTrackFullSrc = (src: string) => {
+  return `tracks/${src}`;
+}
 
 const Controls = () => {
   const blockName = 'controls'
   const dispatch: AppDispatch = useDispatch();
-  const { currentTrack, isPlaying, audio } = usePlayCurrentTrack();
+  const currentTrack = useSelector((state: RootState) => tracks[state.tracks.currentTrackIndex]);
+  const { current: audio } = useRef(new Audio(getTrackFullSrc(currentTrack.src)));
+  const isPlaying = useSelector((state: RootState) => state.tracks.isPlaying);
+  const { duration, currentTime } = useTrackTimeData(audio);
+
+  useEffect(() => {
+      const playCurrentTrack = async () => {
+        if (!isPlaying) {
+          audio.pause();
+
+          return;
+        }
+
+        await audio.play();
+      };
+
+      playCurrentTrack().then();
+    },
+    [isPlaying, currentTrack]);
+
 
   const previousTrack = () => {
     const currentSongIndex = tracks.findIndex((track) => track.id === currentTrack.id);
-    const previousTrack = tracks[currentSongIndex - 1]
+    const previousTrackIndex = currentSongIndex - 1;
+    audio.src = getTrackFullSrc(tracks[previousTrackIndex].src);
 
-    dispatch(setNewCurrentTrack(previousTrack));
-    audio.src = `tracks/${previousTrack.src}`
+    dispatch(setNewCurrentTrack(previousTrackIndex));
   }
 
   const nextTrack = () => {
     const currentSongIndex = tracks.findIndex((track) => track.id === currentTrack.id);
-    const nextTrack = tracks[currentSongIndex + 1]
+    const nextTrackIndex = currentSongIndex + 1;
+    audio.src = getTrackFullSrc(tracks[nextTrackIndex].src);
 
-    dispatch(setNewCurrentTrack(nextTrack));
-    audio.src = `tracks/${nextTrack.src}`
+    dispatch(setNewCurrentTrack(nextTrackIndex));
   }
 
   const isDisabled = (disableIndex: number) => {
@@ -37,7 +60,12 @@ const Controls = () => {
 
   return (
     <div className={styles.controls}>
-      <div className={styles.controls__progressBar}></div>
+      <div className={styles.controls__timeInfo}>
+        <span className={styles.controls__timeLabel}>{ currentTime }</span>
+        <span className={styles.controls__timeLabel}>{ duration }</span>
+      </div>
+      <div className={styles.controls__progressBar}>
+      </div>
       <div className={`${styles.controls__inner} _container`}>
         <div className={styles.controls__mainControls}>
           <button className={styles.controls__prevButton}
@@ -88,31 +116,6 @@ const Controls = () => {
       </div>
     </div>
   )
-}
-
-function usePlayCurrentTrack () {
-  const currentTrack = useSelector((state: RootState) => state.tracks.currentTrack);
-  const isPlaying = useSelector((state: RootState) => state.tracks.isPlaying);
-  const { current: audio } = useRef(new Audio());
-
-  useEffect(() => {
-      const play = async () => {
-        audio.src = `tracks/${currentTrack.src}`;
-
-        if (!isPlaying) {
-          audio.pause();
-
-          return;
-        }
-
-        await audio.play();
-      };
-
-      play().then();
-    },
-    [isPlaying, currentTrack])
-
-  return { currentTrack, isPlaying, audio };
 }
 
 export default Controls;
