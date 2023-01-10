@@ -1,22 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { PayloadAction } from "@reduxjs/toolkit";
-import { tracks } from "@services/mockDataService";
-import { TrackModel } from "@interfaces/Track";
 import { getItemFromLocalStorage, setItemToLocalStorage } from "@utils/helpers/localStorage";
 
 export interface TrackState {
-  currentTrack: TrackModel;
+  currentTrackIndex: number;
   isPlaying: boolean;
 }
 
-const currentTrackKey = 'currentTrack';
+const currentTrackKey = 'currentTrackIndex';
 
 export const trackSlice = createSlice({
   name: 'track',
   initialState: getInitialState(),
   reducers: {
-    setNewCurrentTrack: (state, action: PayloadAction<TrackModel>) => {
-      state.currentTrack = action.payload;
+    setNewCurrentTrack: (state, action: PayloadAction<number>) => {
+      state.currentTrackIndex = action.payload;
       state.isPlaying = true;
 
       setItemToLocalStorage(currentTrackKey, action.payload);
@@ -29,10 +27,10 @@ export const trackSlice = createSlice({
 })
 
 function getInitialState (): TrackState {
-  const currentTrack = getItemFromLocalStorage<TrackModel>(currentTrackKey) ?? tracks[0];
+  const currentTrackIndex = getItemFromLocalStorage<number>(currentTrackKey) ?? 0;
 
   return {
-    currentTrack,
+    currentTrackIndex,
     isPlaying: false,
   }
 }
