@@ -1,7 +1,5 @@
 @use '../../styles/palette' as colors;
 
-@value progressBarWidth: 0;
-
 .controls {
   width: 100%;
   position: fixed;
@@ -27,7 +25,6 @@
   }
 
   &__progressBar {
-    width: 50%;
     position: absolute;
     top: -0.5em;
     height: 0.5em;

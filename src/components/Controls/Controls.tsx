@@ -16,28 +16,15 @@ const getTrackFullSrc = (src: string) => {
 const Controls = () => {
   const blockName = 'controls'
   const dispatch: AppDispatch = useDispatch();
-  const currentTrack = useSelector((state: RootState) => tracks[state.tracks.currentTrackIndex]);
-  const { current: audio } = useRef(new Audio(getTrackFullSrc(currentTrack.src)));
-  const isPlaying = useSelector((state: RootState) => state.tracks.isPlaying);
-  const { duration, currentTime } = useTrackTimeData(audio);
+  const {
+    currentTrack,
+    isPlaying,
+    audio,
+    currentTime,
+    duration,
+  } = usePlayCurrentTrack();
 
-  useEffect(() => {
-      const playCurrentTrack = async () => {
-        if (!isPlaying) {
-          audio.pause();
-
-          return;
-        }
-
-        await audio.play();
-      };
-
-      playCurrentTrack().then();
-    },
-    [isPlaying, currentTrack]);
-
-
-  const previousTrack = () => {
+  const previousTrack = (): void => {
     const currentSongIndex = tracks.findIndex((track) => track.id === currentTrack.id);
     const previousTrackIndex = currentSongIndex - 1;
     audio.src = getTrackFullSrc(tracks[previousTrackIndex].src);
@@ -45,7 +32,7 @@ const Controls = () => {
     dispatch(setNewCurrentTrack(previousTrackIndex));
   }
 
-  const nextTrack = () => {
+  const nextTrack = (): void => {
     const currentSongIndex = tracks.findIndex((track) => track.id === currentTrack.id);
     const nextTrackIndex = currentSongIndex + 1;
     audio.src = getTrackFullSrc(tracks[nextTrackIndex].src);
@@ -63,9 +50,10 @@ const Controls = () => {
     <div className={styles.controls}>
       <div className={styles.controls__timeInfo}>
         <span className={styles.controls__timeLabel}>{ formatTime(currentTime) }</span>
-        <span className={styles.controls__timeLabel}>{ formatTime(duration) }</span>
+        <span className={styles.controls__timeLabel}>{ (duration && !isNaN(duration)) && formatTime(duration) }</span>
       </div>
-      <div className={styles.controls__progressBar}>
+      <div className={styles.controls__progressBar}
+           style={{width: currentTime ? `${currentTime / duration * 100}%` : 0}}>
       </div>
       <div className={`${styles.controls__inner} _container`}>
         <div className={styles.controls__mainControls}>
@@ -117,6 +105,36 @@ const Controls = () => {
       </div>
     </div>
   )
+}
+
+const usePlayCurrentTrack = () => {
+  const currentTrack = useSelector((state: RootState) => tracks[state.tracks.currentTrackIndex]);
+  const { current: audio } = useRef(new Audio(getTrackFullSrc(currentTrack.src)));
+  const isPlaying = useSelector((state: RootState) => state.tracks.isPlaying);
+  const { duration, currentTime } = useTrackTimeData(audio);
+
+  useEffect(() => {
+      const playCurrentTrack = async () => {
+        if (!isPlaying) {
+          audio.pause();
+
+          return;
+        }
+
+        await audio.play();
+      };
+
+      playCurrentTrack().then();
+    },
+    [isPlaying, currentTrack]);
+
+  return {
+    currentTrack,
+    isPlaying,
+    audio,
+    duration,
+    currentTime,
+  };
 }
 
 export default Controls;
