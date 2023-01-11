@@ -2,7 +2,7 @@
 
 .album {
   &:hover {
-    outline: 2px solid colors.$green;
+    outline: 2px solid colors.$accent;
     outline-offset: 0.5em;
   }
 
@@ -27,18 +27,18 @@
 
   &__title {
     text-decoration: none;
-    color: colors.$light-grey;
+    color: colors.$text;
     display: block;
     transition: .3s ease-in-out;
 
     &:hover {
-      color: colors.$green;
+      color: colors.$accent;
     }
   }
 
   &__artist {
     font-size: 0.75em;
-    color: colors.$light-grey;
+    color: colors.$text;
     opacity: 0.8;
   }
 }

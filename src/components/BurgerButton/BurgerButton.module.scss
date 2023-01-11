@@ -2,7 +2,7 @@
 
 .burgerButton {
   border: none;
-  background-color: colors.$black;
+  background-color: colors.$background;
   padding: 0;
   display: flex;
   flex-direction: column;
@@ -12,14 +12,14 @@
   cursor: pointer;
 
   &:hover &__line {
-    background-color: colors.$grey;
+    background-color: colors.$secondary;
   }
 
   &__line {
     height: 0.25em;
     border-radius: 5px;
     width: 2rem;
-    background-color: colors.$light-grey;
+    background-color: colors.$text;
     display: block;
     cursor: pointer;
     transition: .3s ease-in-out;
