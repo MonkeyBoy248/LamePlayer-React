@@ -7,6 +7,7 @@ import { AppDispatch, RootState } from "@/app/store";
 import { setIsPlaying, setNewCurrentTrack } from '@features/Tracks/trackSlice';
 import { tracks } from "@services/mockDataService";
 import { useTrackTimeData } from "@utils/hooks/useTrackTimeData";
+import { formatTime } from '@/utils/helpers/formatTime';
 
 const getTrackFullSrc = (src: string) => {
   return `tracks/${src}`;
@@ -61,8 +62,8 @@ const Controls = () => {
   return (
     <div className={styles.controls}>
       <div className={styles.controls__timeInfo}>
-        <span className={styles.controls__timeLabel}>{ currentTime }</span>
-        <span className={styles.controls__timeLabel}>{ duration }</span>
+        <span className={styles.controls__timeLabel}>{ formatTime(currentTime) }</span>
+        <span className={styles.controls__timeLabel}>{ formatTime(duration) }</span>
       </div>
       <div className={styles.controls__progressBar}>
       </div>
