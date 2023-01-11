@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 
-export const useTrackTimeData = (audio: HTMLAudioElement) => {
+export interface TrackTimeData {
+  duration: number;
+  currentTime: number;
+}
+
+export const useTrackTimeData = (audio: HTMLAudioElement): TrackTimeData => {
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
 
