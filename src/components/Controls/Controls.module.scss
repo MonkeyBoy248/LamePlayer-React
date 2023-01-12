@@ -36,7 +36,7 @@
   }
 
   &__progress {
-    height: 0.8em;
+    height: 0.75em;
     background-color: colors.$accent;
     display: flex;
     justify-content: end;
@@ -51,12 +51,12 @@
     display: block;
     scale: 0;
     content: '';
-    min-height: 1.15rem;
-    min-width: 1.15rem;
+    min-height: 1rem;
+    min-width: 1rem;
     border-radius: 50%;
     background-color: colors.$accent;
     position: relative;
-    left: 0.9rem;
+    left: 0.85rem;
     transition: .1s ease-in-out;
   }
 
