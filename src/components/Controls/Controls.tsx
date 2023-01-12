@@ -52,8 +52,13 @@ const Controls = () => {
         <span className={styles.controls__timeLabel}>{ formatTime(currentTime) }</span>
         <span className={styles.controls__timeLabel}>{ (duration && !isNaN(duration)) && formatTime(duration) }</span>
       </div>
-      <div className={styles.controls__progressBar}
-           style={{width: currentTime ? `${currentTime / duration * 100}%` : 0}}>
+      <div className={styles.controls__progressBar}>
+        <div className={styles.controls__progress}
+            style={
+                { width: currentTime ? `${currentTime / duration * 100}%` : 0 }
+              }>
+              <div className={styles.controls__progressThumb}></div>
+        </div>
       </div>
       <div className={`${styles.controls__inner} _container`}>
         <div className={styles.controls__mainControls}>

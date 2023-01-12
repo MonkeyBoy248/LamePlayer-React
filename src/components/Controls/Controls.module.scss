@@ -25,19 +25,39 @@
   }
 
   &__progressBar {
-    position: absolute;
-    top: -0.5em;
-    height: 0.5em;
-    background-color: colors.$accent;
+    height: 0.8em;
+    background-color: colors.$secondary;
+    z-index: -1;
+    cursor: pointer;
 
-    &::before {
-      position: absolute;
-      content: '';
-      height: 100%;
-      width: 100vw;
-      background-color: colors.$text;
-      z-index: -1;
+    &:hover .controls__progressThumb {
+      scale: 1;
     }
+  }
+
+  &__progress {
+    height: 0.8em;
+    background-color: colors.$accent;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+
+    &:hover .controls__progressThumb {
+      scale: 1.2;
+    }
+  }
+
+  &__progressThumb {
+    display: block;
+    scale: 0;
+    content: '';
+    min-height: 1.15rem;
+    min-width: 1.15rem;
+    border-radius: 50%;
+    background-color: colors.$accent;
+    position: relative;
+    left: 0.9rem;
+    transition: .1s ease-in-out;
   }
 
   &__inner {
