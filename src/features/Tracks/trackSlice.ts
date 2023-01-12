@@ -5,6 +5,8 @@ import { getItemFromLocalStorage, setItemToLocalStorage } from "@utils/helpers/l
 export interface TrackState {
   currentTrackIndex: number;
   isPlaying: boolean;
+  isLooped: boolean;
+  isShuffled: boolean;
 }
 
 const currentTrackKey = 'currentTrackIndex';
@@ -22,6 +24,10 @@ export const trackSlice = createSlice({
 
     setIsPlaying: (state, action: PayloadAction<boolean>) => {
       state.isPlaying = action.payload;
+    },
+
+    setIsLooped: (state, action: PayloadAction<boolean>) => {
+      state.isLooped = action.payload;
     }
   }
 })
@@ -32,8 +38,10 @@ function getInitialState (): TrackState {
   return {
     currentTrackIndex,
     isPlaying: false,
+    isLooped: false,
+    isShuffled: false
   }
 }
 
-export const { setNewCurrentTrack, setIsPlaying } = trackSlice.actions;
+export const { setNewCurrentTrack, setIsPlaying, setIsLooped } = trackSlice.actions;
 export default trackSlice.reducer;

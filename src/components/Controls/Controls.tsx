@@ -4,7 +4,7 @@ import styles from './Controls.module.scss';
 import { iconIds } from '@utils/config/iconIds';
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/app/store";
-import { setIsPlaying, setNewCurrentTrack } from '@features/Tracks/trackSlice';
+import { setIsLooped, setIsPlaying, setNewCurrentTrack } from '@features/Tracks/trackSlice';
 import { tracks } from "@services/mockDataService";
 import { useTrackTimeData } from "@utils/hooks/useTrackTimeData";
 import { formatTime } from '@/utils/helpers/formatTime';
@@ -24,6 +24,7 @@ const Controls = () => {
     duration,
   } = usePlayCurrentTrack();
   const progressBarRef = useRef<HTMLDivElement>(null);
+  const isLooped = useSelector((state: RootState) => state.tracks.isLooped);
 
   const previousTrack = (): void => {
     const currentSongIndex = tracks.findIndex((track) => track.id === currentTrack.id);
@@ -35,6 +36,7 @@ const Controls = () => {
 
   const nextTrack = (): void => {
     const currentSongIndex = tracks.findIndex((track) => track.id === currentTrack.id);
+
     const nextTrackIndex = currentSongIndex + 1;
     audio.src = getTrackFullSrc(tracks[nextTrackIndex].src);
 
@@ -89,11 +91,16 @@ const Controls = () => {
           >
             <Icon id={iconIds.next} width='1.5em' height='1.5em' blockName={blockName} fill='#E5E5E5'/>
           </button>
-          <button className={styles.controls__repeatButton}>
-            <Icon id={iconIds.repeat} fill='#E5E5E5' width='1.75em' height='1.75em' blockName={blockName}/>
+          <button
+           className={styles.controls__repeatButton} onClick={() => dispatch(setIsLooped(!isLooped))}>
+            {
+              isLooped ?
+                <Icon id={iconIds.repeatOne} fill='#0FA750' width='2em' height='2em' blockName={blockName}/>
+                : <Icon id={iconIds.repeat} fill='#E5E5E5' width='2em' height='2em' blockName={blockName}/>
+            }
           </button>
           <button className={styles.controls__playlistsButton}>
-            <Icon id={iconIds.playlists} fill='#E5E5E5' width='1.75em' height='1.75em' blockName={blockName}/>
+            <Icon id={iconIds.playlists} fill='#E5E5E5' width='2em' height='2em' blockName={blockName}/>
           </button>
             <div className={styles.controls__trackInfo}>
             <figure className={styles.controls__trackCoverWrapper}>
