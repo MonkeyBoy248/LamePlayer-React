@@ -23,6 +23,7 @@ const Controls = () => {
     currentTime,
     duration,
   } = usePlayCurrentTrack();
+  const progressBarRef = useRef<HTMLDivElement>(null);
 
   const previousTrack = (): void => {
     const currentSongIndex = tracks.findIndex((track) => track.id === currentTrack.id);
@@ -46,13 +47,21 @@ const Controls = () => {
     return currentSongIndex === disableIndex;
   }
 
+  const moveToTargetTime = (e: React.MouseEvent<HTMLDivElement>) => {
+    const progressBarWidth = progressBarRef.current!.clientWidth;
+    const xOffset = e.nativeEvent.offsetX;
+    const widthFraction = xOffset / progressBarWidth;
+
+    audio.currentTime = widthFraction * duration;;
+  }
+
   return (
     <div className={styles.controls}>
       <div className={styles.controls__timeInfo}>
         <span className={styles.controls__timeLabel}>{ formatTime(currentTime) }</span>
         <span className={styles.controls__timeLabel}>{ (duration && !isNaN(duration)) && formatTime(duration) }</span>
       </div>
-      <div className={styles.controls__progressBar}>
+      <div className={styles.controls__progressBar} ref={progressBarRef} onClick={moveToTargetTime}>
         <div className={styles.controls__progress}
             style={
                 { width: currentTime ? `${currentTime / duration * 100}%` : 0 }
