@@ -63,7 +63,7 @@ const Controls = () => {
 
   const moveToTargetTime = (e: React.MouseEvent<HTMLDivElement>) => {
     const progressBarWidth = progressBarRef.current!.clientWidth;
-    const xOffset = e.nativeEvent.offsetX;
+    const xOffset = e.nativeEvent.clientX;
     const widthFraction = xOffset / progressBarWidth;
 
     audio.currentTime = widthFraction * duration;;
