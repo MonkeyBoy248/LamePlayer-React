@@ -1,13 +1,13 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Icon from '../Icon';
 import styles from './Controls.module.scss';
 import { iconIds } from '@utils/config/iconIds';
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/app/store";
-import { setIsLooped, setIsPlaying, setNewCurrentTrack } from '@features/Tracks/trackSlice';
+import { setIsPlaying, setNewCurrentTrack } from '@features/Tracks/trackSlice';
 import { tracks } from "@services/mockDataService";
-import { useTrackTimeData } from "@utils/hooks/useTrackTimeData";
 import { formatTime } from '@/utils/helpers/formatTime';
+import { TrackModel } from '@/interfaces/Track';
 
 const getTrackFullSrc = (src: string) => {
   return `tracks/${src}`;
@@ -22,13 +22,25 @@ const Controls = () => {
     audio,
     currentTime,
     duration,
-  } = usePlayCurrentTrack();
+    hasEnded
+  } = useInitAudioControls();
   const progressBarRef = useRef<HTMLDivElement>(null);
-  const isLooped = useSelector((state: RootState) => state.tracks.isLooped);
+  const [isLooped, setIsLooped] = useState<boolean>(false);
+
+  usePlayCurrentTrack(audio, isPlaying, currentTrack);
+
+  useEffect(() => {
+    if (!hasEnded) {
+      return;
+    }
+
+    isLooped ? audio.play().then() : nextTrack();
+  }, [hasEnded])
 
   const previousTrack = (): void => {
     const currentSongIndex = tracks.findIndex((track) => track.id === currentTrack.id);
     const previousTrackIndex = currentSongIndex - 1;
+
     audio.src = getTrackFullSrc(tracks[previousTrackIndex].src);
 
     dispatch(setNewCurrentTrack(previousTrackIndex));
@@ -36,8 +48,8 @@ const Controls = () => {
 
   const nextTrack = (): void => {
     const currentSongIndex = tracks.findIndex((track) => track.id === currentTrack.id);
+    const nextTrackIndex = currentSongIndex === tracks.length - 1 ? 0 : currentSongIndex + 1;
 
-    const nextTrackIndex = currentSongIndex + 1;
     audio.src = getTrackFullSrc(tracks[nextTrackIndex].src);
 
     dispatch(setNewCurrentTrack(nextTrackIndex));
@@ -92,7 +104,7 @@ const Controls = () => {
             <Icon id={iconIds.next} width='1.5em' height='1.5em' blockName={blockName} fill='#E5E5E5'/>
           </button>
           <button
-           className={styles.controls__repeatButton} onClick={() => dispatch(setIsLooped(!isLooped))}>
+           className={styles.controls__repeatButton} onClick={() => setIsLooped(!isLooped)}>
             {
               isLooped ?
                 <Icon id={iconIds.repeatOne} fill='#0FA750' width='2em' height='2em' blockName={blockName}/>
@@ -128,12 +140,11 @@ const Controls = () => {
   )
 }
 
-const usePlayCurrentTrack = () => {
-  const currentTrack = useSelector((state: RootState) => tracks[state.tracks.currentTrackIndex]);
-  const { current: audio } = useRef(new Audio(getTrackFullSrc(currentTrack.src)));
-  const isPlaying = useSelector((state: RootState) => state.tracks.isPlaying);
-  const { duration, currentTime } = useTrackTimeData(audio);
-
+const usePlayCurrentTrack = (
+  audio: HTMLAudioElement,
+  isPlaying: boolean,
+  currentTrack: TrackModel,
+) => {
   useEffect(() => {
       const playCurrentTrack = async () => {
         if (!isPlaying) {
@@ -147,15 +158,58 @@ const usePlayCurrentTrack = () => {
 
       playCurrentTrack().then();
     },
-    [isPlaying, currentTrack]);
+    [isPlaying, currentTrack.id]);
+}
+
+const useInitAudioControls = () => {
+  const currentTrack = useSelector((state: RootState) => tracks[state.tracks.currentTrackIndex]);
+  const { current: audio } = useRef(new Audio(getTrackFullSrc(currentTrack.src)));
+  const isPlaying = useSelector((state: RootState) => state.tracks.isPlaying);
+  const [duration, setDuration] = useState(0);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [hasEnded, setHasEnded] = useState(false);
+
+  const setAudioTimeData = () => {
+    setDuration(audio.duration);
+    setCurrentTime(audio.currentTime);
+  }
+
+  const setTrackCurrentTime = () => {
+    setCurrentTime(audio.currentTime);
+  }
+
+  const setTrackHasEnded = () => {
+    setHasEnded(true);
+  };
+
+  useEffect(() => {
+    audio.addEventListener('ended', setTrackHasEnded);
+    audio.addEventListener('loadedmetadata', setAudioTimeData);
+    audio.addEventListener('timeupdate', setTrackCurrentTime);
+
+    return () => {
+      audio.removeEventListener('ended', setTrackHasEnded);
+      audio.removeEventListener('loadedmetadata', setAudioTimeData);
+      audio.removeEventListener('timeupdate', setTrackCurrentTime);
+    }
+  }, [])
+
+  useEffect(() => {
+    if (currentTime !== duration) {
+      return;
+    }
+
+    setHasEnded(false);
+  }, [currentTime, duration])
 
   return {
     currentTrack,
     isPlaying,
     audio,
-    duration,
+    hasEnded,
     currentTime,
-  };
+    duration
+  }
 }
 
 export default Controls;
