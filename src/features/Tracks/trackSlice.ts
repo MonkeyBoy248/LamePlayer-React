@@ -8,7 +8,6 @@ export interface TrackState {
   playlist: TrackModel[],
   currentTrackIndex: number;
   isPlaying: boolean;
-  isShuffled: boolean;
 }
 
 const currentTrackKey = 'currentTrackIndex';
@@ -41,7 +40,6 @@ function getInitialState (): TrackState {
     currentTrackIndex,
     playlist: tracks,
     isPlaying: false,
-    isShuffled: false
   }
 }
 
