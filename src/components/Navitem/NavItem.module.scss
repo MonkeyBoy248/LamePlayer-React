@@ -21,7 +21,7 @@
     opacity: 0;
     height: 1.875em;
     width: 4px;
-    background-color: colors.$green;
+    background-color: colors.$accent;
     transition: .2s ease-in-out;
     left: 0;
     top: 50%;
@@ -29,7 +29,7 @@
   }
 
   &__name {
-    color: colors.$light-grey;
+    color: colors.$text;
     transition: .2s ease-in-out;
     font-size: 0.875rem;
   }
@@ -39,11 +39,11 @@
   }
 
   &:hover {
-    background-color: colors.$light-grey;
+    background-color: colors.$text;
   }
 
   &:hover &__name {
-    color: colors.$black;
+    color: colors.$background;
   }
 
   &:hover::before {
@@ -51,19 +51,19 @@
   }
 
   &:hover svg {
-    fill: colors.$black;
+    fill: colors.$background;
   }
 
   &:has(.navItem_active) {
-    background-color: colors.$light-grey;
-    color: colors.$black;
+    background-color: colors.$text;
+    color: colors.$background;
 
     &::before {
       opacity: 1;
     }
 
     svg {
-      fill: colors.$black;
+      fill: colors.$background;
     }
   }
 }

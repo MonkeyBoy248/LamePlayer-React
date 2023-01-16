@@ -2,7 +2,7 @@
 
 .playlist {
   &:hover {
-    outline: 2px solid colors.$green;
+    outline: 2px solid colors.$accent;
     outline-offset: 0.5em;
   }
 
@@ -27,12 +27,12 @@
   }
 
   &__title {
-    color: colors.$light-grey;
+    color: colors.$text;
   }
 
   &__tracksAmount {
     opacity: 0.8;
-    color: colors.$light-grey;
+    color: colors.$text;
     font-size: 0.75em;
   }
 }

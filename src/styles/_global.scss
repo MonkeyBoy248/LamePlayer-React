@@ -4,7 +4,7 @@ body {
   padding: 0;
   margin: 0;
   font-family: Montserrat, Arial, Helvetica, sans-serif;
-  background-color: colors.$black;
+  background-color: colors.$background;
 }
 
 h1, h2, h3, h4, h5, h6, p, ul, li, figure {
@@ -52,7 +52,7 @@ h1, h2, h3, h4, h5, h6, p, ul, li, figure {
   left: 50%;
   translate: -50% -50%;
   border: none;
-  background-color: colors.$green;
+  background-color: colors.$accent;
   display: flex;
   align-items: center;
   justify-content: center;

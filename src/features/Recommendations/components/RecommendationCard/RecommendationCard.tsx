@@ -17,7 +17,7 @@ const RecommendationCard = ({trackInfo}: RecommendationCardProps) => {
         </button>
         <div className={styles.recommendationCard__trackInfoWrapper}>
           <div className={styles.recommendationCard__trackInfo}>
-            <p className={styles.recommendationCard__trackName}>{trackInfo.name}</p>
+            <p className={styles.recommendationCard__trackName}>{trackInfo.title}</p>
             <p className={styles.recommendationCard__artist}>{trackInfo.artist}</p>
             <p className={styles.recommendationCard__duration}></p>
           </div>
@@ -26,7 +26,7 @@ const RecommendationCard = ({trackInfo}: RecommendationCardProps) => {
           </div>
         </div>
       </div>
-      <audio src={ `tracks/${trackInfo.src}` } controls={false}></audio>
+      <audio src={ `tracks/${trackInfo.src}` } controls={ false }></audio>
     </li>
   )
 }

@@ -9,7 +9,7 @@ import { playlists, tracks } from '@services/mockDataService';
 import Albums from '@pages/Albums/Albums';
 import Artists from '@pages/Artists/Artists';
 
-const MainContent = () => {
+const MainContentContainer = () => {
   return (
     <main className={styles.mainContent}>
       <div className={`${styles.mainContent__inner}`}>
@@ -27,4 +27,4 @@ const MainContent = () => {
   )
 }
 
-export default MainContent;
+export default MainContentContainer;

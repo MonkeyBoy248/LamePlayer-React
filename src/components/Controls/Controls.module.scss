@@ -1,86 +1,133 @@
 @use '../../styles/palette' as colors;
 
 .controls {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(32, 31, 31, .95);
+
+  button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity .2s ease-in-out;
+
+    &:hover {
+      opacity: 1;
+    }
+
+    &:disabled {
+      opacity: 0.3;
+      cursor: auto;
+    }
+  }
+
+  &__progressBar {
+    height: 0.8em;
+    background-color: colors.$secondary;
+    z-index: -1;
+    cursor: pointer;
+
+    &:hover .controls__progressThumb {
+      scale: 1;
+    }
+  }
+
+  &__progress {
+    height: 0.75em;
+    background-color: colors.$accent;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+
+    &:hover .controls__progressThumb {
+      scale: 1.2;
+    }
+  }
+
+  &__progressThumb {
+    display: block;
+    scale: 0;
+    content: '';
+    min-height: 1rem;
+    min-width: 1rem;
+    border-radius: 50%;
+    background-color: colors.$accent;
+    position: relative;
+    left: 0.75rem;
+    transition: .1s ease-in-out;
+  }
+
+  &__inner {
+    padding-block: 0.75em;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__mainControls {
+    display: flex;
+    align-items: center;
+    gap: 1.25em;
+  }
+
+  &__trackInfo {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    margin-left: 0.75em;
+  }
+
+  &__trackCoverWrapper {
+    height: 3.5em;
+    flex-basis: 3.5em;
+    flex-shrink: 0;
+    border-radius: 5px;
+
+    img {
+      border-radius: 5px;
+      display: block;
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__trackDetails {
+    text-align: left;
+    color: colors.$text;
+  }
+
+  &__artist {
+    font-size: 0.875em;
+    opacity: 0.8;
+  }
+
+  &__trackTitle {
+    font-family: MontserratMedium, Montserrat, Arial, Helvetica, sans-serif;
+    font-size: 1em;
+    margin-bottom: 0.25em;
+  }
+
+  &__secondaryControls {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+  }
+
+  &__timeInfo {
     width: 100%;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    background-color: rgba(32, 31, 31, .95);
+    padding-inline: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    top: -2rem;
+    position: absolute;
+  }
 
-    button {
-        background-color: transparent;
-        border: none;
-    }
-
-
-    &__progressBar {
-        width: 50%;
-        position: absolute;
-        top: -0.5em;
-        height: 0.5em;
-        background-color: colors.$green;
-
-        &::before {
-            position: absolute;
-            content: '';
-            height: 100%;
-            width: 100vw;
-            background-color: colors.$light-grey;
-            z-index: -1;
-        }
-    }
-
-    &__inner {
-        padding-block: 0.75em;
-        display: flex;
-        justify-content: space-between;
-    }
-
-    &__mainControls {
-        display: flex;
-        align-items: center;
-        gap: 1.25em;
-    }
-
-    &__trackInfo {
-        display: flex;
-        align-items: center;
-        gap: 1em;
-        margin-left: 0.75em;
-    }
-
-    &__trackCoverWrapper {
-        height: 3.5em;
-        flex-basis: 3.5em;
-        flex-shrink: 0;
-
-        img {
-            display: block;
-            height: 100%;
-            width: 100%;
-            object-fit: cover;
-        }
-    }
-
-    &__trackDetails {
-        text-align: left;
-        color: colors.$light-grey;
-    }
-
-    &__artist {
-        font-size: 0.875em;
-        opacity: 0.8;
-    }
-
-    &__trackTitle {
-        font-family: MontserratMedium;
-        font-size: 1em;
-        margin-bottom: 0.25em;
-    }
-
-    &__secondaryControls {
-        display: flex;
-        align-items: center;
-        gap: 1em;
-    }
+  &__timeLabel {
+    color: colors.$text;
+    font-size: 0.75rem;
+  }
 }

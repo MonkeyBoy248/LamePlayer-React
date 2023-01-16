@@ -7,12 +7,12 @@
   max-height: fit-content;
   height: 100%;
   width: 100%;
-  border-right: 2px solid colors.$light-grey;
+  border-right: 2px solid colors.$text;
 
   &__title {
     font-family: MontserratBold, Arial, Helvetica, sans-serif;
     padding-left: 1.5rem;
-    color: colors.$light-grey;
+    color: colors.$text;
     margin-bottom: 0.5em;
   }
 }
