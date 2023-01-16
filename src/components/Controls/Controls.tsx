@@ -5,8 +5,8 @@ import { iconIds } from '@utils/config/iconIds';
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/app/store";
 import { setIsPlaying, setNewCurrentTrack } from '@features/Tracks/trackSlice';
-import { tracks } from "@services/mockDataService";
 import { formatTime } from '@/utils/helpers/formatTime';
+import { getRandomIndex } from '@/utils/helpers/getRandomIndex';
 import { TrackModel } from '@/interfaces/Track';
 
 const getTrackFullSrc = (src: string) => {
@@ -17,6 +17,7 @@ const Controls = () => {
   const blockName = 'controls'
   const dispatch: AppDispatch = useDispatch();
   const {
+    playlist,
     currentTrack,
     isPlaying,
     audio,
@@ -26,6 +27,7 @@ const Controls = () => {
   } = useInitAudioControls();
   const progressBarRef = useRef<HTMLDivElement>(null);
   const [isLooped, setIsLooped] = useState<boolean>(false);
+  const [isShuffled, setIsShuffled] = useState<boolean>(false);
 
   usePlayCurrentTrack(audio, isPlaying, currentTrack);
 
@@ -38,27 +40,41 @@ const Controls = () => {
   }, [hasEnded])
 
   const previousTrack = (): void => {
-    const currentSongIndex = tracks.findIndex((track) => track.id === currentTrack.id);
-    const previousTrackIndex = currentSongIndex - 1;
+    let currentTrackIndex = playlist.findIndex((track) => track.id === currentTrack.id);
 
-    audio.src = getTrackFullSrc(tracks[previousTrackIndex].src);
+    if (isShuffled) {
+      currentTrackIndex = getRandomIndex(playlist);
 
-    dispatch(setNewCurrentTrack(previousTrackIndex));
+      setTrackByIndex(currentTrackIndex);
+
+      return;
+    }
+
+    const previousTrackIndex = currentTrackIndex - 1;
+
+    setTrackByIndex(previousTrackIndex);
   }
 
   const nextTrack = (): void => {
-    const currentSongIndex = tracks.findIndex((track) => track.id === currentTrack.id);
-    const nextTrackIndex = currentSongIndex === tracks.length - 1 ? 0 : currentSongIndex + 1;
+    let currentTrackIndex = playlist.findIndex((track) => track.id === currentTrack.id);
 
-    audio.src = getTrackFullSrc(tracks[nextTrackIndex].src);
+    if (isShuffled) {
+      currentTrackIndex = getRandomIndex(playlist);
 
-    dispatch(setNewCurrentTrack(nextTrackIndex));
+      setTrackByIndex(currentTrackIndex);
+
+      return;
+    }
+
+    const nextTrackIndex = currentTrackIndex === playlist.length - 1 ? 0 : currentTrackIndex + 1;
+
+    setTrackByIndex(nextTrackIndex);
   }
 
   const isDisabled = (disableIndex: number) => {
-    const currentSongIndex = tracks.findIndex((track) => track.id === currentTrack.id);
+    const currentTrackIndex = playlist.findIndex((track) => track.id === currentTrack.id);
 
-    return currentSongIndex === disableIndex;
+    return currentTrackIndex === disableIndex;
   }
 
   const moveToTargetTime = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -66,7 +82,13 @@ const Controls = () => {
     const xOffset = e.nativeEvent.clientX;
     const widthFraction = xOffset / progressBarWidth;
 
-    audio.currentTime = widthFraction * duration;;
+    audio.currentTime = widthFraction * duration;
+  }
+
+  const setTrackByIndex = (index: number) => {
+    audio.src = getTrackFullSrc(playlist[index].src);
+
+    dispatch(setNewCurrentTrack(index));
   }
 
   return (
@@ -86,7 +108,7 @@ const Controls = () => {
       <div className={`${styles.controls__inner} _container`}>
         <div className={styles.controls__mainControls}>
           <button className={styles.controls__prevButton}
-                  disabled={isDisabled(0)}
+                  disabled={!isShuffled && isDisabled(0)}
                   onClick={previousTrack}
           >
             <Icon id={iconIds.prev} width='1.5em' height='1.5em' blockName={blockName} fill='#E5E5E5'/>
@@ -98,7 +120,7 @@ const Controls = () => {
             <Icon id={isPlaying ? iconIds.pause : iconIds.play} width='2em' height='2em' blockName={blockName} fill='#E5E5E5' />
           </button>
           <button className={styles.controls__nextButton}
-                  disabled={isDisabled(tracks.length - 1)}
+                  disabled={!isShuffled && isDisabled(playlist.length - 1)}
                   onClick={nextTrack}
           >
             <Icon id={iconIds.next} width='1.5em' height='1.5em' blockName={blockName} fill='#E5E5E5'/>
@@ -131,8 +153,14 @@ const Controls = () => {
           <button className={styles.controls__volumeButton}>
             <Icon id={iconIds.mid} fill='#E5E5E5' width='2.5em' height='2.5em' blockName={blockName}/>
           </button>
-          <button className={styles.controls__shuffleButton}>
-            <Icon id={iconIds.shuffle} fill='#E5E5E5' width='2em' height='2em' blockName={blockName}/>
+          <button className={styles.controls__shuffleButton} onClick={() => setIsShuffled(!isShuffled)}>
+            <Icon
+              id={iconIds.shuffle}
+              fill={ isShuffled ? '#0FA750' : '#E5E5E5'}
+              width='2em'
+              height='2em'
+              blockName={blockName}
+              />
           </button>
         </div>
       </div>
@@ -162,9 +190,10 @@ const usePlayCurrentTrack = (
 }
 
 const useInitAudioControls = () => {
-  const currentTrack = useSelector((state: RootState) => tracks[state.tracks.currentTrackIndex]);
-  const { current: audio } = useRef(new Audio(getTrackFullSrc(currentTrack.src)));
+  const playlist = useSelector((state: RootState) => state.tracks.playlist);
+  const currentTrack= useSelector((state: RootState) => playlist[state.tracks.currentTrackIndex]);
   const isPlaying = useSelector((state: RootState) => state.tracks.isPlaying);
+  const { current: audio } = useRef(new Audio(getTrackFullSrc(currentTrack.src)));
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   const [hasEnded, setHasEnded] = useState(false);
@@ -208,7 +237,8 @@ const useInitAudioControls = () => {
     audio,
     hasEnded,
     currentTime,
-    duration
+    duration,
+    playlist
   }
 }
 
