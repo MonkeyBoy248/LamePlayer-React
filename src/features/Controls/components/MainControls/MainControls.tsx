@@ -110,10 +110,10 @@ const MainControls = () => {
   }
 
   const setTrackVolume = (e: Event, value: number | number[]) => {
-    const volume = Array.isArray(value) ? value[0] : value;
+    const trackVolume = Array.isArray(value) ? value[0] : value;
 
-    setVolume(volume);
-    setLastVolumeValue(volume);
+    setVolume(trackVolume);
+    setLastVolumeValue(trackVolume);
   }
 
   return (
