@@ -8,7 +8,7 @@ import { setIsPlaying, setNewCurrentTrack } from '@features/Tracks/trackSlice';
 import { formatTime } from '@/utils/helpers/formatTime';
 import { getRandomIndex } from '@/utils/helpers/getRandomIndex';
 import { TrackModel } from '@/interfaces/Track';
-import Volume from '../Volume/Volume';
+import VolumeControls from '../VolumeControls/VolumeControls';
 
 const getTrackFullSrc = (src: string) => {
   return `tracks/${src}`;
@@ -30,6 +30,8 @@ const MainControls = () => {
   const [isLooped, setIsLooped] = useState<boolean>(false);
   const [isShuffled, setIsShuffled] = useState<boolean>(false);
   const [volume, setVolume] = useState<number>(50);
+  const [isMuted, setIsMuted] = useState<boolean>(false);
+  const [lastVolumeValue, setLastVolumeValue] = useState<number>(50);
 
   usePlayCurrentTrack(audio, isPlaying, currentTrack);
 
@@ -44,6 +46,16 @@ const MainControls = () => {
   useEffect(() => {
     audio.volume = volume / 100;
   }, [volume])
+
+  useEffect(() => {
+    if (!isMuted) {
+      setVolume(lastVolumeValue);
+
+      return;
+    }
+
+    setVolume(0);
+  }, [isMuted])
 
   const previousTrack = (): void => {
     let currentTrackIndex = playlist.findIndex((track) => track.id === currentTrack.id);
@@ -95,6 +107,13 @@ const MainControls = () => {
     audio.src = getTrackFullSrc(playlist[index].src);
 
     dispatch(setNewCurrentTrack(index));
+  }
+
+  const setTrackVolume = (e: Event, value: number | number[]) => {
+    const volume = Array.isArray(value) ? value[0] : value;
+
+    setVolume(volume);
+    setLastVolumeValue(volume);
   }
 
   return (
@@ -156,9 +175,6 @@ const MainControls = () => {
           <button className={styles.controls__optionsButton}>
             <Icon id={iconIds.dots} fill='#E5E5E5' width='2em' height='2em' blockName={blockName}/>
           </button>
-          <Volume
-            volume={volume}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => setVolume(Number(e.target.value))}></Volume>
           <button className={styles.controls__shuffleButton} onClick={() => setIsShuffled(!isShuffled)}>
             <Icon
               id={iconIds.shuffle}
@@ -168,6 +184,11 @@ const MainControls = () => {
               blockName={blockName}
               />
           </button>
+          <VolumeControls
+            volume={volume}
+            onChange={setTrackVolume}
+            onClick={() => setIsMuted(!isMuted)}
+          />
         </div>
       </div>
     </div>
