@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import Icon from '../Icon';
-import styles from './Controls.module.scss';
+import Icon from '../../../../components/Icon';
+import styles from './MainControls.module.scss';
 import { iconIds } from '@utils/config/iconIds';
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/app/store";
@@ -13,7 +13,7 @@ const getTrackFullSrc = (src: string) => {
   return `tracks/${src}`;
 }
 
-const Controls = () => {
+const MainControls = () => {
   const blockName = 'controls'
   const dispatch: AppDispatch = useDispatch();
   const {
@@ -190,13 +190,13 @@ const usePlayCurrentTrack = (
 }
 
 const useInitAudioControls = () => {
-  const playlist = useSelector((state: RootState) => state.tracks.playlist);
-  const currentTrack= useSelector((state: RootState) => playlist[state.tracks.currentTrackIndex]);
-  const isPlaying = useSelector((state: RootState) => state.tracks.isPlaying);
-  const { current: audio } = useRef(new Audio(getTrackFullSrc(currentTrack.src)));
-  const [duration, setDuration] = useState(0);
-  const [currentTime, setCurrentTime] = useState(0);
-  const [hasEnded, setHasEnded] = useState(false);
+  const playlist: TrackModel[] = useSelector((state: RootState) => state.tracks.playlist);
+  const currentTrack: TrackModel = useSelector((state: RootState) => playlist[state.tracks.currentTrackIndex]);
+  const isPlaying: boolean = useSelector((state: RootState) => state.tracks.isPlaying);
+  const { current: audio } = useRef<HTMLAudioElement>(new Audio(getTrackFullSrc(currentTrack.src)));
+  const [duration, setDuration] = useState<number>(0);
+  const [currentTime, setCurrentTime] = useState<number>(0);
+  const [hasEnded, setHasEnded] = useState<boolean>(false);
 
   const setAudioTimeData = () => {
     setDuration(audio.duration);
@@ -242,4 +242,4 @@ const useInitAudioControls = () => {
   }
 }
 
-export default Controls;
+export default MainControls;
