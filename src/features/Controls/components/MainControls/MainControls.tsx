@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import Icon from '../../../../components/Icon';
 import styles from './MainControls.module.scss';
 import { iconIds } from '@utils/config/iconIds';
@@ -8,6 +8,7 @@ import { setIsPlaying, setNewCurrentTrack } from '@features/Tracks/trackSlice';
 import { formatTime } from '@/utils/helpers/formatTime';
 import { getRandomIndex } from '@/utils/helpers/getRandomIndex';
 import { TrackModel } from '@/interfaces/Track';
+import Volume from '../Volume/Volume';
 
 const getTrackFullSrc = (src: string) => {
   return `tracks/${src}`;
@@ -28,6 +29,7 @@ const MainControls = () => {
   const progressBarRef = useRef<HTMLDivElement>(null);
   const [isLooped, setIsLooped] = useState<boolean>(false);
   const [isShuffled, setIsShuffled] = useState<boolean>(false);
+  const [volume, setVolume] = useState<number>(50);
 
   usePlayCurrentTrack(audio, isPlaying, currentTrack);
 
@@ -38,6 +40,10 @@ const MainControls = () => {
 
     isLooped ? audio.play().then() : nextTrack();
   }, [hasEnded])
+
+  useEffect(() => {
+    audio.volume = volume / 100;
+  }, [volume])
 
   const previousTrack = (): void => {
     let currentTrackIndex = playlist.findIndex((track) => track.id === currentTrack.id);
@@ -150,9 +156,9 @@ const MainControls = () => {
           <button className={styles.controls__optionsButton}>
             <Icon id={iconIds.dots} fill='#E5E5E5' width='2em' height='2em' blockName={blockName}/>
           </button>
-          <button className={styles.controls__volumeButton}>
-            <Icon id={iconIds.mid} fill='#E5E5E5' width='2.5em' height='2.5em' blockName={blockName}/>
-          </button>
+          <Volume
+            volume={volume}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => setVolume(Number(e.target.value))}></Volume>
           <button className={styles.controls__shuffleButton} onClick={() => setIsShuffled(!isShuffled)}>
             <Icon
               id={iconIds.shuffle}
@@ -174,19 +180,18 @@ const usePlayCurrentTrack = (
   currentTrack: TrackModel,
 ) => {
   useEffect(() => {
-      const playCurrentTrack = async () => {
-        if (!isPlaying) {
-          audio.pause();
+    const playCurrentTrack = async () => {
+      if (!isPlaying) {
+        audio.pause();
 
-          return;
-        }
+        return;
+      }
 
-        await audio.play();
-      };
+      await audio.play();
+    };
 
-      playCurrentTrack().then();
-    },
-    [isPlaying, currentTrack.id]);
+    playCurrentTrack().then();
+  }, [isPlaying, currentTrack.id]);
 }
 
 const useInitAudioControls = () => {
