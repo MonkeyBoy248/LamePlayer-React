@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
-import Icon from '../Icon';
-import styles from './Controls.module.scss';
+import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
+import Icon from '../../../../components/Icon';
+import styles from './MainControls.module.scss';
 import { iconIds } from '@utils/config/iconIds';
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/app/store";
@@ -8,12 +8,13 @@ import { setIsPlaying, setNewCurrentTrack } from '@features/Tracks/trackSlice';
 import { formatTime } from '@/utils/helpers/formatTime';
 import { getRandomIndex } from '@/utils/helpers/getRandomIndex';
 import { TrackModel } from '@/interfaces/Track';
+import VolumeControls from '../VolumeControls/VolumeControls';
 
 const getTrackFullSrc = (src: string) => {
   return `tracks/${src}`;
 }
 
-const Controls = () => {
+const MainControls = () => {
   const blockName = 'controls'
   const dispatch: AppDispatch = useDispatch();
   const {
@@ -28,6 +29,9 @@ const Controls = () => {
   const progressBarRef = useRef<HTMLDivElement>(null);
   const [isLooped, setIsLooped] = useState<boolean>(false);
   const [isShuffled, setIsShuffled] = useState<boolean>(false);
+  const [volume, setVolume] = useState<number>(50);
+  const [isMuted, setIsMuted] = useState<boolean>(false);
+  const [lastVolumeValue, setLastVolumeValue] = useState<number>(50);
 
   usePlayCurrentTrack(audio, isPlaying, currentTrack);
 
@@ -38,6 +42,20 @@ const Controls = () => {
 
     isLooped ? audio.play().then() : nextTrack();
   }, [hasEnded])
+
+  useEffect(() => {
+    audio.volume = volume / 100;
+  }, [volume])
+
+  useEffect(() => {
+    if (!isMuted) {
+      setVolume(lastVolumeValue);
+
+      return;
+    }
+
+    setVolume(0);
+  }, [isMuted])
 
   const previousTrack = (): void => {
     let currentTrackIndex = playlist.findIndex((track) => track.id === currentTrack.id);
@@ -89,6 +107,13 @@ const Controls = () => {
     audio.src = getTrackFullSrc(playlist[index].src);
 
     dispatch(setNewCurrentTrack(index));
+  }
+
+  const setTrackVolume = (e: Event, value: number | number[]) => {
+    const trackVolume = Array.isArray(value) ? value[0] : value;
+
+    setVolume(trackVolume);
+    setLastVolumeValue(trackVolume);
   }
 
   return (
@@ -150,9 +175,6 @@ const Controls = () => {
           <button className={styles.controls__optionsButton}>
             <Icon id={iconIds.dots} fill='#E5E5E5' width='2em' height='2em' blockName={blockName}/>
           </button>
-          <button className={styles.controls__volumeButton}>
-            <Icon id={iconIds.mid} fill='#E5E5E5' width='2.5em' height='2.5em' blockName={blockName}/>
-          </button>
           <button className={styles.controls__shuffleButton} onClick={() => setIsShuffled(!isShuffled)}>
             <Icon
               id={iconIds.shuffle}
@@ -162,6 +184,11 @@ const Controls = () => {
               blockName={blockName}
               />
           </button>
+          <VolumeControls
+            volume={volume}
+            onChange={setTrackVolume}
+            onClick={() => setIsMuted(!isMuted)}
+          />
         </div>
       </div>
     </div>
@@ -174,29 +201,28 @@ const usePlayCurrentTrack = (
   currentTrack: TrackModel,
 ) => {
   useEffect(() => {
-      const playCurrentTrack = async () => {
-        if (!isPlaying) {
-          audio.pause();
+    const playCurrentTrack = async () => {
+      if (!isPlaying) {
+        audio.pause();
 
-          return;
-        }
+        return;
+      }
 
-        await audio.play();
-      };
+      await audio.play();
+    };
 
-      playCurrentTrack().then();
-    },
-    [isPlaying, currentTrack.id]);
+    playCurrentTrack().then();
+  }, [isPlaying, currentTrack.id]);
 }
 
 const useInitAudioControls = () => {
-  const playlist = useSelector((state: RootState) => state.tracks.playlist);
-  const currentTrack= useSelector((state: RootState) => playlist[state.tracks.currentTrackIndex]);
-  const isPlaying = useSelector((state: RootState) => state.tracks.isPlaying);
-  const { current: audio } = useRef(new Audio(getTrackFullSrc(currentTrack.src)));
-  const [duration, setDuration] = useState(0);
-  const [currentTime, setCurrentTime] = useState(0);
-  const [hasEnded, setHasEnded] = useState(false);
+  const playlist: TrackModel[] = useSelector((state: RootState) => state.tracks.playlist);
+  const currentTrack: TrackModel = useSelector((state: RootState) => playlist[state.tracks.currentTrackIndex]);
+  const isPlaying: boolean = useSelector((state: RootState) => state.tracks.isPlaying);
+  const { current: audio } = useRef<HTMLAudioElement>(new Audio(getTrackFullSrc(currentTrack.src)));
+  const [duration, setDuration] = useState<number>(0);
+  const [currentTime, setCurrentTime] = useState<number>(0);
+  const [hasEnded, setHasEnded] = useState<boolean>(false);
 
   const setAudioTimeData = () => {
     setDuration(audio.duration);
@@ -242,4 +268,4 @@ const useInitAudioControls = () => {
   }
 }
 
-export default Controls;
+export default MainControls;
