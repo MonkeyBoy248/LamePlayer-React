@@ -1,7 +1,7 @@
 import { RefObject, useCallback, useEffect, useRef } from 'react';
 
 export const useEventListener = (
-  element :RefObject<Element> | Document | Window = window,
+  element: Element | RefObject<Element> | Document | Window = window,
   type: keyof WindowEventMap,
   listener: EventListener,
   ): void => {
