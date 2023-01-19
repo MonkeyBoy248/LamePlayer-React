@@ -1,14 +1,15 @@
-import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
-import Icon from '../../../../components/Icon';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import Icon from '@components/Icon';
 import styles from './MainControls.module.scss';
 import { iconIds } from '@utils/config/iconIds';
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/app/store";
 import { setIsPlaying, setNewCurrentTrack } from '@features/Tracks/trackSlice';
-import { formatTime } from '@/utils/helpers/formatTime';
 import { getRandomIndex } from '@/utils/helpers/getRandomIndex';
 import { TrackModel } from '@/interfaces/Track';
 import VolumeControls from '../VolumeControls/VolumeControls';
+import { TrackProgress } from '../TrackProgress/TrackProgress';
+import { useEventListener } from '@/utils/hooks/useEventListener';
 
 const getTrackFullSrc = (src: string) => {
   return `tracks/${src}`;
@@ -21,19 +22,34 @@ const MainControls = () => {
     playlist,
     currentTrack,
     isPlaying,
-    audio,
-    currentTime,
-    duration,
-    hasEnded
+    audio
   } = useInitAudioControls();
-  const progressBarRef = useRef<HTMLDivElement>(null);
+  const [duration, setDuration] = useState<number>(0);
+  const [currentTime, setCurrentTime] = useState<number>(0);
+  const [hasEnded, setHasEnded] = useState<boolean>(false);
   const [isLooped, setIsLooped] = useState<boolean>(false);
   const [isShuffled, setIsShuffled] = useState<boolean>(false);
   const [volume, setVolume] = useState<number>(50);
   const [isMuted, setIsMuted] = useState<boolean>(false);
   const [lastVolumeValue, setLastVolumeValue] = useState<number>(50);
 
+  const setAudioTimeData = () => {
+    setDuration(audio.duration);
+    setCurrentTime(audio.currentTime);
+  }
+
+  const setTrackCurrentTime = () => {
+    setCurrentTime(audio.currentTime);
+  }
+
+  const setTrackHasEnded = () => {
+    setHasEnded(true);
+  };
+
   usePlayCurrentTrack(audio, isPlaying, currentTrack);
+  useEventListener(audio, 'ended', setTrackHasEnded);
+  useEventListener(audio, 'loadedmetadata', setAudioTimeData);
+  useEventListener(audio,'timeupdate', setTrackCurrentTime);
 
   useEffect(() => {
     if (!hasEnded) {
@@ -56,6 +72,14 @@ const MainControls = () => {
 
     setVolume(0);
   }, [isMuted])
+
+  useEffect(() => {
+    if (currentTime !== duration) {
+      return;
+    }
+
+    setHasEnded(false);
+  }, [currentTime, duration])
 
   const previousTrack = (): void => {
     let currentTrackIndex = playlist.findIndex((track) => track.id === currentTrack.id);
@@ -95,13 +119,20 @@ const MainControls = () => {
     return currentTrackIndex === disableIndex;
   }
 
-  const moveToTargetTime = (e: React.MouseEvent<HTMLDivElement>) => {
-    const progressBarWidth = progressBarRef.current!.clientWidth;
-    const xOffset = e.nativeEvent.clientX;
-    const widthFraction = xOffset / progressBarWidth;
+  const pauseAudioWhileDragging = useCallback(() => {
+    dispatch(setIsPlaying(false));
 
-    audio.currentTime = widthFraction * duration;
-  }
+    document.addEventListener('mouseup', () => {
+      dispatch(setIsPlaying(true));
+    }, { once: true })
+  }, [])
+
+  const setAudioCurrentTime = useCallback((e: Event, value: number | number[]) => {
+    const rangeValue = Array.isArray(value) ? value[0] : value;
+
+    audio.currentTime = rangeValue;
+    setCurrentTime(rangeValue);
+  }, []);
 
   const setTrackByIndex = (index: number) => {
     audio.src = getTrackFullSrc(playlist[index].src);
@@ -109,27 +140,23 @@ const MainControls = () => {
     dispatch(setNewCurrentTrack(index));
   }
 
-  const setTrackVolume = (e: Event, value: number | number[]) => {
+  const setTrackVolume = useCallback((e: Event, value: number | number[]) => {
     const trackVolume = Array.isArray(value) ? value[0] : value;
 
     setVolume(trackVolume);
     setLastVolumeValue(trackVolume);
-  }
+  }, [])
+
+  const muteTrack = useCallback(() => setIsMuted(!isMuted), [])
 
   return (
     <div className={styles.controls}>
-      <div className={styles.controls__timeInfo}>
-        <span className={styles.controls__timeLabel}>{ formatTime(currentTime) }</span>
-        <span className={styles.controls__timeLabel}>{ (duration && !isNaN(duration)) && formatTime(duration) }</span>
-      </div>
-      <div className={styles.controls__progressBar} ref={progressBarRef} onClick={moveToTargetTime}>
-        <div className={styles.controls__progress}
-            style={
-                { width: currentTime ? `${currentTime / duration * 100}%` : 0 }
-              }>
-              <div className={styles.controls__progressThumb}></div>
-        </div>
-      </div>
+      <TrackProgress
+        duration={duration}
+        currentTime={currentTime}
+        onMouseDown={pauseAudioWhileDragging}
+        onChange={setAudioCurrentTime}
+      />
       <div className={`${styles.controls__inner} _container`}>
         <div className={styles.controls__mainControls}>
           <button className={styles.controls__prevButton}
@@ -187,7 +214,7 @@ const MainControls = () => {
           <VolumeControls
             volume={volume}
             onChange={setTrackVolume}
-            onClick={() => setIsMuted(!isMuted)}
+            onClick={muteTrack}
           />
         </div>
       </div>
@@ -220,50 +247,11 @@ const useInitAudioControls = () => {
   const currentTrack: TrackModel = useSelector((state: RootState) => playlist[state.tracks.currentTrackIndex]);
   const isPlaying: boolean = useSelector((state: RootState) => state.tracks.isPlaying);
   const { current: audio } = useRef<HTMLAudioElement>(new Audio(getTrackFullSrc(currentTrack.src)));
-  const [duration, setDuration] = useState<number>(0);
-  const [currentTime, setCurrentTime] = useState<number>(0);
-  const [hasEnded, setHasEnded] = useState<boolean>(false);
-
-  const setAudioTimeData = () => {
-    setDuration(audio.duration);
-    setCurrentTime(audio.currentTime);
-  }
-
-  const setTrackCurrentTime = () => {
-    setCurrentTime(audio.currentTime);
-  }
-
-  const setTrackHasEnded = () => {
-    setHasEnded(true);
-  };
-
-  useEffect(() => {
-    audio.addEventListener('ended', setTrackHasEnded);
-    audio.addEventListener('loadedmetadata', setAudioTimeData);
-    audio.addEventListener('timeupdate', setTrackCurrentTime);
-
-    return () => {
-      audio.removeEventListener('ended', setTrackHasEnded);
-      audio.removeEventListener('loadedmetadata', setAudioTimeData);
-      audio.removeEventListener('timeupdate', setTrackCurrentTime);
-    }
-  }, [])
-
-  useEffect(() => {
-    if (currentTime !== duration) {
-      return;
-    }
-
-    setHasEnded(false);
-  }, [currentTime, duration])
 
   return {
     currentTrack,
     isPlaying,
     audio,
-    hasEnded,
-    currentTime,
-    duration,
     playlist
   }
 }
