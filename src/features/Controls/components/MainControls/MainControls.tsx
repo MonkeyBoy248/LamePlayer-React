@@ -46,13 +46,13 @@ const MainControls = () => {
 
   usePlayCurrentTrack(audioRef, isPlaying, currentTrack);
 
-  const isDisabled = (disableIndex: number) => {
+  const isDisabled = (disableIndex: number): boolean => {
     const currentTrackIndex = playlist.findIndex((track) => track.id === currentTrack.id);
 
     return currentTrackIndex === disableIndex;
   }
 
-  const pauseAudioWhileDragging = useCallback(() => {
+  const pauseAudioWhileDragging = useCallback((): void => {
     dispatch(setIsPlaying(false));
 
     document.addEventListener('mouseup', () => {
@@ -60,7 +60,7 @@ const MainControls = () => {
     }, { once: true })
   }, [])
 
-  const setProgressBarValueAsAudioCurrentTime = useCallback((e: Event, value: number | number[]) => {
+  const setProgressBarValueAsAudioCurrentTime = useCallback((e: Event, value: number | number[]): void => {
     const rangeValue = Array.isArray(value) ? value[0] : value;
 
     audioRef.current.currentTime = rangeValue;

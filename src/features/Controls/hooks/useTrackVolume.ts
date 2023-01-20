@@ -19,14 +19,14 @@ export const useTrackVolume = (audioRef: MutableRefObject<HTMLAudioElement>) => 
     setVolume(0);
   }, [isMuted])
 
-  const setTrackVolume = useCallback((e: Event, value: number | number[]) => {
+  const setTrackVolume = useCallback((e: Event, value: number | number[]): void => {
     const trackVolume = Array.isArray(value) ? value[0] : value;
 
     setVolume(trackVolume);
     setLastVolumeValue(trackVolume);
   }, [])
 
-  const muteTrack = useCallback(() => setIsMuted((currentValue) => !currentValue), [])
+  const muteTrack = useCallback((): void => setIsMuted((currentValue) => !currentValue), [])
 
   return {
     volume,

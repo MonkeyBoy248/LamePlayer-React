@@ -19,11 +19,11 @@ export const usePlaybackQueue = (audioRef: MutableRefObject<HTMLAudioElement>, p
     isLooped ? audioRef.current.play().then() : nextTrack();
   }, [hasEnded])
 
-  const toggleShuffleStatus = useCallback(() => {
+  const toggleShuffleStatus = useCallback((): void => {
     setIsShuffled((currentValue) => !currentValue);
   }, []);
 
-  const toggleLoopStatus = useCallback(() => {
+  const toggleLoopStatus = useCallback((): void => {
     setIsLooped((currentValue) => !currentValue);
   }, []);
 
@@ -59,7 +59,7 @@ export const usePlaybackQueue = (audioRef: MutableRefObject<HTMLAudioElement>, p
     setTrackByIndex(nextTrackIndex);
   }, [isShuffled, playlist, currentTrack]);
 
-  const setTrackByIndex = (index: number) => {
+  const setTrackByIndex = (index: number): void => {
     audioRef.current.src = getTrackFullSrc(playlist[index].src);
 
     dispatch(setNewCurrentTrack(index));

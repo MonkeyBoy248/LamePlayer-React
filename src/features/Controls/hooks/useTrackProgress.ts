@@ -6,16 +6,16 @@ export const useTrackProgress = (audioRef: MutableRefObject<HTMLAudioElement>) =
   const [currentTime, setCurrentTime] = useState<number>(0);
   const [hasEnded, setHasEnded] = useState<boolean>(false);
 
-  const setTrackTimeData = useCallback(() => {
+  const setTrackTimeData = useCallback((): void => {
     setDuration(audioRef.current.duration);
     setCurrentTime(audioRef.current.currentTime);
   }, []);
 
-  const setTrackCurrentTime = useCallback((trackCurrentTime: number) => {
+  const setTrackCurrentTime = useCallback((trackCurrentTime: number): void => {
     setCurrentTime(trackCurrentTime);
   }, [])
 
-  const setTrackHasEnded = useCallback((trackHasEnded: boolean) => {
+  const setTrackHasEnded = useCallback((trackHasEnded: boolean): void => {
     setHasEnded(trackHasEnded);
   }, []);
 

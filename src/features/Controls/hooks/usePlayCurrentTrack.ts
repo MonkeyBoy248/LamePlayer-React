@@ -7,7 +7,7 @@ export const usePlayCurrentTrack = (
   currentTrack: TrackModel,
 ) => {
   useEffect(() => {
-    const playCurrentTrack = async () => {
+    const playCurrentTrack = async (): Promise<void> => {
       if (!isPlaying) {
         audio.current.pause();
 
