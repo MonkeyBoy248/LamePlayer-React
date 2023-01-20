@@ -1,19 +1,22 @@
-import React from "react";
+import React, { MouseEventHandler } from "react";
 import styles from './Track.module.scss';
 import { Link } from 'react-router-dom';
 import { TrackModel } from "@interfaces/Track";
 import Icon from "@components/Icon";
 import { iconIds } from "@utils/config/iconIds";
 
+
 interface TrackProps {
   track: TrackModel;
+  dataIndex: number;
+  onClick: MouseEventHandler<HTMLLIElement>;
 }
 
-const Track = ({ track }: TrackProps) => {
+const Track = ({ track, onClick, dataIndex }: TrackProps) => {
   const blockName = 'track';
 
   return (
-    <li className={styles.tracks}>
+    <li className={styles.track} data-index={dataIndex} onClick={(e) => onClick(e)}>
       <div className={styles.track__inner}>
         <div className={styles.track__trackInfoWrapper}>
           <div className={styles.track__coverWrapper}>
