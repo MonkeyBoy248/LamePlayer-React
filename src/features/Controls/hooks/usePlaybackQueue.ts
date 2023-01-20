@@ -1,5 +1,5 @@
 import { AppDispatch } from '@/app/store';
-import { setNewCurrentTrack } from '@/features/Tracks/trackSlice';
+import { setCurrentTrackIndex } from '@/features/Tracks/trackSlice';
 import { TrackModel } from '@/interfaces/Track';
 import { getRandomIndex } from '@/utils/helpers/getRandomIndex';
 import { MutableRefObject, useCallback, useEffect, useState } from 'react';
@@ -62,7 +62,7 @@ export const usePlaybackQueue = (audioRef: MutableRefObject<HTMLAudioElement>, p
   const setTrackByIndex = (index: number): void => {
     audioRef.current.src = getTrackFullSrc(playlist[index].src);
 
-    dispatch(setNewCurrentTrack(index));
+    dispatch(setCurrentTrackIndex(index));
   }
 
   return {

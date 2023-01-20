@@ -16,7 +16,7 @@ export const trackSlice = createSlice({
   name: 'track',
   initialState: getInitialState(),
   reducers: {
-    setNewCurrentTrack: (state, action: PayloadAction<number>) => {
+    setCurrentTrackIndex: (state, action: PayloadAction<number>) => {
       state.currentTrackIndex = action.payload;
       state.isPlaying = true;
 
@@ -43,5 +43,5 @@ function getInitialState (): TrackState {
   }
 }
 
-export const { setNewCurrentTrack, setIsPlaying, setCurrentPlayList } = trackSlice.actions;
+export const { setCurrentTrackIndex, setIsPlaying, setCurrentPlayList } = trackSlice.actions;
 export default trackSlice.reducer;
