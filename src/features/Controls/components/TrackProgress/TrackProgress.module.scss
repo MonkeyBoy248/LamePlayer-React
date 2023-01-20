@@ -1,0 +1,23 @@
+@use '../../../../styles/palette' as colors;
+
+.progress {
+  &__container {
+    padding: 0;
+    margin: 0;
+  }
+
+  &__timeInfo {
+    width: 100%;
+    padding-inline: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    top: -1rem;
+    position: relative;
+  }
+
+  &__timeLabel {
+    color: colors.$text;
+    font-size: 0.75rem;
+  }
+}
