@@ -6,9 +6,7 @@ import styles from './TrackProgress.module.scss';
 interface TrackProgressProps {
   duration: number;
   currentTime: number;
-  onMouseDown: MouseEventHandler<HTMLSpanElement>
-  onMouseUp?: MouseEventHandler<HTMLSpanElement>;
-  onClick?: MouseEventHandler<HTMLSpanElement>;
+  onMouseDown: MouseEventHandler<HTMLSpanElement>;
   onChange: ((event: Event, value: number | number[], activeThumb: number) => void) | undefined;
 }
 
