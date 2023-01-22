@@ -21,7 +21,7 @@ export const usePlayCurrentTrack = (
     if (!isPlaying) {
       return;
     }
-    
+
     audio.current.src = getTrackFullSrc(currentTrack.src);
 
     audio.current.play().then;
