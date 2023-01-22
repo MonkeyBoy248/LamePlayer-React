@@ -4,21 +4,37 @@ import styles from './TrackList.module.scss';
 import { TrackModel } from '@interfaces/Track'
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/app/store';
-import { setCurrentTrackIndex } from '../../trackSlice';
+import { setCurrentTrackIndex, setIsPlaying } from '../../trackSlice';
 
 const TrackList = () => {
   const dispatch: AppDispatch = useDispatch();
   const playlist = useSelector((state: RootState) => state.tracks.playlist);
+  const currentTrackIndex = useSelector((state: RootState) => state.tracks.currentTrackIndex);
+  const isPlaying = useSelector((state: RootState) => state.tracks.isPlaying);
 
-  const setCurrentTrack = (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
-    const currentTrackIndex = Number((e.currentTarget as HTMLLIElement).dataset.index);
+  const setCurrentTrack = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const trackItemIndex = Number(e.currentTarget.dataset.index);
 
-    dispatch(setCurrentTrackIndex(currentTrackIndex))
+    if (currentTrackIndex === trackItemIndex) {
+      dispatch(setIsPlaying(!isPlaying));
+
+      return;
+    }
+
+    dispatch(setCurrentTrackIndex(trackItemIndex));
   }
+
   return (
     <ul className={styles.trackList}>
       { playlist.length > 0 && playlist.map((track: TrackModel, index: number) => {
-        return <Track track={ track } dataIndex={index} key={ track.id } onClick={setCurrentTrack}></Track>
+        return <Track
+          track={track}
+          isActive={index === currentTrackIndex}
+          dataIndex={index}
+          key={track.id}
+          isPlaying={isPlaying}
+          onClick={setCurrentTrack}
+          />
       })}
     </ul>
   )

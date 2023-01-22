@@ -9,19 +9,36 @@ import { iconIds } from "@utils/config/iconIds";
 interface TrackProps {
   track: TrackModel;
   dataIndex: number;
-  onClick: MouseEventHandler<HTMLLIElement>;
+  isActive: boolean;
+  isPlaying: boolean;
+  onClick: MouseEventHandler<HTMLButtonElement>;
 }
 
-const Track = ({ track, onClick, dataIndex }: TrackProps) => {
+const Track = ({ track, onClick, dataIndex, isActive, isPlaying }: TrackProps) => {
   const blockName = 'track';
 
+  const getPlayButtonIconId = () => {
+    if (isActive && isPlaying) {
+      return iconIds.pause;
+    }
+
+    return iconIds.play
+  }
+
   return (
-    <li className={styles.track} data-index={dataIndex} onClick={(e) => onClick(e)}>
+    <li className={`${styles.track} ${isActive ? styles.track_active : ''}`}>
       <div className={styles.track__inner}>
         <div className={styles.track__trackInfoWrapper}>
           <div className={styles.track__coverWrapper}>
-            <button className={`${styles.track__playButton} _playButton`}>
-              <Icon id={iconIds.play} width="1.5em" height="1.5em" blockName={blockName}></Icon>
+            <button
+              className={`${styles.track__playButton} _playButton`}
+              data-index={dataIndex}
+              onClick={(e) => onClick(e)}>
+              <Icon
+                id={getPlayButtonIconId()}
+                width="1.5em" height="1.5em"
+                blockName={blockName}
+              />
             </button>
             <img className={styles.track__cover} src={`/images/covers/${track.coverUrl}`} alt={`${track.album} cover`} />
           </div>
