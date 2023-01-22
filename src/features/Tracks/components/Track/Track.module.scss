@@ -1,14 +1,16 @@
 @use '../../../../styles/palette' as colors;
 
 .track {
-  cursor: pointer;
-
   &:hover {
     outline: 2px solid colors.$accent;
   }
 
   &:hover &__playButton{
     opacity: 1;
+  }
+
+  &_active {
+    outline: 2px solid colors.$accent;
   }
 
   &__inner {
