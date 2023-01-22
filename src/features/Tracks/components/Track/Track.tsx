@@ -33,7 +33,7 @@ const Track = ({ track, onClick, dataIndex, isActive, isPlaying }: TrackProps) =
             <button
               className={`${styles.track__playButton} _playButton`}
               data-index={dataIndex}
-              onClick={(e) => onClick(e)}>
+              onClick={onClick}>
               <Icon
                 id={getPlayButtonIconId()}
                 width="1.5em" height="1.5em"
