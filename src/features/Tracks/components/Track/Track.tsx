@@ -1,24 +1,44 @@
-import React from "react";
+import React, { MouseEventHandler } from "react";
 import styles from './Track.module.scss';
 import { Link } from 'react-router-dom';
 import { TrackModel } from "@interfaces/Track";
 import Icon from "@components/Icon";
 import { iconIds } from "@utils/config/iconIds";
 
+
 interface TrackProps {
   track: TrackModel;
+  dataIndex: number;
+  isActive: boolean;
+  isPlaying: boolean;
+  onClick: MouseEventHandler<HTMLButtonElement>;
 }
 
-const Track = ({ track }: TrackProps) => {
+const Track = ({ track, onClick, dataIndex, isActive, isPlaying }: TrackProps) => {
   const blockName = 'track';
 
+  const getPlayButtonIconId = () => {
+    if (isActive && isPlaying) {
+      return iconIds.pause;
+    }
+
+    return iconIds.play
+  }
+
   return (
-    <li className={styles.tracks}>
+    <li className={`${styles.track} ${isActive ? styles.track_active : ''}`}>
       <div className={styles.track__inner}>
         <div className={styles.track__trackInfoWrapper}>
           <div className={styles.track__coverWrapper}>
-            <button className={`${styles.track__playButton} _playButton`}>
-              <Icon id={iconIds.play} width="1.5em" height="1.5em" blockName={blockName}></Icon>
+            <button
+              className={`${styles.track__playButton} _playButton`}
+              data-index={dataIndex}
+              onClick={onClick}>
+              <Icon
+                id={getPlayButtonIconId()}
+                width="1.5em" height="1.5em"
+                blockName={blockName}
+              />
             </button>
             <img className={styles.track__cover} src={`/images/covers/${track.coverUrl}`} alt={`${track.album} cover`} />
           </div>

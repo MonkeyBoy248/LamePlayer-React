@@ -1,5 +1,6 @@
 import { TrackModel } from '@/interfaces/Track';
 import { MutableRefObject, useEffect } from 'react';
+import { getTrackFullSrc } from '../helpers/getTrackFullSrc';
 
 export const usePlayCurrentTrack = (
   audio: MutableRefObject<HTMLAudioElement>,
@@ -7,16 +8,22 @@ export const usePlayCurrentTrack = (
   currentTrack: TrackModel,
 ) => {
   useEffect(() => {
-    const playCurrentTrack = async (): Promise<void> => {
-      if (!isPlaying) {
-        audio.current.pause();
+    if (!isPlaying) {
+      audio.current.pause();
 
-        return;
-      }
+      return;
+    }
 
-      await audio.current.play();
-    };
+    audio.current.play().then();
+  }, [isPlaying]);
 
-    playCurrentTrack().then();
-  }, [isPlaying, currentTrack.id]);
+  useEffect(() => {
+    if (!isPlaying) {
+      return;
+    }
+
+    audio.current.src = getTrackFullSrc(currentTrack.src);
+
+    audio.current.play().then;
+  }, [currentTrack.id])
 }
