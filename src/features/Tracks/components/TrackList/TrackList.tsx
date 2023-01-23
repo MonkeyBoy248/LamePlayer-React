@@ -6,9 +6,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/app/store';
 import { setCurrentTrackIndex, setIsPlaying } from '../../trackSlice';
 
-const TrackList = () => {
+interface TrackListProps {
+  tracks: TrackModel[];
+}
+
+const TrackList = ({tracks}: TrackListProps) => {
   const dispatch: AppDispatch = useDispatch();
-  const playlist = useSelector((state: RootState) => state.tracks.playlist);
   const currentTrackIndex = useSelector((state: RootState) => state.tracks.currentTrackIndex);
   const isPlaying = useSelector((state: RootState) => state.tracks.isPlaying);
 
@@ -26,7 +29,7 @@ const TrackList = () => {
 
   return (
     <ul className={styles.trackList}>
-      { playlist.length > 0 && playlist.map((track: TrackModel, index: number) => {
+      { tracks.length > 0 && tracks.map((track: TrackModel, index: number) => {
         return <Track
           track={track}
           isActive={index === currentTrackIndex}
