@@ -1,6 +1,6 @@
 import { RootState } from '@/app/store';
 import { TrackModel } from '@/interfaces/Track';
-import { getRecommendations } from '@/services/mockDataService';
+import { getRandomTracks } from '@/services/mockDataService';
 import RecommendationsList from "@features/Recommendations/components/RecommendationsList/RecommendationsList";
 import { Page } from "@interfaces/Page";
 import { useState, useEffect } from 'react';
@@ -25,7 +25,7 @@ const useRecommendations = () => {
   const [recommendations, setRecommendations] = useState<TrackModel[]>([]);
 
   useEffect(() => {
-    const randomTracks = getRecommendations();
+    const randomTracks = getRandomTracks();
 
     setRecommendations(randomTracks);
   }, [])
