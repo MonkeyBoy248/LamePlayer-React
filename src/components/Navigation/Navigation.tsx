@@ -12,7 +12,19 @@ const Navigation = () => {
 
   const navigationItems: NavigationItem[] = [
     {
+      title: 'Home',
+      link: '/',
+      svg: {
+        id: iconIds.home,
+        width,
+        height,
+        fill,
+        blockName,
+      }
+    },
+    {
       title: 'Tracks',
+      link: 'tracks',
       svg: {
         id: iconIds.tracks,
         width,
@@ -23,6 +35,7 @@ const Navigation = () => {
     },
     {
       title: 'Artists',
+      link: 'artists',
       svg: {
         id: iconIds.artists,
         width,
@@ -33,6 +46,7 @@ const Navigation = () => {
     },
     {
       title: 'Albums',
+      link: 'albums',
       svg: {
         id: iconIds.albums,
         width,
@@ -43,6 +57,7 @@ const Navigation = () => {
     },
     {
       title: 'Playlists',
+      link: 'playlists',
       svg: {
         id: iconIds.playlists,
         width,
@@ -53,6 +68,7 @@ const Navigation = () => {
     },
     {
       title: 'Settings',
+      link: 'settings',
       svg: {
         id: iconIds.settings,
         width,
@@ -67,7 +83,7 @@ const Navigation = () => {
     <nav className={styles.navigation}>
       <ul className={styles.navigation__navList}>
         { navigationItems.length > 0 && navigationItems.map((item) =>
-          <NavItem key={item.svg.id} title={item.title} svg={{...item.svg}} />
+          <NavItem key={item.svg.id} title={item.title} svg={{...item.svg}} link={item.link}/>
         )}
       </ul>
     </nav>
