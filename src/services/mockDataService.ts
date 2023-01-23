@@ -127,7 +127,7 @@ const mockTracks: Omit<TrackModel, 'id'>[] = [
       title: 'Vicarious',
       artist: 'Tool',
       album: '10, 000 Days',
-      coverUrl: '10, 000-days.jpg',
+      coverUrl: '10_000-days.jpg',
       src: 'Tool - Vicarious.mp3'
   },
   {
@@ -148,7 +148,7 @@ const mockTracks: Omit<TrackModel, 'id'>[] = [
       title: 'The Pot',
       artist: 'Tool',
       album: '10, 000 Days',
-      coverUrl: '10, 000-days.jpg',
+      coverUrl: '10_000-days.jpg',
       src: 'Tool - The Pot.mp3'
   },
 ];
