@@ -258,7 +258,7 @@ const mockAlbums: Omit<AlbumModel, 'id' | 'tracks'>[] = [
     {
         artist: 'Tool',
         title: '10, 000 Days',
-        coverUrl: '10, 000-days.jpg',
+        coverUrl: '10_000-days.jpg',
         releaseDate: '2006'
     },
     {
