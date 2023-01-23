@@ -16,5 +16,6 @@ export const iconIds = {
     artists: 'icon-artists',
     like: 'icon-like',
     delete: 'icon-delete',
-    repeatOne: 'icon-repeat-one'
+    repeatOne: 'icon-repeat-one',
+    home: 'icon-home'
 };
