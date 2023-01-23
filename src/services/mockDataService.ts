@@ -2,6 +2,7 @@ import { TrackModel } from "@interfaces/Track";
 import { PlaylistModel } from "@interfaces/Playlist";
 import { AlbumModel } from "@interfaces/Album";
 import { ArtistModel } from "@interfaces/Artist";
+import { getRandomElements } from '@/utils/helpers/getRandomElements';
 
 const mockTracks: Omit<TrackModel, 'id'>[] = [
   {
@@ -335,4 +336,8 @@ export const artists: ArtistModel[] = mockArtists.map((artist) => {
         tracks: getTracks('artist', artist.name)
     }
 })
+
+export const getRecommendations = () => {
+    return getRandomElements(tracks, 3);
+}
 

@@ -1,19 +1,31 @@
-import React from "react";
 import styles from './RecommendationsList.module.scss';
-import { tracks } from "@services/mockDataService";
+import { getRecommendations, tracks } from "@services/mockDataService";
 import RecommendationCard from "../RecommendationCard/RecommendationCard";
 import { TrackModel } from "@interfaces/Track";
+import { useEffect, useState } from 'react';
 
 const RecommendationsList = () => {
-  const mockRecommendations = tracks.slice(12, 15);
+ const recommendations = useRecommendations();
 
   return (
     <ul className={styles.recommendationsList}>
-      {mockRecommendations.length > 0 && mockRecommendations.map((item: TrackModel) => {
+      {recommendations.length > 0 && recommendations.map((item: TrackModel) => {
         return <RecommendationCard key={item.id} trackInfo={item} />
       })}
     </ul>
   )
+}
+
+const useRecommendations = () => {
+  const [recommendations, setRecommendations] = useState<TrackModel[]>([]);
+
+  useEffect(() => {
+    const randomTracks = getRecommendations();
+
+    setRecommendations(randomTracks);
+  }, [])
+
+  return recommendations;
 }
 
 export default RecommendationsList;
