@@ -2,6 +2,7 @@ import { TrackModel } from "@interfaces/Track";
 import { PlaylistModel } from "@interfaces/Playlist";
 import { AlbumModel } from "@interfaces/Album";
 import { ArtistModel } from "@interfaces/Artist";
+import { getRandomElements } from '@/utils/helpers/getRandomElements';
 
 const mockTracks: Omit<TrackModel, 'id'>[] = [
   {
@@ -127,7 +128,7 @@ const mockTracks: Omit<TrackModel, 'id'>[] = [
       title: 'Vicarious',
       artist: 'Tool',
       album: '10, 000 Days',
-      coverUrl: '10, 000-days.jpg',
+      coverUrl: '10_000-days.jpg',
       src: 'Tool - Vicarious.mp3'
   },
   {
@@ -148,7 +149,7 @@ const mockTracks: Omit<TrackModel, 'id'>[] = [
       title: 'The Pot',
       artist: 'Tool',
       album: '10, 000 Days',
-      coverUrl: '10, 000-days.jpg',
+      coverUrl: '10_000-days.jpg',
       src: 'Tool - The Pot.mp3'
   },
 ];
@@ -257,7 +258,7 @@ const mockAlbums: Omit<AlbumModel, 'id' | 'tracks'>[] = [
     {
         artist: 'Tool',
         title: '10, 000 Days',
-        coverUrl: '10, 000-days.jpg',
+        coverUrl: '10_000-days.jpg',
         releaseDate: '2006'
     },
     {
@@ -335,4 +336,10 @@ export const artists: ArtistModel[] = mockArtists.map((artist) => {
         tracks: getTracks('artist', artist.name)
     }
 })
+
+export const getRandomTracks = () => {
+    const amountOfTracks = 3;
+
+    return getRandomElements(tracks, amountOfTracks);
+}
 
