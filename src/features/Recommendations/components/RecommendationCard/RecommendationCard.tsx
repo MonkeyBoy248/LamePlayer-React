@@ -1,4 +1,3 @@
-import React, { MouseEventHandler } from "react";
 import Icon from "@components/Icon";
 import { TrackModel } from "@interfaces/Track";
 import { iconIds } from "@utils/config/iconIds";
