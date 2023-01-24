@@ -8,9 +8,6 @@
   background-color: rgba(32, 31, 31, .95);
 
   button {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
     opacity: 0.7;
     transition: opacity .2s ease-in-out;
 
@@ -69,14 +66,13 @@
   &__mainControls {
     display: flex;
     align-items: center;
-    gap: 1.25em;
+    gap: 2em;
   }
 
   &__trackInfo {
     display: flex;
     align-items: center;
     gap: 1em;
-    margin-left: 0.75em;
   }
 
   &__trackCoverWrapper {
@@ -113,7 +109,7 @@
   &__secondaryControls {
     display: flex;
     align-items: center;
-    gap: 1em;
+    gap: 1.5em;
   }
 
   &__timeInfo {
