@@ -4,4 +4,5 @@ export interface Svg {
   width: string;
   height: string;
   fill?: string;
+  stroke?: string;
 }
