@@ -1,27 +1,53 @@
+import { AppDispatch, RootState } from '@/app/store';
+import { addToFavorites, removeFromFavorites } from '@/features/Playlists/playlistsSlice';
+import { TrackModel } from '@/interfaces/Track';
 import { iconIds } from '@/utils/config/iconIds';
-import React from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import Icon from './Icon';
-import { IconButton } from './IconButton';
 
 interface FavoritesButtonProps {
   height: string;
   width: string;
-  fill?: string;
   stroke?: string;
   blockName: string;
+  className: string;
+  track: TrackModel
 }
 
-export const FavoritesButton = ({ height, width, blockName, fill, stroke }: FavoritesButtonProps) => {
+export const FavoritesButton = (
+  {
+    height,
+    width,
+    blockName,
+    stroke,
+    className,
+    track
+  }: FavoritesButtonProps
+  ) => {
+  const dispatch: AppDispatch = useDispatch();
+  const favorites = useSelector((state: RootState) => state.playlists.favorites);
+  const inFavorites = favorites.tracks.findIndex((favorite) => favorite.id === track.id) !== -1;
+
+  const updateFavorites = () => {
+    if (inFavorites) {
+      dispatch(removeFromFavorites(track.id));
+
+      return;
+    }
+
+    dispatch(addToFavorites(track))
+  }
+
   return (
-      <IconButton
-        className={`${blockName}__favoritesButton`}
-        iconId={iconIds.like}
-        width={width}
+    <button className={className} onClick={updateFavorites}>
+      <Icon
+        id={iconIds.like}
         height={height}
-        blockName={blockName}
-        fill={fill}
+        width={width}
+        fill={inFavorites ? '#0FA750' : '#E5E5E5'}
         stroke={stroke}
-        onClick={(e) => console.log(e)}
+        blockName={blockName}
       />
+    </button>
   )
 }
