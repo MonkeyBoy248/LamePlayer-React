@@ -5,15 +5,16 @@ import { PayloadAction } from "@reduxjs/toolkit";
 import { getItemFromLocalStorage, setItemToLocalStorage } from "@utils/helpers/localStorage";
 
 export interface TrackState {
-  playlist: TrackModel[],
+  tracklist: TrackModel[],
   currentTrackIndex: number;
   isPlaying: boolean;
 }
 
 const currentTrackKey = 'currentTrackIndex';
+const tracklistKey = 'tracklist';
 
 export const trackSlice = createSlice({
-  name: 'track',
+  name: 'tracks',
   initialState: getInitialState(),
   reducers: {
     setCurrentTrackIndex: (state, action: PayloadAction<number>) => {
@@ -25,23 +26,20 @@ export const trackSlice = createSlice({
 
     setIsPlaying: (state, action: PayloadAction<boolean>) => {
       state.isPlaying = action.payload;
-    },
-
-    setCurrentPlayList: (state, action: PayloadAction<TrackModel[]>) => {
-      state.playlist = action.payload;
     }
   }
 })
 
 function getInitialState (): TrackState {
   const currentTrackIndex = getItemFromLocalStorage<number>(currentTrackKey) ?? 0;
+  const tracklist = getItemFromLocalStorage<TrackModel[]>(tracklistKey) ?? tracks;
 
   return {
     currentTrackIndex,
-    playlist: tracks,
+    tracklist,
     isPlaying: false,
   }
 }
 
-export const { setCurrentTrackIndex, setIsPlaying, setCurrentPlayList } = trackSlice.actions;
+export const { setCurrentTrackIndex, setIsPlaying } = trackSlice.actions;
 export default trackSlice.reducer;

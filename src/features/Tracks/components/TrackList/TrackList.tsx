@@ -4,7 +4,7 @@ import styles from './TrackList.module.scss';
 import { TrackModel } from '@interfaces/Track'
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/app/store';
-import { setCurrentTrackIndex, setIsPlaying } from '../../trackSlice';
+import { setCurrentTrackIndex, setIsPlaying } from '../../tracksSlice';
 
 interface TrackListProps {
   tracks: TrackModel[];

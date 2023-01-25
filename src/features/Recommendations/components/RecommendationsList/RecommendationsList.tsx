@@ -1,7 +1,7 @@
 import styles from './RecommendationsList.module.scss';
 import RecommendationCard from "../RecommendationCard/RecommendationCard";
 import { TrackModel } from "@interfaces/Track";
-import { setCurrentTrackIndex, setIsPlaying } from '@/features/Tracks/trackSlice';
+import { setCurrentTrackIndex, setIsPlaying } from '@/features/Tracks/tracksSlice';
 import { AppDispatch, RootState } from '@/app/store';
 import { useDispatch, useSelector } from 'react-redux';
 

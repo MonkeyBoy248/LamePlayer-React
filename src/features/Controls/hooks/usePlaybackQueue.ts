@@ -1,5 +1,5 @@
 import { AppDispatch } from '@/app/store';
-import { setCurrentTrackIndex } from '@/features/Tracks/trackSlice';
+import { setCurrentTrackIndex } from '@/features/Tracks/tracksSlice';
 import { TrackModel } from '@/interfaces/Track';
 import { getRandomIndex } from '@/utils/helpers/getRandomIndex';
 import { MutableRefObject, useCallback, useEffect, useState } from 'react';

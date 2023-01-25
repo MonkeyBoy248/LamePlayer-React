@@ -1,10 +1,9 @@
-import { MouseEvent, useCallback } from 'react';
-import Icon from '@components/Icon';
+import { useCallback } from 'react';
 import styles from './MainControls.module.scss';
 import { iconIds } from '@utils/config/iconIds';
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/app/store";
-import { setIsPlaying } from '@features/Tracks/trackSlice';
+import { setIsPlaying } from '@/features/Tracks/tracksSlice';
 import VolumeControls from '../VolumeControls/VolumeControls';
 import { TrackProgress } from '../TrackProgress/TrackProgress';
 import { useInitAudioControls } from '../../hooks/useInitAudioControls';
@@ -138,7 +137,8 @@ const MainControls = () => {
               </div>
           </div>
           <FavoritesButton
-            fill='#E5E5E5'
+            className={styles.controls__favoritesButton}
+            track={currentTrack}
             width='2em'
             height='2em'
             blockName={blockName}/>
