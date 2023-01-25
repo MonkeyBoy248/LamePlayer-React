@@ -4,5 +4,5 @@ export interface TrackModel {
   artist: string;
   album?: string;
   src: string;
-  coverUrl?: string;
+  coverUrl: string;
 }
