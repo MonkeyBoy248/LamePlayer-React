@@ -9,7 +9,7 @@ import styles from './Home.module.scss';
 
 const Home = ({ title }: Page) => {
   const recommendations = useRecommendations();
-  const trackList = useSelector((state: RootState) => state.tracks.playlist);
+  const trackList = useSelector((state: RootState) => state.tracks.tracklist);
 
   return (
     <section className={styles.home}>

@@ -8,7 +8,7 @@ interface TracksProps {
 }
 
 const Tracks = ({ title }: TracksProps ) => {
-  const tracks = useSelector((state: RootState) => state.tracks.playlist);
+  const tracks = useSelector((state: RootState) => state.tracks.tracklist);
 
   return (
     <section className={styles.tracks}>
