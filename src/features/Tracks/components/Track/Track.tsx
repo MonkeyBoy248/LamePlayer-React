@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { TrackModel } from "@interfaces/Track";
 import Icon from "@components/Icon";
 import { iconIds } from "@utils/config/iconIds";
+import { FavoritesButton } from '@/components/FavoritesButton';
 
 
 interface TrackProps {
@@ -48,9 +49,13 @@ const Track = ({ track, onClick, dataIndex, isActive, isPlaying }: TrackProps) =
             </div>
           </div>
           <div className={styles.track__controlsWrapper}>
-            <button className={styles.track__addToFavoritesButton}>
-              <Icon id={iconIds.like} width='1.5em' height='1.5em' blockName={blockName} fill='#E5E5E5'></Icon>
-            </button>
+            <FavoritesButton
+              className={styles.track__addToFavoritesButton}
+              width='1.5em'
+              height='1.5em'
+              blockName={blockName}
+              track={track}
+              />
             <button className={styles.track__deleteButton}>
               <Icon id={iconIds.delete} width='1.5em' height='1.5em' blockName={blockName} fill='#E5E5E5'></Icon>
             </button>
