@@ -10,7 +10,6 @@ interface Playlists {
 }
 
 export interface PlaylistsState {
-  currentPlaylist: TrackModel[];
   playlists: Playlists;
   favorites: PlaylistModel;
 }
@@ -22,13 +21,10 @@ export const playlistsSlice = createSlice({
   name: 'playlists',
   initialState: getInitialState(),
   reducers: {
-    setCurrentPlayList: (state, action: PayloadAction<TrackModel[]>) => {
-      state.currentPlaylist = action.payload;
-    },
-
     addToFavorites: (state, action: PayloadAction<TrackModel>) => {
       state.favorites.tracks.push(action.payload)
       state.favorites.dateOfUpdate = Date.now();
+      state.favorites.coverUrl = action.payload.coverUrl;
 
       setItemToLocalStorage('favorites', state.favorites)
     },
@@ -36,6 +32,17 @@ export const playlistsSlice = createSlice({
     removeFromFavorites: (state, action: PayloadAction<string>) => {
       state.favorites.tracks = state.favorites.tracks.filter((track) => track.id !== action.payload);
       state.favorites.dateOfUpdate = Date.now();
+
+      const favoritesTracksLength = state.favorites.tracks.length;
+
+      if (favoritesTracksLength === 0) {
+        state.favorites.coverUrl = 'favorites-placeholder.jpg';
+
+        return;
+      }
+
+      const lastFavoritesTrack = state.favorites.tracks[favoritesTracksLength - 1];
+      state.favorites.coverUrl = lastFavoritesTrack.coverUrl;
 
       setItemToLocalStorage('favorites', state.favorites)
     }
@@ -49,9 +56,8 @@ function getInitialState (): PlaylistsState {
   return {
     playlists,
     favorites,
-    currentPlaylist: []
   }
 }
 
-export const { setCurrentPlayList, addToFavorites, removeFromFavorites } = playlistsSlice.actions;
+export const { addToFavorites, removeFromFavorites } = playlistsSlice.actions;
 export default playlistsSlice.reducer;
