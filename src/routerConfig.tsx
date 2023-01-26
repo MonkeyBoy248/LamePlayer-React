@@ -3,6 +3,7 @@ import App from './App';
 import Albums from './pages/Albums/Albums';
 import Artists from './pages/Artists/Artists';
 import Home from './pages/Home/Home';
+import { Playlist } from './pages/Playlist/Playlist';
 import PlaylistsPage from './pages/Playlists/PlaylistsPage';
 import Tracks from './pages/Tracks/Tracks';
 
@@ -30,6 +31,10 @@ export const router = createBrowserRouter([
       {
         path: 'artists',
         element: <Artists title={'Artists'} />
+      },
+      {
+        path: 'playlist/:id',
+        element: <Playlist/>
       }
     ]
   },
