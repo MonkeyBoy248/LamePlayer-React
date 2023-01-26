@@ -1,13 +1,13 @@
-import { RootState } from '@/app/store';
+import { selectAllTracks, selectCurrentTrack, selectPlayingStatus } from '@/features/Tracks/selectors';
 import { TrackModel } from '@/interfaces/Track';
 import { useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { getTrackFullSrc } from '../helpers/getTrackFullSrc';
 
 export const useInitAudioControls = () => {
-  const playlist: TrackModel[] = useSelector((state: RootState) => state.tracks.tracklist);
-  const currentTrack: TrackModel = useSelector((state: RootState) => playlist[state.tracks.currentTrackIndex]);
-  const isPlaying: boolean = useSelector((state: RootState) => state.tracks.isPlaying);
+  const playlist: TrackModel[] = useSelector(selectAllTracks);
+  const currentTrack: TrackModel = useSelector(selectCurrentTrack);
+  const isPlaying: boolean = useSelector(selectPlayingStatus);
   const audioRef = useRef<HTMLAudioElement>(new Audio(getTrackFullSrc(currentTrack.src)));
 
   return {
