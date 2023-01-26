@@ -1,12 +1,13 @@
-import styles from './Playlist.module.scss';
+import styles from './PlaylistCard.module.scss';
 import { Link } from 'react-router-dom';
 import { PlaylistModel } from "@interfaces/Playlist";
+import { getUpdateTime } from '../../helpers/getUpdateTime';
 
-interface PlaylistProps {
+interface PlaylistCardProps {
   playlist: PlaylistModel;
 }
 
-const Playlist = ({ playlist }: PlaylistProps) => {
+const PlaylistCard = ({ playlist }: PlaylistCardProps) => {
   const getTracksAmount = () => {
     const tracksAmount = playlist.tracks.length;
 
@@ -14,17 +15,13 @@ const Playlist = ({ playlist }: PlaylistProps) => {
   }
 
   const getPlaylistCover = () => {
-    if (playlist.coverUrl) {
-      return playlist.coverUrl;
-    }
-
     const playlistTracksAmount = playlist.tracks.length;
 
     if (playlistTracksAmount > 0) {
       return playlist.tracks[playlistTracksAmount - 1].coverUrl;
     }
 
-    return 'favorites-placeholder.jpg';
+    return playlist.coverUrl;
   }
 
   return (
@@ -34,10 +31,11 @@ const Playlist = ({ playlist }: PlaylistProps) => {
           <img className={styles.playlist__cover} src={`/images/covers/${getPlaylistCover()}`} alt={`${playlist.name} cover`} />
         </div>
         <h3 className={`${styles.playlist__title} _itemTitle`}>{playlist.name}</h3>
-        <p className={styles.playlist__tracksAmount}>{getTracksAmount()}</p>
+        <p className={`${styles.playlist__tracksAmount} ${styles.playlist__infoText}`}>{getTracksAmount()}</p>
+        <p className={`${styles.playlist__updateTime} ${styles.playlist__infoText}`}>{`Last update: ${getUpdateTime(playlist.dateOfUpdate)}`}</p>
       </Link>
     </li>
   )
 }
 
-export default Playlist;
+export default PlaylistCard;

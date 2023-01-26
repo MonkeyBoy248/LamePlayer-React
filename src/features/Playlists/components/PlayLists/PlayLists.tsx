@@ -1,5 +1,5 @@
 import { PlaylistModel } from '@interfaces/Playlist';
-import Playlist from '../Playlist/Playlist';
+import PlaylistCard from '../PlaylistCard/PlaylistCard';
 import styles from './PlayLists.module.scss';
 
 
@@ -14,9 +14,9 @@ const PlayLists = ({ playlists, favorites }: PlaylistsProps) => {
       <li className={styles.playlists__createPlaylist}>
         <button className={styles.playlists__createPlaylistButton}>+</button>
       </li>
-      <Playlist  playlist={favorites}/>
+      <PlaylistCard  playlist={favorites}/>
       { playlists.length > 0 && playlists.map((playlist) => {
-        return <Playlist key={playlist.id} playlist={playlist}/>
+        return <PlaylistCard key={playlist.id} playlist={playlist}/>
       }) }
     </ul>
   )
