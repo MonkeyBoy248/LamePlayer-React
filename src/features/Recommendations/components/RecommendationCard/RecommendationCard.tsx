@@ -23,7 +23,7 @@ const RecommendationCard = ({ trackInfo, onClick, isActive, isPlaying }: Recomme
   return (
     <li className={styles.recommendationCard}>
       <div className={styles.recommendationCard__inner} style={{backgroundImage: `url(images/covers/${trackInfo.coverUrl})` }}>
-        <button className={styles.recommendationCard__playButton} onClick={() => onClick(trackInfo.id)}>
+        <button className={`${styles.recommendationCard__playButton} _playButton`} onClick={() => onClick(trackInfo.id)}>
           <Icon id={getPlayButtonIconId()} width='2em' height='2em' blockName='recommendationCard' fill='#000000' />
         </button>
         <div className={styles.recommendationCard__trackInfoWrapper}>
