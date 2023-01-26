@@ -29,7 +29,7 @@ const TrackList = ({tracks}: TrackListProps) => {
 
   return (
     <ul className={styles.trackList}>
-      { tracks.length > 0 && tracks.map((track: TrackModel, index: number) => {
+      { tracks.map((track: TrackModel, index: number) => {
         return <Track
           track={track}
           isActive={index === currentTrackIndex}
