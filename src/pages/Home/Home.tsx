@@ -12,7 +12,7 @@ const Home = ({ title }: Page) => {
   const trackList = useSelector((state: RootState) => state.tracks.tracklist);
 
   return (
-    <section className={styles.home}>
+    <section className={`${styles.home} _page`}>
       <div className={`${styles.home__inner} _container`}>
         <h2 className={`${styles.home__pageTitle} _pageTitle`}>{title}</h2>
         <RecommendationsList recommendationTracks={recommendations} trackList={trackList} />

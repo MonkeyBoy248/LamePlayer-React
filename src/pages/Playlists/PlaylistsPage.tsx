@@ -10,7 +10,7 @@ const PlaylistsPage = ({ title }: Page) => {
   const playlists = Object.values(playlistsMap);
 
   return (
-    <section className={styles.playlistsPage}>
+    <section className={`${styles.playlistsPage} _page`}>
       <div className={`${styles.playlistsPage__inner} _container`}>
         <h2 className={`${styles.playlistsPage__title} _pageTitle`}>{title}</h2>
         <PlayLists playlists={playlists} favorites={favorites}></PlayLists>

@@ -40,7 +40,6 @@ button {
 }
 
 ._container {
-  max-width: 1440px;
   width: 100%;
   padding-inline: 1.5em;
 }
@@ -54,11 +53,7 @@ button {
 ._playButton {
   width: 2.5em;
   height: 2.5em;
-  position: absolute;
   border-radius: 50%;
-  top: 50%;
-  left: 50%;
-  translate: -50% -50%;
   border: none;
   background-color: colors.$accent;
   display: flex;
@@ -67,4 +62,13 @@ button {
   cursor: pointer;
   opacity: 0;
   transition: .1s ease-in-out;
+}
+
+._page {
+  flex-grow: 1;
+  margin-bottom: 150px;
+
+  h2 {
+    color: colors.$text
+  }
 }

@@ -6,7 +6,7 @@ import styles from './Artists.module.scss';
 
 const Artists = ({ title }: Page) => {
   return (
-    <section className={styles.artists}>
+    <section className={`${styles.artists} _page`}>
       <div className={`${styles.artists__inner} _container`}>
         <h2 className={`${styles.artists__pageTitle} _pageTitle`}>{title}</h2>
         { artists.length > 0 ?
