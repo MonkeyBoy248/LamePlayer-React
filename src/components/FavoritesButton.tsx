@@ -9,7 +9,6 @@ interface FavoritesButtonProps {
   height: string;
   width: string;
   stroke?: string;
-  blockName: string;
   className: string;
   track: TrackModel
 }
@@ -18,7 +17,6 @@ export const FavoritesButton = (
   {
     height,
     width,
-    blockName,
     stroke,
     className,
     track
@@ -46,7 +44,6 @@ export const FavoritesButton = (
         width={width}
         fill={inFavorites ? '#0FA750' : '#E5E5E5'}
         stroke={stroke}
-        blockName={blockName}
       />
     </button>
   )

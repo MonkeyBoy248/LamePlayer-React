@@ -53,7 +53,6 @@ const Track = ({ track, onClick, dataIndex, isActive, isPlaying }: TrackProps) =
               className={styles.track__addToFavoritesButton}
               width='1.5em'
               height='1.5em'
-              blockName={blockName}
               track={track}
               />
             <button className={styles.track__deleteButton}>

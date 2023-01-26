@@ -15,7 +15,6 @@ import { FavoritesButton } from '@/components/FavoritesButton';
 import { IconButton } from '@/components/IconButton';
 
 const MainControls = () => {
-  const blockName = 'controls'
   const dispatch: AppDispatch = useDispatch();
   const {
     playlist,
@@ -85,7 +84,6 @@ const MainControls = () => {
               fill={'#E5E5E5'}
               width='1.5em'
               height='1.5em'
-              blockName={blockName}
               isDisabled={!isShuffled && isDisabled(0)}
               onClick={previousTrack}
             />
@@ -95,7 +93,6 @@ const MainControls = () => {
               fill='#E5E5E5'
               width='2em'
               height='2em'
-              blockName={blockName}
               isDisabled={!isShuffled && isDisabled(playlist.length - 1)}
               onClick={() => dispatch(setIsPlaying(!isPlaying))}
             />
@@ -105,7 +102,6 @@ const MainControls = () => {
               fill={'#E5E5E5'}
               width='1.5em'
               height='1.5em'
-              blockName={blockName}
               isDisabled={!isShuffled && isDisabled(playlist.length - 1)}
               onClick={nextTrack}
             />
@@ -115,7 +111,6 @@ const MainControls = () => {
               fill={ isLooped ? '#0FA750' : '#E5E5E5'}
               width='2em'
               height='2em'
-              blockName={blockName}
               onClick={toggleLoopStatus}
             />
           <IconButton
@@ -124,12 +119,11 @@ const MainControls = () => {
               fill='#E5E5E5'
               width='2em'
               height='2em'
-              blockName={blockName}
               onClick={(e) => console.log(e.target)}
             />
             <div className={styles.controls__trackInfo}>
               <figure className={styles.controls__trackCoverWrapper}>
-                <img src={ `images/covers/${currentTrack.coverUrl }` } alt={ currentTrack.src }/>
+                <img src={`/images/covers/${currentTrack.coverUrl }`} alt={ currentTrack.src }/>
               </figure>
               <div className={styles.controls__trackDetails}>
                 <p className={`${styles.controls__trackTitle} _text`}>{ currentTrack.title }</p>
@@ -140,8 +134,7 @@ const MainControls = () => {
             className={styles.controls__favoritesButton}
             track={currentTrack}
             width='2em'
-            height='2em'
-            blockName={blockName}/>
+            height='2em'/>
         </div>
         <div className={styles.controls__secondaryControls}>
           <IconButton
@@ -149,7 +142,6 @@ const MainControls = () => {
             fill='#E5E5E5'
             width='2em'
             height='2em'
-            blockName={blockName}
             className={styles.controls__optionsButton}
             onClick={(e) => console.log(e.target)} />
           <IconButton
@@ -158,7 +150,6 @@ const MainControls = () => {
             fill={ isShuffled ? '#0FA750' : '#E5E5E5'}
             width='2em'
             height='2em'
-            blockName={blockName}
             onClick={toggleShuffleStatus}
             />
           <VolumeControls

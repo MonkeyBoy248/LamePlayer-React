@@ -7,7 +7,6 @@ interface IconButtonProps {
   width: string;
   fill?: string;
   stroke?: string;
-  blockName: string;
   className: string;
   onClick: MouseEventHandler<HTMLButtonElement>;
   isDisabled?: boolean;
@@ -20,7 +19,6 @@ export const IconButton = (
     width,
     fill,
     stroke,
-    blockName,
     className,
     isDisabled,
     onClick
@@ -33,7 +31,6 @@ export const IconButton = (
         width={width}
         fill={fill}
         stroke={stroke}
-        blockName={blockName}
       />
     </button>
   )
