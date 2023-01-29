@@ -17,5 +17,6 @@ export const iconIds = {
     like: 'icon-like',
     delete: 'icon-delete',
     repeatOne: 'icon-repeat-one',
-    home: 'icon-home'
+    home: 'icon-home',
+    search: 'icon-search'
 };
