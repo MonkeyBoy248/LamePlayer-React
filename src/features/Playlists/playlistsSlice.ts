@@ -38,6 +38,8 @@ export const playlistsSlice = createSlice({
       if (favoritesTracksLength === 0) {
         state.favorites.coverUrl = 'favorites-placeholder.jpg';
 
+        setItemToLocalStorage('favorites', state.favorites)
+
         return;
       }
 
