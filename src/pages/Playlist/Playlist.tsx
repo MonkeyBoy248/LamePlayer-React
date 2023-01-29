@@ -1,10 +1,14 @@
 import { RootState } from '@/app/store'
 import { IconButton } from '@/components/IconButton'
+import { SearchBar } from '@/components/SearchBar/SearchBar'
 import { getTracksAmount } from '@/features/Playlists/helpers/getTracksAmount'
 import { getUpdateTime } from '@/features/Playlists/helpers/getUpdateTime'
 import { selectPlaylistById } from '@/features/Playlists/selectors'
 import TrackList from '@/features/Tracks/components/TrackList/TrackList'
+import { TrackModel } from '@/interfaces/Track'
 import { iconIds } from '@/utils/config/iconIds'
+import { filterArrayByKeys } from '@/utils/helpers/filterArrayByKeys'
+import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import styles from './Playlist.module.scss'
@@ -12,9 +16,23 @@ import styles from './Playlist.module.scss'
 export const Playlist = () => {
   const { id } = useParams();
   const playlist = useSelector((state: RootState) => selectPlaylistById(state, id!));
+  const [searchResults, setSearchResults] = useState<TrackModel[]>(playlist.tracks);
 
   const getDateOfCreation = (): string => {
     return new Date(playlist.dateOfCreation).toLocaleDateString();
+  }
+
+  const searchTrack = (e: React.FormEvent<HTMLInputElement>) => {
+    const searchTerm = e.currentTarget.value;
+    const filteredArray = filterArrayByKeys(playlist.tracks, ['artist', 'title'], searchTerm);
+
+    if (!searchTerm) {
+      setSearchResults(playlist.tracks);
+
+      return;
+    }
+
+    setSearchResults(filteredArray);
   }
 
   return (
@@ -35,6 +53,7 @@ export const Playlist = () => {
           </div>
           <div className={styles.playlist__controls}>
             <IconButton
+              isDisabled={playlist.tracks.length === 0}
               iconId={iconIds.play}
               height='2em'
               width='2em'
@@ -52,8 +71,8 @@ export const Playlist = () => {
           </div>
         </div>
       </header>
-      <input type="text" />
-      <TrackList tracks={playlist.tracks}/>
+      <SearchBar onInput={searchTrack}/>
+      <TrackList tracks={searchResults}/>
       </div>
     </section>
   )
