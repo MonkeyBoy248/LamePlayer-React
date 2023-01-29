@@ -18,5 +18,6 @@ export const iconIds = {
     delete: 'icon-delete',
     repeatOne: 'icon-repeat-one',
     home: 'icon-home',
-    search: 'icon-search'
+    search: 'icon-search',
+    empty: 'icon-empty'
 };
