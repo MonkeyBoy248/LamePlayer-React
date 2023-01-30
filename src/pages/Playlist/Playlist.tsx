@@ -1,4 +1,4 @@
-import { RootState } from '@/app/store'
+import { AppDispatch, RootState } from '@/app/store'
 import { EmptyMessage } from '@/components/EmptyMessage/EmptyMessage'
 import { IconButton } from '@/components/IconButton'
 import { SearchBar } from '@/components/SearchBar/SearchBar'
@@ -6,14 +6,16 @@ import { getTracksAmount } from '@/features/Playlists/helpers/getTracksAmount'
 import { getUpdateTime } from '@/features/Playlists/helpers/getUpdateTime'
 import { selectPlaylistById } from '@/features/Playlists/selectors'
 import TrackList from '@/features/Tracks/components/TrackList/TrackList'
+import { setCurrentTrackIndex, setPlaybackQueue } from '@/features/Tracks/tracksSlice'
 import { iconIds } from '@/utils/config/iconIds'
 import { filterArrayByKeys } from '@/utils/helpers/filterArrayByKeys'
 import { useMemo, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import styles from './Playlist.module.scss'
 
 export const Playlist = () => {
+  const dispatch: AppDispatch = useDispatch();
   const { id } = useParams();
   const playlist = useSelector((state: RootState) => selectPlaylistById(state, id!));
   const [searchTerm, setSearchTerm] = useState<string>('');
@@ -21,7 +23,7 @@ export const Playlist = () => {
     if (!searchTerm) {
       return playlist.tracks;
     }
-    
+
     return filterArrayByKeys(playlist.tracks, ['artist', 'title'], searchTerm);
   }, [searchTerm, playlist.tracks])
 
@@ -39,6 +41,11 @@ export const Playlist = () => {
     }
 
     return <TrackList tracks={searchResults}/>
+  }
+
+  const runPlayllist = () => {
+    dispatch(setPlaybackQueue(playlist.tracks));
+    dispatch(setCurrentTrackIndex(0));
   }
 
   return (
@@ -64,14 +71,23 @@ export const Playlist = () => {
               height='2em'
               width='2em'
               className={`${styles.playlist__playButton} _playButton`}
+              onClick={runPlayllist}
+            />
+            <IconButton
+              iconId={iconIds.playbackQueue}
+              isDisabled={playlist.tracks.length === 0}
+              height='2em'
+              width='2em'
+              fill={playlist.tracks.length === 0 ? '#565656' : '#E5E5E5'}
+              className={styles.playlist__addToPlayback}
               onClick={(e) => console.log(e.target)}
             />
             <IconButton
-              iconId={iconIds.dots}
-              height='2em'
-              width='2em'
+              iconId={iconIds.delete}
+              height='1.5em'
+              width='1.5em'
               fill='#E5E5E5'
-              className={styles.playlist__optionsn}
+              className={styles.playlist__delete}
               onClick={(e) => console.log(e.target)}
             />
           </div>
