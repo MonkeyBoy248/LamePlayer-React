@@ -1,0 +1,40 @@
+@use '../../styles/palette' as colors;
+
+.searchBar {
+  display: flex;
+  align-items: center;
+  max-width: 900px;
+  opacity: 0.8;
+  margin-bottom: 0.75rem;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  &:focus-within {
+    outline: 2px solid colors.$accent;
+    opacity: 1;
+  }
+
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-inline: 0.75rem;
+  }
+
+  &__input {
+    padding: 0.75rem 2rem 0.75rem 0;
+    width: 100%;
+    border-radius: 0.25rem;
+    border: none;
+    font-size: 1rem;
+    background-color: transparent;
+    color: colors.$text;
+    font-family: Montserrat, Arial, Helvetica, sans-serif;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}

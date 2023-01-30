@@ -59,7 +59,7 @@ const Navigation = () => {
       title: 'Playlists',
       link: 'playlists',
       svg: {
-        id: iconIds.playlists,
+        id: iconIds.playbackQueue,
         width,
         height,
         fill,

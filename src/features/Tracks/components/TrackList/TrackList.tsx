@@ -4,7 +4,8 @@ import styles from './TrackList.module.scss';
 import { TrackModel } from '@interfaces/Track'
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/app/store';
-import { setCurrentTrackIndex, setIsPlaying } from '../../trackSlice';
+import { setCurrentTrackIndex, setIsPlaying, setPlaybackQueue } from '../../tracksSlice';
+import { selectCurrentTrack } from '../../selectors';
 
 interface TrackListProps {
   tracks: TrackModel[];
@@ -13,10 +14,12 @@ interface TrackListProps {
 const TrackList = ({tracks}: TrackListProps) => {
   const dispatch: AppDispatch = useDispatch();
   const currentTrackIndex = useSelector((state: RootState) => state.tracks.currentTrackIndex);
+  const currentTrack = useSelector(selectCurrentTrack);
   const isPlaying = useSelector((state: RootState) => state.tracks.isPlaying);
 
   const setCurrentTrack = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const trackItemIndex = Number(e.currentTarget.dataset.index);
+    dispatch(setPlaybackQueue(tracks));
 
     if (currentTrackIndex === trackItemIndex) {
       dispatch(setIsPlaying(!isPlaying));
@@ -29,10 +32,10 @@ const TrackList = ({tracks}: TrackListProps) => {
 
   return (
     <ul className={styles.trackList}>
-      { tracks.length > 0 && tracks.map((track: TrackModel, index: number) => {
+      { tracks.map((track: TrackModel, index: number) => {
         return <Track
           track={track}
-          isActive={index === currentTrackIndex}
+          isActive={currentTrack.id === track.id}
           dataIndex={index}
           key={track.id}
           isPlaying={isPlaying}

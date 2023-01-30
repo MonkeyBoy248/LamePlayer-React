@@ -1,7 +1,7 @@
 export const iconIds = {
     tracks: 'icon-tracks',
     albums: 'icon-albums',
-    playlists: 'icon-playlists',
+    playbackQueue: 'icon-playback-queue',
     settings: 'icon-settings',
     play: 'icon-play',
     pause: 'icon-pause',
@@ -17,5 +17,7 @@ export const iconIds = {
     like: 'icon-like',
     delete: 'icon-delete',
     repeatOne: 'icon-repeat-one',
-    home: 'icon-home'
+    home: 'icon-home',
+    search: 'icon-search',
+    empty: 'icon-empty'
 };
