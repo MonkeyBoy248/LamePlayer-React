@@ -4,7 +4,7 @@ import { IconButton } from '@/components/IconButton'
 import { SearchBar } from '@/components/SearchBar/SearchBar'
 import { getTracksAmount } from '@/features/Playlists/helpers/getTracksAmount'
 import { getUpdateTime } from '@/features/Playlists/helpers/getUpdateTime'
-import { selectPlaylistById } from '@/features/Playlists/selectors'
+import { selectFavoritesId, selectPlaylistById } from '@/features/Playlists/selectors'
 import TrackList from '@/features/Tracks/components/TrackList/TrackList'
 import { setCurrentTrackIndex, setPlaybackQueue } from '@/features/Tracks/tracksSlice'
 import { iconIds } from '@/utils/config/iconIds'
@@ -18,6 +18,7 @@ export const Playlist = () => {
   const dispatch: AppDispatch = useDispatch();
   const { id } = useParams();
   const playlist = useSelector((state: RootState) => selectPlaylistById(state, id!));
+  const favoritesId = useSelector(selectFavoritesId);
   const [searchTerm, setSearchTerm] = useState<string>('');
   const searchResults = useMemo(() => {
     if (!searchTerm) {
@@ -41,6 +42,10 @@ export const Playlist = () => {
     }
 
     return <TrackList tracks={searchResults}/>
+  }
+
+  const canBeDeleted = () => {
+    return playlist.id !== favoritesId;
   }
 
   const runPlayllist = () => {
@@ -82,14 +87,16 @@ export const Playlist = () => {
               className={styles.playlist__addToPlayback}
               onClick={(e) => console.log(e.target)}
             />
-            <IconButton
-              iconId={iconIds.delete}
-              height='1.5em'
-              width='1.5em'
-              fill='#E5E5E5'
-              className={styles.playlist__delete}
-              onClick={(e) => console.log(e.target)}
-            />
+            {
+              canBeDeleted() && <IconButton
+                iconId={iconIds.delete}
+                height='1.5em'
+                width='1.5em'
+                fill='#E5E5E5'
+                className={styles.playlist__delete}
+                onClick={(e) => console.log(e.target)}
+              />
+            }
           </div>
         </div>
       </header>

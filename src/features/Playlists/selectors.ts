@@ -7,3 +7,5 @@ export const selectPlaylistById = (state: RootState, id: string) => {
 
   return state.playlists.playlists[id!];
 }
+
+export const selectFavoritesId = (state: RootState) => state.playlists.favorites.id;
