@@ -1,14 +1,14 @@
 import { RootState } from '@/app/store'
+import { EmptyMessage } from '@/components/EmptyMessage/EmptyMessage'
 import { IconButton } from '@/components/IconButton'
 import { SearchBar } from '@/components/SearchBar/SearchBar'
 import { getTracksAmount } from '@/features/Playlists/helpers/getTracksAmount'
 import { getUpdateTime } from '@/features/Playlists/helpers/getUpdateTime'
 import { selectPlaylistById } from '@/features/Playlists/selectors'
 import TrackList from '@/features/Tracks/components/TrackList/TrackList'
-import { TrackModel } from '@/interfaces/Track'
 import { iconIds } from '@/utils/config/iconIds'
 import { filterArrayByKeys } from '@/utils/helpers/filterArrayByKeys'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import styles from './Playlist.module.scss'
@@ -16,23 +16,29 @@ import styles from './Playlist.module.scss'
 export const Playlist = () => {
   const { id } = useParams();
   const playlist = useSelector((state: RootState) => selectPlaylistById(state, id!));
-  const [searchResults, setSearchResults] = useState<TrackModel[]>(playlist.tracks);
+  const [searchTerm, setSearchTerm] = useState<string>('');
+  const searchResults = useMemo(() => {
+    if (!searchTerm) {
+      return playlist.tracks;
+    }
+    
+    return filterArrayByKeys(playlist.tracks, ['artist', 'title'], searchTerm);
+  }, [searchTerm, playlist.tracks])
 
   const getDateOfCreation = (): string => {
     return new Date(playlist.dateOfCreation).toLocaleDateString();
   }
 
   const searchTrack = (e: React.FormEvent<HTMLInputElement>) => {
-    const searchTerm = e.currentTarget.value;
-    const filteredArray = filterArrayByKeys(playlist.tracks, ['artist', 'title'], searchTerm);
+    setSearchTerm(e.currentTarget.value);
+  }
 
-    if (!searchTerm) {
-      setSearchResults(playlist.tracks);
-
-      return;
+  const displaySearchResults = () => {
+    if (searchResults.length === 0) {
+      return <EmptyMessage title={'Nothing found'}/>
     }
 
-    setSearchResults(filteredArray);
+    return <TrackList tracks={searchResults}/>
   }
 
   return (
@@ -72,7 +78,13 @@ export const Playlist = () => {
         </div>
       </header>
       <SearchBar onInput={searchTrack}/>
-      <TrackList tracks={searchResults}/>
+      {
+        playlist.tracks.length > 0 ?
+          displaySearchResults() :
+          <EmptyMessage
+            title={'The playlist is empty'}
+            message={'Add some tracks to the playlist!'}/>
+      }
       </div>
     </section>
   )
