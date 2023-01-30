@@ -2,6 +2,7 @@ import { AppDispatch, RootState } from '@/app/store';
 import { addToFavorites, removeFromFavorites } from '@/features/Playlists/playlistsSlice';
 import { TrackModel } from '@/interfaces/Track';
 import { iconIds } from '@/utils/config/iconIds';
+import { useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Icon from './Icon';
 
@@ -24,7 +25,9 @@ export const FavoritesButton = (
   ) => {
   const dispatch: AppDispatch = useDispatch();
   const favorites = useSelector((state: RootState) => state.playlists.favorites);
-  const inFavorites = favorites.tracks.findIndex((favorite) => favorite.id === track.id) !== -1;
+  const inFavorites = useMemo(
+    () => favorites.tracks.findIndex((favorite) => favorite.id === track.id) !== -1,
+    [favorites]);
 
   const updateFavorites = () => {
     if (inFavorites) {
