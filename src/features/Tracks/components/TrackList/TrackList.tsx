@@ -4,7 +4,7 @@ import styles from './TrackList.module.scss';
 import { TrackModel } from '@interfaces/Track'
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/app/store';
-import { setCurrentTrackIndex, setIsPlaying } from '../../tracksSlice';
+import { setCurrentTrackIndex, setIsPlaying, setPlaybackQueue } from '../../tracksSlice';
 import { selectCurrentTrack } from '../../selectors';
 
 interface TrackListProps {
@@ -19,6 +19,7 @@ const TrackList = ({tracks}: TrackListProps) => {
 
   const setCurrentTrack = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const trackItemIndex = Number(e.currentTarget.dataset.index);
+    dispatch(setPlaybackQueue(tracks));
 
     if (currentTrackIndex === trackItemIndex) {
       dispatch(setIsPlaying(!isPlaying));

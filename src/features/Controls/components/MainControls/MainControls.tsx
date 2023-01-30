@@ -17,7 +17,7 @@ import { IconButton } from '@/components/IconButton';
 const MainControls = () => {
   const dispatch: AppDispatch = useDispatch();
   const {
-    playlist,
+    playbackQueue,
     currentTrack,
     isPlaying,
     audioRef
@@ -37,7 +37,7 @@ const MainControls = () => {
     previousTrack,
     toggleShuffleStatus,
     toggleLoopStatus
-  } = usePlaybackQueue(audioRef, playlist, currentTrack, hasEnded);
+  } = usePlaybackQueue(audioRef, playbackQueue, currentTrack, hasEnded);
   const {
     volume,
     setTrackVolume,
@@ -47,7 +47,7 @@ const MainControls = () => {
   usePlayCurrentTrack(audioRef, isPlaying, currentTrack);
 
   const isDisabled = (disableIndex: number): boolean => {
-    const currentTrackIndex = playlist.findIndex((track) => track.id === currentTrack.id);
+    const currentTrackIndex = playbackQueue.findIndex((track) => track.id === currentTrack.id);
 
     return currentTrackIndex === disableIndex;
   }
@@ -93,7 +93,7 @@ const MainControls = () => {
               fill='#E5E5E5'
               width='2em'
               height='2em'
-              isDisabled={!isShuffled && isDisabled(playlist.length - 1)}
+              isDisabled={playbackQueue.length === 0}
               onClick={() => dispatch(setIsPlaying(!isPlaying))}
             />
           <IconButton
@@ -102,7 +102,7 @@ const MainControls = () => {
               fill={'#E5E5E5'}
               width='1.5em'
               height='1.5em'
-              isDisabled={!isShuffled && isDisabled(playlist.length - 1)}
+              isDisabled={!isShuffled && isDisabled(playbackQueue.length - 1)}
               onClick={nextTrack}
             />
           <IconButton
@@ -115,7 +115,7 @@ const MainControls = () => {
             />
           <IconButton
               className={styles.controls__playlistsButton}
-              iconId={iconIds.playlists}
+              iconId={iconIds.playbackQueue}
               fill='#E5E5E5'
               width='2em'
               height='2em'
