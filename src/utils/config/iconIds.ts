@@ -1,7 +1,7 @@
 export const iconIds = {
     tracks: 'icon-tracks',
     albums: 'icon-albums',
-    playlists: 'icon-playlists',
+    playbackQueue: 'icon-playback-queue',
     settings: 'icon-settings',
     play: 'icon-play',
     pause: 'icon-pause',
