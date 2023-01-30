@@ -350,7 +350,7 @@ export const artists: ArtistModel[] = mockArtists.map((artist) => {
   }
 })
 
-export const getRandomTracks = () => {
+export const getRandomTracks = (tracks: TrackModel[]) => {
   const amountOfTracks = 3;
 
   return getRandomElements(tracks, amountOfTracks);
