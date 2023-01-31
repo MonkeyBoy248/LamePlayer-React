@@ -19,7 +19,7 @@ const PlayLists = ({ playlists, favorites }: PlaylistsProps) => {
   const createNewPlaylist = () => {
     const newPlaylist = {
       id: crypto.randomUUID(),
-      name: 'New playlist',
+      title: 'New playlist',
       dateOfCreation: Date.now(),
       dateOfUpdate: Date.now(),
       tracks: [],
