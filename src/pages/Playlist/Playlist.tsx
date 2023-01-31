@@ -2,14 +2,16 @@ import { AppDispatch, RootState } from '@/app/store'
 import { EmptyMessage } from '@/components/EmptyMessage/EmptyMessage'
 import { IconButton } from '@/components/IconButton'
 import { SearchBar } from '@/components/SearchBar/SearchBar'
+import { EditTitleInput } from '@/features/Playlists/components/EditTitleInput/EditTitleInput'
 import { getTracksAmount } from '@/features/Playlists/helpers/getTracksAmount'
 import { getUpdateTime } from '@/features/Playlists/helpers/getUpdateTime'
+import { changePlaylistTitle } from '@/features/Playlists/playlistsSlice'
 import { selectFavoritesId, selectPlaylistById } from '@/features/Playlists/selectors'
 import TrackList from '@/features/Tracks/components/TrackList/TrackList'
 import { setCurrentTrackIndex, setPlaybackQueue } from '@/features/Tracks/tracksSlice'
 import { iconIds } from '@/utils/config/iconIds'
 import { filterArrayByKeys } from '@/utils/helpers/filterArrayByKeys'
-import { useMemo, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import styles from './Playlist.module.scss'
@@ -18,6 +20,7 @@ export const Playlist = () => {
   const dispatch: AppDispatch = useDispatch();
   const { id } = useParams();
   const playlist = useSelector((state: RootState) => selectPlaylistById(state, id!));
+  const [title, setTitle] = useState<string>(playlist.title);
   const favoritesId = useSelector(selectFavoritesId);
   const [searchTerm, setSearchTerm] = useState<string>('');
   const searchResults = useMemo(() => {
@@ -32,11 +35,11 @@ export const Playlist = () => {
     return new Date(playlist.dateOfCreation).toLocaleDateString();
   }
 
-  const searchTrack = (e: React.FormEvent<HTMLInputElement>) => {
+  const searchTrack = (e: React.FormEvent<HTMLInputElement>): void => {
     setSearchTerm(e.currentTarget.value);
   }
 
-  const displaySearchResults = () => {
+  const displaySearchResults = (): JSX.Element => {
     if (searchResults.length === 0) {
       return <EmptyMessage title={'Nothing found'}/>
     }
@@ -44,13 +47,44 @@ export const Playlist = () => {
     return <TrackList tracks={searchResults}/>
   }
 
-  const canBeDeleted = () => {
+  const isThePlaylistCustom = (): boolean => {
     return playlist.id !== favoritesId;
   }
 
-  const runPlayllist = () => {
+  const runPlayllist = (): void => {
     dispatch(setPlaybackQueue(playlist.tracks));
     dispatch(setCurrentTrackIndex(0));
+  }
+
+  const handleInputChange = (e: React.FormEvent<HTMLInputElement>): void => {
+    const newTitle = e.currentTarget.value;
+
+    setTitle(newTitle);
+  }
+
+  const editPlaylistTitle = (): void => {
+    console.log('fires');
+
+    if (!title) {
+      setTitle(playlist.title);
+      dispatch(changePlaylistTitle({ id: playlist.id, title: playlist.title }));
+
+      return;
+    }
+
+    if (title === playlist.title) {
+      return;
+    }
+
+    dispatch(changePlaylistTitle({ id: playlist.id, title }));
+  }
+
+  const handleEnterKeyDown = (e: React.KeyboardEvent<HTMLInputElement>): void => {
+    if (e.key !== 'Enter') {
+      return;
+    }
+
+    e.currentTarget.blur();
   }
 
   return (
@@ -58,12 +92,21 @@ export const Playlist = () => {
       <div className={`playlist__inner _container`}>
       <header className={styles.playlist__header}>
         <div className={styles.playlist__coverWrapper}>
-          <img className={styles.playlist__coverImg} src={`/images/covers/${playlist.coverUrl}`} alt={`${playlist.name} cover`} />
+          <img className={styles.playlist__coverImg} src={`/images/covers/${playlist.coverUrl}`} alt={`${playlist.title} cover`} />
         </div>
         <div className={styles.playlist__infoWrapper}>
           <div className={styles.playlist__info}>
             <p className={styles.playlist__itemLabel}>Playlist</p>
-            <h2 className={`${styles.playlist__title} _pageTitle`}>{playlist.name}</h2>
+            {
+              isThePlaylistCustom() ?
+              <EditTitleInput
+                title={title}
+                onChange={handleInputChange}
+                onBlur={editPlaylistTitle}
+                onKeyDown={handleEnterKeyDown}
+              /> :
+              <h1 className={`${styles.playlist__title} _pageTitle`}>{playlist.title}</h1>
+            }
             <p className={styles.playlist__user}>{playlist.user}</p>
             <p className={`${styles.playlist__dateOfCreation} ${styles._date}`}>{`Created: ${getDateOfCreation()}`}</p>
             <p className={`${styles.playlist__dateOfUpdate} ${styles._date}`}>{`Last update: ${getUpdateTime(playlist.dateOfUpdate)}`}</p>
@@ -88,7 +131,7 @@ export const Playlist = () => {
               onClick={(e) => console.log(e.target)}
             />
             {
-              canBeDeleted() && <IconButton
+              isThePlaylistCustom() && <IconButton
                 iconId={iconIds.delete}
                 height='1.5em'
                 width='1.5em'

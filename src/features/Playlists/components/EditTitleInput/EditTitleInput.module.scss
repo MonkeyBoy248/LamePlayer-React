@@ -1,0 +1,18 @@
+@use '../../../../styles/palette' as colors;
+
+.editTitle {
+  &__editTitleInput {
+    font-family: MontserratBold, Arial, Helvetica, sans-serif;
+    font-size: 2rem;
+    font-weight: bold;
+    border: none;
+    padding: 0;
+    color: colors.$text;
+    background-color: transparent;
+    margin-bottom: 0.5rem;
+    margin-top: 0.25em;
+    margin-left: -0.25rem;
+    padding-block: 0.5rem;
+    padding-left: 0.25rem;
+  }
+}

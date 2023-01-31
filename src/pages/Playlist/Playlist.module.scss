@@ -32,15 +32,16 @@
   }
 
   &__itemLabel {
-    margin-bottom: 0.75em;
     color: colors.$text;
     font-size: 1.2em;
     opacity: 0.8;
   }
 
   &__title {
+    margin-top: 0.75em;
     margin-bottom: 1rem;
   }
+
 
   &__user {
     color: colors.$text;
