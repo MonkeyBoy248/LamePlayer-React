@@ -63,8 +63,6 @@ export const Playlist = () => {
   }
 
   const editPlaylistTitle = (): void => {
-    console.log('fires');
-
     if (!title) {
       setTitle(playlist.title);
       dispatch(changePlaylistTitle({ id: playlist.id, title: playlist.title }));
