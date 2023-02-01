@@ -174,7 +174,7 @@ persistTracklist();
 export const getFavorites = (): PlaylistModel => {
   return {
     id: crypto.randomUUID(),
-    name: 'Favorites',
+    title: 'Favorites',
     dateOfCreation: Date.now(),
     dateOfUpdate: Date.now(),
     tracks: [],
