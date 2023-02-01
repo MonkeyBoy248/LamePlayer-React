@@ -1,4 +1,5 @@
 import { AppDispatch, RootState } from '@/app/store'
+import { AlertModal } from '@/components/AlertModal/AlertModal'
 import { EmptyMessage } from '@/components/EmptyMessage/EmptyMessage'
 import { IconButton } from '@/components/IconButton'
 import { SearchBar } from '@/components/SearchBar/SearchBar'
@@ -11,7 +12,7 @@ import TrackList from '@/features/Tracks/components/TrackList/TrackList'
 import { setCurrentTrackIndex, setPlaybackQueue } from '@/features/Tracks/tracksSlice'
 import { iconIds } from '@/utils/config/iconIds'
 import { filterArrayByKeys } from '@/utils/helpers/filterArrayByKeys'
-import { useMemo, useRef, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import styles from './Playlist.module.scss'
@@ -31,6 +32,7 @@ export const Playlist = () => {
     return filterArrayByKeys(playlist.tracks, ['artist', 'title'], searchTerm);
   }, [searchTerm, playlist.tracks]);
   const navigate = useNavigate();
+  const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
 
   const getDateOfCreation = (): string => {
     return new Date(playlist.dateOfCreation).toLocaleDateString();
@@ -91,6 +93,10 @@ export const Playlist = () => {
     navigate('/playlists');
   }
 
+  const closeDialog = () => {
+    setIsDialogOpen(false);
+  }
+
   return (
     <section className={`${styles.playlist} _page`}>
       <div className={`playlist__inner _container`}>
@@ -141,7 +147,7 @@ export const Playlist = () => {
                 width='1.5em'
                 fill='#E5E5E5'
                 className={styles.playlist__delete}
-                onClick={removePlaylist}
+                onClick={() => setIsDialogOpen(true)}
               />
             }
           </div>
@@ -156,6 +162,15 @@ export const Playlist = () => {
             message={'Add some tracks to the playlist!'}/>
       }
       </div>
+      <AlertModal
+        isOpen={isDialogOpen}
+        backdropOnClick={closeDialog}
+        onCancel={closeDialog}
+        onConfirm={removePlaylist}
+        text={'Are you sure you want to delete the playlist? This action cannot be undone.'}
+        confirmText={'Yes'}
+        cancelText={'No'}
+      />
     </section>
   )
 }
