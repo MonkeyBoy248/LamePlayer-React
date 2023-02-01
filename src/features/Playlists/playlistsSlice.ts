@@ -58,8 +58,15 @@ export const playlistsSlice = createSlice({
     changePlaylistTitle: (state, action: PayloadAction<{ id: string, title: string }>) => {
       const playlist = state.playlists[action.payload.id];
       playlist.title = action.payload.title;
+      state.favorites.dateOfUpdate = Date.now();
 
       setItemToLocalStorage(playlistsKey, state.playlists)
+    },
+
+    removePlaylistById: (state, action: PayloadAction<string>) => {
+      delete state.playlists[action.payload];
+
+      setItemToLocalStorage(playlistsKey, state.playlists);
     }
   }
 })
@@ -74,5 +81,11 @@ function getInitialState (): PlaylistsState {
   }
 }
 
-export const { addToFavorites, removeFromFavorites, createPlaylist, changePlaylistTitle } = playlistsSlice.actions;
+export const {
+  addToFavorites,
+  removeFromFavorites,
+  createPlaylist,
+  changePlaylistTitle,
+  removePlaylistById
+} = playlistsSlice.actions;
 export default playlistsSlice.reducer;

@@ -5,7 +5,7 @@ import { SearchBar } from '@/components/SearchBar/SearchBar'
 import { EditTitleInput } from '@/features/Playlists/components/EditTitleInput/EditTitleInput'
 import { getTracksAmount } from '@/features/Playlists/helpers/getTracksAmount'
 import { getUpdateTime } from '@/features/Playlists/helpers/getUpdateTime'
-import { changePlaylistTitle } from '@/features/Playlists/playlistsSlice'
+import { changePlaylistTitle, removePlaylistById } from '@/features/Playlists/playlistsSlice'
 import { selectFavoritesId, selectPlaylistById } from '@/features/Playlists/selectors'
 import TrackList from '@/features/Tracks/components/TrackList/TrackList'
 import { setCurrentTrackIndex, setPlaybackQueue } from '@/features/Tracks/tracksSlice'
@@ -13,7 +13,7 @@ import { iconIds } from '@/utils/config/iconIds'
 import { filterArrayByKeys } from '@/utils/helpers/filterArrayByKeys'
 import { useMemo, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import styles from './Playlist.module.scss'
 
 export const Playlist = () => {
@@ -29,7 +29,8 @@ export const Playlist = () => {
     }
 
     return filterArrayByKeys(playlist.tracks, ['artist', 'title'], searchTerm);
-  }, [searchTerm, playlist.tracks])
+  }, [searchTerm, playlist.tracks]);
+  const navigate = useNavigate();
 
   const getDateOfCreation = (): string => {
     return new Date(playlist.dateOfCreation).toLocaleDateString();
@@ -85,6 +86,11 @@ export const Playlist = () => {
     e.currentTarget.blur();
   }
 
+  const removePlaylist = () => {
+    dispatch(removePlaylistById(id!));
+    navigate('/playlists');
+  }
+
   return (
     <section className={`${styles.playlist} _page`}>
       <div className={`playlist__inner _container`}>
@@ -135,7 +141,7 @@ export const Playlist = () => {
                 width='1.5em'
                 fill='#E5E5E5'
                 className={styles.playlist__delete}
-                onClick={(e) => console.log(e.target)}
+                onClick={removePlaylist}
               />
             }
           </div>
