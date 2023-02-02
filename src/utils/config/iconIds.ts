@@ -19,5 +19,8 @@ export const iconIds = {
     repeatOne: 'icon-repeat-one',
     home: 'icon-home',
     search: 'icon-search',
-    empty: 'icon-empty'
+    empty: 'icon-empty',
+    checkmark: 'icon-checkmark',
+    add: 'icon-add',
+    close: 'icon-close'
 };
