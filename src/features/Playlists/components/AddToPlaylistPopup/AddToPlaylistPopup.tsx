@@ -5,7 +5,7 @@ import { TrackModel } from '@/interfaces/Track';
 import { useDispatch, useSelector } from 'react-redux';
 import { addTrackToTheNewPlaylist, addTrackToPlaylist, removeTrackFromPlaylist } from '../../playlistsSlice';
 import { selectFavorites, selectPlaylists } from '../../selectors';
-import { PlaylistPopupItem } from '../PlaylistPopupItem/PlaylistPopupItem';
+import { PlaylistPopupItem } from '../AddToPlaylistPopupItem/AddToPlaylistPopupItem';
 import styles from './PlaylistPopup.module.scss';
 
 interface PlaylistPopupProps {
@@ -14,7 +14,7 @@ interface PlaylistPopupProps {
   trackToAdd: TrackModel;
 }
 
-export const PlaylistPopup = ({ isOpen, closeModal, trackToAdd }: PlaylistPopupProps) => {
+export const AddToPlaylistPopup = ({ isOpen, closeModal, trackToAdd }: PlaylistPopupProps) => {
   const dispatch: AppDispatch = useDispatch();
   const favorites = useSelector(selectFavorites);
   const playlistsMap = useSelector(selectPlaylists);

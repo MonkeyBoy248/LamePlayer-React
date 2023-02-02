@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/app/store';
 import { setCurrentTrackIndex, setIsPlaying, setPlaybackQueue } from '../../tracksSlice';
 import { selectCurrentTrack } from '../../selectors';
-import { PlaylistPopup } from '@/features/Playlists/components/PlaylistPopup/PlaylistPopup';
+import { AddToPlaylistPopup } from '@/features/Playlists/components/AddToPlaylistPopup/AddToPlaylistPopup';
 import { useModal } from '@/utils/hooks/useModal';
 
 interface TrackListProps {
@@ -54,7 +54,7 @@ const TrackList = ({tracks}: TrackListProps) => {
           />
       })}
     </ul>
-    <PlaylistPopup
+    <AddToPlaylistPopup
       isOpen={isOpen}
       trackToAdd={trackToAdd}
       closeModal={closeModal}
