@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Track from "../Track/Track";
 import styles from './TrackList.module.scss';
 import { TrackModel } from '@interfaces/Track'
@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/app/store';
 import { setCurrentTrackIndex, setIsPlaying, setPlaybackQueue } from '../../tracksSlice';
 import { selectCurrentTrack } from '../../selectors';
+import { PlaylistPopup } from '@/features/Playlists/components/PlaylistPopup/PlaylistPopup';
+import { useModal } from '@/utils/hooks/useModal';
 
 interface TrackListProps {
   tracks: TrackModel[];
@@ -16,6 +18,8 @@ const TrackList = ({tracks}: TrackListProps) => {
   const currentTrackIndex = useSelector((state: RootState) => state.tracks.currentTrackIndex);
   const currentTrack = useSelector(selectCurrentTrack);
   const isPlaying = useSelector((state: RootState) => state.tracks.isPlaying);
+  const { isOpen, closeModal, openModal } = useModal();
+  const [trackToAdd, setTrackToAdd] = useState<TrackModel>({} as TrackModel);
 
   const setCurrentTrack = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const trackItemIndex = Number(e.currentTarget.dataset.index);
@@ -30,8 +34,14 @@ const TrackList = ({tracks}: TrackListProps) => {
     dispatch(setCurrentTrackIndex(trackItemIndex));
   }
 
+  const addToPlaylist = (track: TrackModel) => {
+    setTrackToAdd(track);
+    openModal();
+  }
+
   return (
-    <ul className={styles.trackList}>
+    <>
+      <ul className={styles.trackList}>
       { tracks.map((track: TrackModel, index: number) => {
         return <Track
           track={track}
@@ -39,10 +49,17 @@ const TrackList = ({tracks}: TrackListProps) => {
           dataIndex={index}
           key={track.id}
           isPlaying={isPlaying}
-          onClick={setCurrentTrack}
+          onPlay={setCurrentTrack}
+          onAddToPlaylist={addToPlaylist}
           />
       })}
     </ul>
+    <PlaylistPopup
+      isOpen={isOpen}
+      trackToAdd={trackToAdd}
+      closeModal={closeModal}
+    />
+    </>
   )
 }
 

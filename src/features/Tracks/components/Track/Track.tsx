@@ -12,10 +12,11 @@ interface TrackProps {
   dataIndex: number;
   isActive: boolean;
   isPlaying: boolean;
-  onClick: MouseEventHandler<HTMLButtonElement>;
+  onPlay: MouseEventHandler<HTMLButtonElement>;
+  onAddToPlaylist: (track: TrackModel) => void;
 }
 
-const Track = ({ track, onClick, dataIndex, isActive, isPlaying }: TrackProps) => {
+const Track = ({ track, onPlay, dataIndex, isActive, isPlaying, onAddToPlaylist }: TrackProps) => {
   const blockName = 'track';
 
   const getPlayButtonIconId = () => {
@@ -34,7 +35,7 @@ const Track = ({ track, onClick, dataIndex, isActive, isPlaying }: TrackProps) =
             <button
               className={`${styles.track__playButton} _playButton`}
               data-index={dataIndex}
-              onClick={onClick}>
+              onClick={onPlay}>
               <Icon
                 id={getPlayButtonIconId()}
                 width="1.5em" height="1.5em"
@@ -58,7 +59,7 @@ const Track = ({ track, onClick, dataIndex, isActive, isPlaying }: TrackProps) =
             <button className={styles.track__deleteButton}>
               <Icon id={iconIds.delete} width='1.5em' height='1.5em' blockName={blockName} fill='#E5E5E5'></Icon>
             </button>
-            <button className={styles.track__addToPlaylist}>+</button>
+            <button className={styles.track__addToPlaylist} onClick={() => onAddToPlaylist(track)}>+</button>
             <p className={styles.track__duration}>0:00</p>
           </div>
       </div>

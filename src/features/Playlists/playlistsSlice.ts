@@ -58,7 +58,7 @@ export const playlistsSlice = createSlice({
     changePlaylistTitle: (state, action: PayloadAction<{ id: string, title: string }>) => {
       const playlist = state.playlists[action.payload.id];
       playlist.title = action.payload.title;
-      state.favorites.dateOfUpdate = Date.now();
+      playlist.dateOfUpdate = Date.now();
 
       setItemToLocalStorage(playlistsKey, state.playlists)
     },
@@ -67,6 +67,37 @@ export const playlistsSlice = createSlice({
       delete state.playlists[action.payload];
 
       setItemToLocalStorage(playlistsKey, state.playlists);
+    },
+
+    addTrackToPlaylist: (state, action: PayloadAction<{ track: TrackModel, playlistId: string }>) => {
+      const playlist = state.playlists[action.payload.playlistId];
+
+      playlist.tracks.push(action.payload.track);
+      state.favorites.dateOfUpdate = Date.now();
+      state.favorites.coverUrl = action.payload.track.coverUrl;
+
+      setItemToLocalStorage(playlistsKey, state.playlists);
+    },
+
+    addTrackToTheNewPlaylist: (state, action: PayloadAction<TrackModel>) => {
+      const newPlaylist = {
+        id: crypto.randomUUID(),
+        title: 'New playlist',
+        dateOfCreation: Date.now(),
+        dateOfUpdate: Date.now(),
+        tracks: [action.payload],
+        coverUrl: 'playlist-placeholder.webp',
+        user: 'MonkeyBoy'
+      };
+
+      state.playlists[newPlaylist.id] = newPlaylist;
+      setItemToLocalStorage(playlistsKey, state.playlists);
+    },
+
+    removeTrackFromPlaylist: (state, action: PayloadAction<{ trackId: string, playlistId: string }>) => {
+      const playlist = state.playlists[action.payload.playlistId];
+
+      playlist.tracks = playlist.tracks.filter((track) => track.id !== action.payload.trackId)
     }
   }
 })
@@ -86,6 +117,9 @@ export const {
   removeFromFavorites,
   createPlaylist,
   changePlaylistTitle,
-  removePlaylistById
+  removePlaylistById,
+  addTrackToPlaylist,
+  addTrackToTheNewPlaylist,
+  removeTrackFromPlaylist
 } = playlistsSlice.actions;
 export default playlistsSlice.reducer;
