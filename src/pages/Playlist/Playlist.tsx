@@ -12,6 +12,7 @@ import TrackList from '@/features/Tracks/components/TrackList/TrackList'
 import { setCurrentTrackIndex, setPlaybackQueue } from '@/features/Tracks/tracksSlice'
 import { iconIds } from '@/utils/config/iconIds'
 import { filterArrayByKeys } from '@/utils/helpers/filterArrayByKeys'
+import { useModal } from '@/utils/hooks/useModal'
 import { useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -32,7 +33,7 @@ export const Playlist = () => {
     return filterArrayByKeys(playlist.tracks, ['artist', 'title'], searchTerm);
   }, [searchTerm, playlist.tracks]);
   const navigate = useNavigate();
-  const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
+  const { isOpen, closeModal, openModal } = useModal();
 
   const getDateOfCreation = (): string => {
     return new Date(playlist.dateOfCreation).toLocaleDateString();
@@ -93,10 +94,6 @@ export const Playlist = () => {
     navigate('/playlists');
   }
 
-  const closeDialog = () => {
-    setIsDialogOpen(false);
-  }
-
   return (
     <section className={`${styles.playlist} _page`}>
       <div className={`playlist__inner _container`}>
@@ -147,7 +144,7 @@ export const Playlist = () => {
                 width='1.5em'
                 fill='#E5E5E5'
                 className={styles.playlist__delete}
-                onClick={() => setIsDialogOpen(true)}
+                onClick={openModal}
               />
             }
           </div>
@@ -163,9 +160,9 @@ export const Playlist = () => {
       }
       </div>
       <AlertModal
-        isOpen={isDialogOpen}
-        backdropOnClick={closeDialog}
-        onCancel={closeDialog}
+        isOpen={isOpen}
+        closeModal={closeModal}
+        onCancel={closeModal}
         onConfirm={removePlaylist}
         text={'Are you sure you want to delete the playlist? This action cannot be undone.'}
         confirmText={'Yes'}
