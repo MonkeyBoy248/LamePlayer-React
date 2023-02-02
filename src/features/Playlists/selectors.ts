@@ -9,3 +9,5 @@ export const selectPlaylistById = (state: RootState, id: string) => {
 }
 
 export const selectFavoritesId = (state: RootState) => state.playlists.favorites.id;
+export const selectFavorites = (state: RootState) => state.playlists.favorites;
+export const selectPlaylists = (state: RootState) => state.playlists.playlists;
