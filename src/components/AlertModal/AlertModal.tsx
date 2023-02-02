@@ -1,5 +1,6 @@
 import { MouseEventHandler, useEffect } from 'react';
 import { createPortal } from 'react-dom';
+import { Modal } from '../Modal/Modal';
 import styles from './AlertModal.module.scss';
 
 interface AlertModalProps {
@@ -8,7 +9,7 @@ interface AlertModalProps {
   text: string;
   confirmText: string;
   cancelText: string;
-  backdropOnClick: MouseEventHandler<HTMLDivElement>;
+  closeModal: () => void;
   onConfirm: MouseEventHandler<HTMLButtonElement>;
   onCancel: MouseEventHandler<HTMLButtonElement>;
 }
@@ -20,29 +21,14 @@ export const AlertModal = (
     text,
     confirmText,
     cancelText,
-    backdropOnClick,
+    closeModal,
     onConfirm,
     onCancel
   }: AlertModalProps) => {
-  useEffect(() => {
-    return () => {
-      document.body.style.overflow = '';
-    }
-  }, [])
-
-  if (!isOpen) {
-    document.body.style.overflow = ''
-
-    return null;
-  }
-  
-  document.body.style.overflow = 'hidden';
-
-  return createPortal(
-    <div className={styles.alertModal__backdrop} onClick={backdropOnClick}>
-      <div className={styles.alertModal__content} onClick={(e) => e.stopPropagation()}>
-        {
-          title && <h2 className={styles.alertModal__title}>{title}</h2>
+  return (
+    <Modal isOpen={isOpen} closeModal={closeModal}>
+       {
+          title && <h3 className={styles.alertModal__title}>{title}</h3>
         }
         <p className={styles.alertModal__text}>{text}</p>
         <footer className={styles.alertModal__controlsWrapper}>
@@ -59,8 +45,6 @@ export const AlertModal = (
               {cancelText}
             </button>
         </footer>
-      </div>
-    </div>,
-    document.getElementById('portal')!
+    </Modal>
   )
 }
