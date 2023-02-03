@@ -12,7 +12,7 @@ import { usePlayCurrentTrack } from '../../hooks/usePlayCurrentTrack';
 import { useTrackProgress } from '../../hooks/useTrackProgress';
 import { useTrackVolume } from '../../hooks/useTrackVolume';
 import { FavoritesButton } from '@/components/FavoritesButton';
-import { IconButton } from '@/components/IconButton';
+import { IconButton } from '@/components/IconButton/IconButton';
 
 const MainControls = () => {
   const dispatch: AppDispatch = useDispatch();

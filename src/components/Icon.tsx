@@ -1,10 +1,9 @@
 import sprite from '../assets/icons/sprite.svg';
 import { Svg } from '../interfaces/Svg';
 
-const Icon = ({id, blockName, width, height, fill, stroke}: Svg) => {
+const Icon = ({id, width, height, fill, stroke}: Svg) => {
   return (
     <svg
-      className={`${blockName}__${id}`}
       width={width}
       height={height}
       fill={fill}

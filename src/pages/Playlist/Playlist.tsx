@@ -1,7 +1,7 @@
 import { AppDispatch, RootState } from '@/app/store'
 import { AlertModal } from '@/components/AlertModal/AlertModal'
 import { EmptyMessage } from '@/components/EmptyMessage/EmptyMessage'
-import { IconButton } from '@/components/IconButton'
+import { IconButton } from '@/components/IconButton/IconButton'
 import { SearchBar } from '@/components/SearchBar/SearchBar'
 import { EditTitleInput } from '@/features/Playlists/components/EditTitleInput/EditTitleInput'
 import { getTracksAmount } from '@/features/Playlists/helpers/getTracksAmount'
