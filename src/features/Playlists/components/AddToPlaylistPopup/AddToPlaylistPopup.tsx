@@ -4,9 +4,9 @@ import { PlaylistModel } from '@/interfaces/Playlist';
 import { TrackModel } from '@/interfaces/Track';
 import { useDispatch, useSelector } from 'react-redux';
 import { addTrackToTheNewPlaylist, addTrackToPlaylist, removeTrackFromPlaylist } from '../../playlistsSlice';
-import { selectFavorites, selectPlaylists } from '../../selectors';
-import { PlaylistPopupItem } from '../AddToPlaylistPopupItem/AddToPlaylistPopupItem';
-import styles from './PlaylistPopup.module.scss';
+import { selectAllPlaylists } from '../../selectors';
+import { AddToPlaylistPopupItem } from '../AddToPlaylistPopupItem/AddToPlaylistPopupItem';
+import styles from './AddToPlaylistPopup.module.scss';
 
 interface PlaylistPopupProps {
   isOpen: boolean;
@@ -16,10 +16,8 @@ interface PlaylistPopupProps {
 
 export const AddToPlaylistPopup = ({ isOpen, closeModal, trackToAdd }: PlaylistPopupProps) => {
   const dispatch: AppDispatch = useDispatch();
-  const favorites = useSelector(selectFavorites);
-  const playlistsMap = useSelector(selectPlaylists);
-  const playlists = Object.values(playlistsMap);
-  const allPlaylists = [favorites, ...playlists];
+  const allPlaylistsMap = useSelector(selectAllPlaylists);
+  const allPlaylists = Object.values(allPlaylistsMap);
 
   const isTrackInPlaylist = (playlist: PlaylistModel) => {
     const trackIndex = playlist.tracks.findIndex((track) => track.id === trackToAdd.id);
@@ -34,7 +32,7 @@ export const AddToPlaylistPopup = ({ isOpen, closeModal, trackToAdd }: PlaylistP
 
   const addTrack = (e: React.MouseEvent<HTMLLIElement>) => {
     const playlistId = e.currentTarget.dataset.id!;
-    const playlist = playlistsMap[playlistId];
+    const playlist = allPlaylistsMap[playlistId];
     const isInPlaylist = isTrackInPlaylist(playlist);
 
     if (isInPlaylist) {
@@ -50,11 +48,11 @@ export const AddToPlaylistPopup = ({ isOpen, closeModal, trackToAdd }: PlaylistP
 
   return (
     <DialogModal isOpen={isOpen} closeModal={closeModal} title={'Choose a playlist'}>
-      <ul className={styles.playlistPopup__playlists}>
+      <ul className={styles.addToPlaylistPopup__playlists}>
         {
           allPlaylists.length > 0  &&
           allPlaylists.map((playlist) => {
-            return <PlaylistPopupItem
+            return <AddToPlaylistPopupItem
               key={playlist.id}
               title={playlist.title}
               onClick={addTrack}
@@ -63,7 +61,8 @@ export const AddToPlaylistPopup = ({ isOpen, closeModal, trackToAdd }: PlaylistP
             />
           })
         }
-        <PlaylistPopupItem title={'Add to new playlist'} onClick={createPlaylistWithTheTrack}/>
+        <hr className={styles.addToPlaylistPopup__divider}/>
+        <AddToPlaylistPopupItem title={'Add to new playlist'} onClick={createPlaylistWithTheTrack}/>
       </ul>
     </DialogModal>
   )
