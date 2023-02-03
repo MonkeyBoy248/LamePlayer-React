@@ -2,11 +2,11 @@ import PlayLists from "@features/Playlists/components/PlayLists/PlayLists";
 import { Page } from "@interfaces/Page";
 import styles from './PlaylistsPage.module.scss';
 import { useSelector } from 'react-redux';
-import { selectFavorites, selectPlaylists } from '@/features/Playlists/selectors';
+import { selectFavorites, selectCustomPlaylists } from '@/features/Playlists/selectors';
 
 const PlaylistsPage = ({ title }: Page) => {
   const favorites = useSelector(selectFavorites);
-  const playlists = Object.values(useSelector(selectPlaylists));
+  const playlists = Object.values(useSelector(selectCustomPlaylists));
 
   return (
     <section className={`${styles.playlistsPage} _page`}>

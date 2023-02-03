@@ -10,7 +10,7 @@ interface Playlists {
 }
 
 export interface PlaylistsState {
-  playlists: Playlists;
+  customPlaylists: Playlists;
   favorites: PlaylistModel;
 }
 
@@ -50,33 +50,35 @@ export const playlistsSlice = createSlice({
     },
 
     createPlaylist: (state, action: PayloadAction<PlaylistModel>) => {
-      state.playlists[action.payload.id] = action.payload;
+      state.customPlaylists[action.payload.id] = action.payload;
 
-      setItemToLocalStorage(playlistsKey, state.playlists)
+      setItemToLocalStorage(playlistsKey, state.customPlaylists)
     },
 
     changePlaylistTitle: (state, action: PayloadAction<{ id: string, title: string }>) => {
-      const playlist = state.playlists[action.payload.id];
+      const playlist = state.customPlaylists[action.payload.id];
       playlist.title = action.payload.title;
       playlist.dateOfUpdate = Date.now();
 
-      setItemToLocalStorage(playlistsKey, state.playlists)
+      setItemToLocalStorage(playlistsKey, state.customPlaylists)
     },
 
     removePlaylistById: (state, action: PayloadAction<string>) => {
-      delete state.playlists[action.payload];
+      delete state.customPlaylists[action.payload];
 
-      setItemToLocalStorage(playlistsKey, state.playlists);
+      setItemToLocalStorage(playlistsKey, state.customPlaylists);
     },
 
     addTrackToPlaylist: (state, action: PayloadAction<{ track: TrackModel, playlistId: string }>) => {
-      const playlist = state.playlists[action.payload.playlistId];
+      const favoritesId = state.favorites.id;
+      const allPlaylists = {...state.customPlaylists, [favoritesId]: state.favorites };
+      const playlist = allPlaylists[action.payload.playlistId];
 
       playlist.tracks.push(action.payload.track);
       state.favorites.dateOfUpdate = Date.now();
       state.favorites.coverUrl = action.payload.track.coverUrl;
 
-      setItemToLocalStorage(playlistsKey, state.playlists);
+      setItemToLocalStorage(playlistsKey, state.customPlaylists);
     },
 
     addTrackToTheNewPlaylist: (state, action: PayloadAction<TrackModel>) => {
@@ -86,16 +88,18 @@ export const playlistsSlice = createSlice({
         dateOfCreation: Date.now(),
         dateOfUpdate: Date.now(),
         tracks: [action.payload],
-        coverUrl: 'playlist-placeholder.webp',
+        coverUrl: action.payload.coverUrl,
         user: 'MonkeyBoy'
       };
 
-      state.playlists[newPlaylist.id] = newPlaylist;
-      setItemToLocalStorage(playlistsKey, state.playlists);
+      state.customPlaylists[newPlaylist.id] = newPlaylist;
+      setItemToLocalStorage(playlistsKey, state.customPlaylists);
     },
 
     removeTrackFromPlaylist: (state, action: PayloadAction<{ trackId: string, playlistId: string }>) => {
-      const playlist = state.playlists[action.payload.playlistId];
+      const favoritesId = state.favorites.id;
+      const allPlaylists = {...state.customPlaylists, [favoritesId]: state.favorites };
+      const playlist = allPlaylists[action.payload.playlistId];
 
       playlist.tracks = playlist.tracks.filter((track) => track.id !== action.payload.trackId)
     }
@@ -107,7 +111,7 @@ function getInitialState (): PlaylistsState {
   const favorites = getItemFromLocalStorage<PlaylistModel>(favoritesKey) ?? getFavorites();
 
   return {
-    playlists,
+    customPlaylists: playlists,
     favorites,
   }
 }
