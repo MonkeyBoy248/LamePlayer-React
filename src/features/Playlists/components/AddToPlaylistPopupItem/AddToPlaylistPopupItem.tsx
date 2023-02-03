@@ -1,16 +1,16 @@
 import Icon from '@/components/Icon';
 import { iconIds } from '@/utils/config/iconIds';
 import { MouseEventHandler } from 'react';
-import styles from './PlaylistPopupItem.module.scss';
+import styles from './AddToPlaylistPopupItem.module.scss';
 
-interface PlaylistPopupItemProps {
+interface AddToPlaylistPopupItemProps {
   inPlaylist?: boolean;
   dataId?: string;
   title: string;
   onClick: MouseEventHandler<HTMLLIElement>;
 }
 
-export const PlaylistPopupItem = ({ inPlaylist, dataId, onClick, title }: PlaylistPopupItemProps) => {
+export const AddToPlaylistPopupItem = ({ inPlaylist, dataId, onClick, title }: AddToPlaylistPopupItemProps) => {
   const getIcon = () => {
     if (inPlaylist) {
       return iconIds.checkmark;
@@ -20,14 +20,14 @@ export const PlaylistPopupItem = ({ inPlaylist, dataId, onClick, title }: Playli
   }
 
   return (
-    <li className={styles.popupItem} data-id={dataId} onClick={onClick}>
+    <li className={styles.addToPlaylistPopupItem} data-id={dataId} onClick={onClick}>
       <Icon
         id={getIcon()}
-        fill={ inPlaylist ? '#0E34A0' : '#E5E5E5'}
-        width={'1rem'}
-        height={'1rem'}
+        fill={ inPlaylist ? '#61BDE5' : '#E5E5E5' }
+        width={'1.5rem'}
+        height={'1.5rem'}
       />
-      <p className={styles.popupItem__title}>{title}</p>
+      <p className={styles.addToPlaylistPopupItem__title}>{title}</p>
     </li>
   )
 }
