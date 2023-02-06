@@ -30,19 +30,11 @@
   &__playButton {
     width: 3.5em;
     height: 3.5em;
-    background-color: colors.$accent;
-    border-radius: 50%;
-    border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    transition: opacity .3s ease-in-out;
     position: absolute;
     top: 50%;
     left: 50%;
     translate: -50% -50%;
-    opacity: 0;
-    transition: opacity .3s ease-in-out;
-    cursor: pointer;
   }
 
   &__trackInfoWrapper {
@@ -84,5 +76,10 @@
     border: none;
     color: colors.$text;
     font-size: 1.75em;
+    opacity: 0.8;
+
+    &:hover {
+      opacity: 1;
+    }
   }
 }

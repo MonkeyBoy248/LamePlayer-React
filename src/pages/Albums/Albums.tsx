@@ -6,7 +6,7 @@ import styles from './Albums.module.scss';
 
 const Albums = ({ title }: Page) => {
   return (
-    <section className={styles.albums}>
+    <section className={`${styles.albums} _page`}>
       <div className={`${styles.albums__inner} _container`}>
         <h2 className={`${styles.albums__pageTitle} _pageTitle`}>{title}</h2>
         { albums.length > 0 ?

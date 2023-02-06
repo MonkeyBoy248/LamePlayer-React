@@ -2,10 +2,10 @@ import { TrackModel } from "./Track";
 
 export interface PlaylistModel {
   id: string;
-  name: string;
+  title: string;
   tracks: TrackModel[];
   coverUrl: string;
   user: string;
-  dateOfUpdate: string;
-  dateOfCreation: string;
+  dateOfUpdate: number;
+  dateOfCreation: number;
 }

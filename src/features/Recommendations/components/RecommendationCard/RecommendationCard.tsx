@@ -8,10 +8,11 @@ interface RecommendationCardProps {
   dataIndex: number;
   isActive: boolean;
   isPlaying: boolean;
-  onClick: (id: string) => void;
+  onPlay: (id: string) => void;
+  onAdd: (track: TrackModel) => void;
 }
 
-const RecommendationCard = ({ trackInfo, onClick, isActive, isPlaying }: RecommendationCardProps) => {
+const RecommendationCard = ({ trackInfo, onPlay, isActive, isPlaying, onAdd }: RecommendationCardProps) => {
   const getPlayButtonIconId = () => {
     if (isActive && isPlaying) {
       return iconIds.pause;
@@ -23,8 +24,8 @@ const RecommendationCard = ({ trackInfo, onClick, isActive, isPlaying }: Recomme
   return (
     <li className={styles.recommendationCard}>
       <div className={styles.recommendationCard__inner} style={{backgroundImage: `url(images/covers/${trackInfo.coverUrl})` }}>
-        <button className={styles.recommendationCard__playButton} onClick={() => onClick(trackInfo.id)}>
-          <Icon id={getPlayButtonIconId()} width='2em' height='2em' blockName='recommendationCard' fill='#000000' />
+        <button className={`${styles.recommendationCard__playButton} _playButton`} onClick={() => onPlay(trackInfo.id)}>
+          <Icon id={getPlayButtonIconId()} width='2em' height='2em' fill='#000000' />
         </button>
         <div className={styles.recommendationCard__trackInfoWrapper}>
           <div className={styles.recommendationCard__trackInfo}>
@@ -33,7 +34,14 @@ const RecommendationCard = ({ trackInfo, onClick, isActive, isPlaying }: Recomme
             <p className={styles.recommendationCard__duration}></p>
           </div>
           <div className={styles.recommendationCard__controls}>
-            <button className={styles.recommendationCard__addButton}>+</button>
+            <button className={styles.recommendationCard__addButton} onClick={() => onAdd(trackInfo)}>
+              <Icon
+                id={iconIds.add}
+                width={'1.5rem'}
+                height={'1.5rem'}
+                fill={'#E5E5E5'}
+              />
+            </button>
           </div>
         </div>
       </div>

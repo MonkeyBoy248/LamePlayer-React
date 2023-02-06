@@ -1,8 +1,8 @@
-import Icon from '@/components/Icon';
 import { iconIds } from '@/utils/config/iconIds';
 import { MouseEventHandler } from 'react'
 import styles from './VolumeControls.module.scss';
 import { VolumeSlider } from '../VolumeSlider/VolumeSlider';
+import { IconButton } from '@/components/IconButton/IconButton';
 
 export interface VolumeProps {
   volume: number;
@@ -11,8 +11,6 @@ export interface VolumeProps {
 }
 
 export const VolumeControls = ({ volume, onChange, onClick }: VolumeProps) => {
-  const blockName = 'volume';
-
   const getVolumeIcon = (): string => {
     switch(true) {
       case volume === 0:
@@ -37,9 +35,14 @@ export const VolumeControls = ({ volume, onChange, onClick }: VolumeProps) => {
             >
           </VolumeSlider>
       </div>
-      <button className={styles.controls__volumeButton} onClick={onClick}>
-        <Icon id={getVolumeIcon()} fill='#E5E5E5' width='2.5em' height='2.5em' blockName={blockName}/>
-      </button>
+      <IconButton
+         iconId={getVolumeIcon()}
+         fill='#E5E5E5'
+         width='2.5em'
+         height='2.5em'
+         className={styles.controls__volumeButton}
+         onClick={onClick}
+      />
     </div>
   )
 }

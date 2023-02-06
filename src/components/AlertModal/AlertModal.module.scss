@@ -1,0 +1,41 @@
+@use '../../styles/palette' as colors;
+
+.alertModal {
+  &__title {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+  }
+
+  &__text {
+    font-size: 1rem;
+    opacity: 0.8;
+    margin-bottom: 1rem;
+  }
+
+  &__controlsWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.75rem;
+  }
+
+  &__button {
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    color: colors.$text;
+    opacity: 0.8;
+
+    &:hover {
+      opacity: 1;
+    }
+
+    &_confirm {
+      background-color: colors.$accent;
+    }
+
+    &_cancel {
+      outline: solid 2px colors.$text;
+    }
+  }
+}
