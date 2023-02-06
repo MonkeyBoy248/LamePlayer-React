@@ -37,13 +37,11 @@ export const AddToPlaylistPopup = ({ isOpen, closeModal, trackToAdd }: PlaylistP
 
     if (isInPlaylist) {
       dispatch(removeTrackFromPlaylist({ trackId: trackToAdd.id, playlistId }));
-      closeModal();
 
       return;
     }
 
     dispatch(addTrackToPlaylist({ track: trackToAdd, playlistId }))
-    closeModal();
   }
 
   return (
