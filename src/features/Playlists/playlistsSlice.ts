@@ -3,7 +3,9 @@ import { TrackModel } from '@/interfaces/Track';
 import { getFavorites } from '@/services/mockDataService';
 import { createSlice } from "@reduxjs/toolkit";
 import { PayloadAction } from "@reduxjs/toolkit";
-import { getItemFromLocalStorage, setItemToLocalStorage } from "@utils/helpers/localStorage";
+import { getItemFromLocalStorage, setItemToLocalStorage } from '@utils/helpers/localStorage';
+import { removeTrack } from '../Tracks/tracksSlice';
+
 
 interface Playlists {
   [key: string]: PlaylistModel;
@@ -32,19 +34,8 @@ export const playlistsSlice = createSlice({
     removeFromFavorites: (state, action: PayloadAction<string>) => {
       state.favorites.tracks = state.favorites.tracks.filter((track) => track.id !== action.payload);
       state.favorites.dateOfUpdate = Date.now();
-
-      const favoritesTracksLength = state.favorites.tracks.length;
-
-      if (favoritesTracksLength === 0) {
-        state.favorites.coverUrl = 'favorites-placeholder.jpg';
-
-        setItemToLocalStorage(favoritesKey, state.favorites)
-
-        return;
-      }
-
-      const lastFavoritesTrack = state.favorites.tracks[favoritesTracksLength - 1];
-      state.favorites.coverUrl = lastFavoritesTrack.coverUrl;
+      const favoritesPlaceholderUrl = 'favorites-placeholder.jpg';
+      state.favorites.coverUrl = getPlaylistCover(state.favorites, favoritesPlaceholderUrl);
 
       setItemToLocalStorage(favoritesKey, state.favorites)
     },
@@ -75,8 +66,14 @@ export const playlistsSlice = createSlice({
       const playlist = allPlaylists[action.payload.playlistId];
 
       playlist.tracks.push(action.payload.track);
-      state.favorites.dateOfUpdate = Date.now();
-      state.favorites.coverUrl = action.payload.track.coverUrl;
+      playlist.dateOfUpdate = Date.now();
+      playlist.coverUrl = action.payload.track.coverUrl;
+
+      if (action.payload.playlistId === favoritesId) {
+        setItemToLocalStorage(favoritesKey, state.favorites);
+
+        return;
+      }
 
       setItemToLocalStorage(playlistsKey, state.customPlaylists);
     },
@@ -101,9 +98,42 @@ export const playlistsSlice = createSlice({
       const allPlaylists = {...state.customPlaylists, [favoritesId]: state.favorites };
       const playlist = allPlaylists[action.payload.playlistId];
 
-      playlist.tracks = playlist.tracks.filter((track) => track.id !== action.payload.trackId)
-    }
-  }
+      playlist.tracks = playlist.tracks.filter((track) => track.id !== action.payload.trackId);
+      
+      const playlistPlaceholderUrl = playlist.id === favoritesId ? 'favorites-placeholder.jpg' : 'playlist-placeholder.webp';
+      playlist.coverUrl = getPlaylistCover(playlist, playlistPlaceholderUrl);
+
+      if (action.payload.playlistId === favoritesId) {
+        setItemToLocalStorage(favoritesKey, state.favorites);
+
+        return;
+      }
+
+      setItemToLocalStorage(playlistsKey, state.customPlaylists);
+    },
+  },
+  extraReducers(builder) {
+    builder.addCase(removeTrack, (state, action) => {
+      const favoritesId = state.favorites.id;
+      const allPlaylists = {...state.customPlaylists, [favoritesId]: state.favorites };
+
+      for (const playlist of Object.values(allPlaylists)) {
+        const trackIndex = playlist.tracks.findIndex((track) => track.id === action.payload);
+
+        if (trackIndex === -1) {
+          continue;
+        }
+
+        playlist.tracks = playlist.tracks.filter((track) => track.id !== action.payload);
+
+        const playlistPlaceholderUrl = playlist.id === favoritesId ? 'favorites-placeholder.jpg' : 'playlist-placeholder.webp';
+        playlist.coverUrl = getPlaylistCover(playlist, playlistPlaceholderUrl);
+      }
+
+      setItemToLocalStorage(favoritesKey, state.favorites);
+      setItemToLocalStorage(playlistsKey, state.customPlaylists);
+    })
+  },
 })
 
 function getInitialState (): PlaylistsState {
@@ -116,6 +146,18 @@ function getInitialState (): PlaylistsState {
   }
 }
 
+function getPlaylistCover (playlist: PlaylistModel, playlistPlaceholderUrl: string): string {
+  const playlistTracksLength = playlist.tracks.length;
+
+  if (playlistTracksLength === 0) {
+    return playlistPlaceholderUrl;
+  }
+
+  const lastFavoritesTrack = playlist.tracks[playlistTracksLength - 1];
+
+  return lastFavoritesTrack.coverUrl;
+}
+
 export const {
   addToFavorites,
   removeFromFavorites,
@@ -124,6 +166,6 @@ export const {
   removePlaylistById,
   addTrackToPlaylist,
   addTrackToTheNewPlaylist,
-  removeTrackFromPlaylist
+  removeTrackFromPlaylist,
 } = playlistsSlice.actions;
 export default playlistsSlice.reducer;
