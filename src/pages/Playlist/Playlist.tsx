@@ -6,7 +6,7 @@ import { SearchBar } from '@/components/SearchBar/SearchBar'
 import { EditTitleInput } from '@/features/Playlists/components/EditTitleInput/EditTitleInput'
 import { getTracksAmount } from '@/features/Playlists/helpers/getTracksAmount'
 import { getUpdateTime } from '@/features/Playlists/helpers/getUpdateTime'
-import { changePlaylistTitle, removePlaylistById } from '@/features/Playlists/playlistsSlice'
+import { changePlaylistTitle, removePlaylistById, removeTrackFromPlaylist } from '@/features/Playlists/playlistsSlice'
 import { selectFavoritesId, selectPlaylistById } from '@/features/Playlists/selectors'
 import TrackList from '@/features/Tracks/components/TrackList/TrackList'
 import { setCurrentTrackIndex, setPlaybackQueue } from '@/features/Tracks/tracksSlice'
@@ -43,12 +43,16 @@ export const Playlist = () => {
     setSearchTerm(e.currentTarget.value);
   }
 
+  const deleteTrackFromPlaylist = (trackId: string) => {
+    dispatch(removeTrackFromPlaylist({trackId, playlistId: id!}))
+  }
+
   const displaySearchResults = (): JSX.Element => {
     if (searchResults.length === 0) {
       return <EmptyMessage title={'Nothing found'}/>
     }
 
-    return <TrackList tracks={searchResults}/>
+    return <TrackList tracks={searchResults} playlistId={id!} onDelete={deleteTrackFromPlaylist}/>
   }
 
   const isThePlaylistCustom = (): boolean => {

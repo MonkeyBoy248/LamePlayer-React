@@ -11,9 +11,11 @@ import { useModal } from '@/utils/hooks/useModal';
 
 interface TrackListProps {
   tracks: TrackModel[];
+  playlistId?: string;
+  onDelete: (trackId: string, playlistId?: string) => void;
 }
 
-const TrackList = ({tracks}: TrackListProps) => {
+const TrackList = ({ tracks, onDelete, playlistId }: TrackListProps) => {
   const dispatch: AppDispatch = useDispatch();
   const currentTrackIndex = useSelector((state: RootState) => state.tracks.currentTrackIndex);
   const currentTrack = useSelector(selectCurrentTrack);
@@ -49,8 +51,10 @@ const TrackList = ({tracks}: TrackListProps) => {
           dataIndex={index}
           key={track.id}
           isPlaying={isPlaying}
+          playlistId={playlistId}
           onPlay={setCurrentTrack}
           onAddToPlaylist={addToPlaylist}
+          onDelete={onDelete}
           />
       })}
     </ul>
