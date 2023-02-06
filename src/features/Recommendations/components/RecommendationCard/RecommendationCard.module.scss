@@ -76,5 +76,10 @@
     border: none;
     color: colors.$text;
     font-size: 1.75em;
+    opacity: 0.8;
+
+    &:hover {
+      opacity: 1;
+    }
   }
 }

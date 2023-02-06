@@ -12,12 +12,23 @@ interface TrackProps {
   dataIndex: number;
   isActive: boolean;
   isPlaying: boolean;
-  onClick: MouseEventHandler<HTMLButtonElement>;
+  playlistId?: string;
+  onPlay: MouseEventHandler<HTMLButtonElement>;
+  onAddToPlaylist: (track: TrackModel) => void;
+  onDelete: (trackId: string, playlistId?: string) => void;
 }
 
-const Track = ({ track, onClick, dataIndex, isActive, isPlaying }: TrackProps) => {
-  const blockName = 'track';
-
+const Track = (
+  {
+    track,
+    onPlay,
+    dataIndex,
+    isActive,
+    isPlaying,
+    playlistId,
+    onAddToPlaylist,
+    onDelete
+  }: TrackProps) => {
   const getPlayButtonIconId = () => {
     if (isActive && isPlaying) {
       return iconIds.pause;
@@ -34,11 +45,10 @@ const Track = ({ track, onClick, dataIndex, isActive, isPlaying }: TrackProps) =
             <button
               className={`${styles.track__playButton} _playButton`}
               data-index={dataIndex}
-              onClick={onClick}>
+              onClick={onPlay}>
               <Icon
                 id={getPlayButtonIconId()}
                 width="1.5em" height="1.5em"
-                blockName={blockName}
               />
             </button>
             <img className={styles.track__cover} src={`/images/covers/${track.coverUrl}`} alt={`${track.album} cover`} />
@@ -55,10 +65,10 @@ const Track = ({ track, onClick, dataIndex, isActive, isPlaying }: TrackProps) =
               height='1.5em'
               track={track}
               />
-            <button className={styles.track__deleteButton}>
-              <Icon id={iconIds.delete} width='1.5em' height='1.5em' blockName={blockName} fill='#E5E5E5'></Icon>
+            <button className={styles.track__deleteButton} onClick={() => onDelete(track.id, playlistId)}>
+              <Icon id={iconIds.delete} width='1.5em' height='1.5em' fill='#E5E5E5'></Icon>
             </button>
-            <button className={styles.track__addToPlaylist}>+</button>
+            <button className={styles.track__addToPlaylist} onClick={() => onAddToPlaylist(track)}>+</button>
             <p className={styles.track__duration}>0:00</p>
           </div>
       </div>

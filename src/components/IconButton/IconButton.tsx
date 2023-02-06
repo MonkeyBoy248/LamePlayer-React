@@ -1,5 +1,6 @@
 import { MouseEventHandler } from 'react';
-import Icon from './Icon';
+import styles from './IconButton.module.scss';
+import Icon from '../Icon';
 
 interface IconButtonProps {
   iconId: string;
@@ -7,7 +8,7 @@ interface IconButtonProps {
   width: string;
   fill?: string;
   stroke?: string;
-  className: string;
+  className?: string;
   onClick: MouseEventHandler<HTMLButtonElement>;
   isDisabled?: boolean;
 }
@@ -24,7 +25,7 @@ export const IconButton = (
     onClick
   }: IconButtonProps) => {
   return (
-    <button className={className} onClick={onClick} disabled={isDisabled}>
+    <button className={`${styles.iconButton} ${className}`} onClick={onClick} disabled={isDisabled}>
       <Icon
         id={iconId}
         height={height}

@@ -1,17 +1,18 @@
 import { AppDispatch, RootState } from '@/app/store'
 import { AlertModal } from '@/components/AlertModal/AlertModal'
 import { EmptyMessage } from '@/components/EmptyMessage/EmptyMessage'
-import { IconButton } from '@/components/IconButton'
+import { IconButton } from '@/components/IconButton/IconButton'
 import { SearchBar } from '@/components/SearchBar/SearchBar'
 import { EditTitleInput } from '@/features/Playlists/components/EditTitleInput/EditTitleInput'
 import { getTracksAmount } from '@/features/Playlists/helpers/getTracksAmount'
 import { getUpdateTime } from '@/features/Playlists/helpers/getUpdateTime'
-import { changePlaylistTitle, removePlaylistById } from '@/features/Playlists/playlistsSlice'
+import { changePlaylistTitle, removePlaylistById, removeTrackFromPlaylist } from '@/features/Playlists/playlistsSlice'
 import { selectFavoritesId, selectPlaylistById } from '@/features/Playlists/selectors'
 import TrackList from '@/features/Tracks/components/TrackList/TrackList'
 import { setCurrentTrackIndex, setPlaybackQueue } from '@/features/Tracks/tracksSlice'
 import { iconIds } from '@/utils/config/iconIds'
 import { filterArrayByKeys } from '@/utils/helpers/filterArrayByKeys'
+import { useModal } from '@/utils/hooks/useModal'
 import { useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -32,7 +33,7 @@ export const Playlist = () => {
     return filterArrayByKeys(playlist.tracks, ['artist', 'title'], searchTerm);
   }, [searchTerm, playlist.tracks]);
   const navigate = useNavigate();
-  const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
+  const { isOpen, closeModal, openModal } = useModal();
 
   const getDateOfCreation = (): string => {
     return new Date(playlist.dateOfCreation).toLocaleDateString();
@@ -42,12 +43,16 @@ export const Playlist = () => {
     setSearchTerm(e.currentTarget.value);
   }
 
+  const deleteTrackFromPlaylist = (trackId: string) => {
+    dispatch(removeTrackFromPlaylist({trackId, playlistId: id!}))
+  }
+
   const displaySearchResults = (): JSX.Element => {
     if (searchResults.length === 0) {
       return <EmptyMessage title={'Nothing found'}/>
     }
 
-    return <TrackList tracks={searchResults}/>
+    return <TrackList tracks={searchResults} playlistId={id!} onDelete={deleteTrackFromPlaylist}/>
   }
 
   const isThePlaylistCustom = (): boolean => {
@@ -91,10 +96,6 @@ export const Playlist = () => {
   const removePlaylist = () => {
     dispatch(removePlaylistById(id!));
     navigate('/playlists');
-  }
-
-  const closeDialog = () => {
-    setIsDialogOpen(false);
   }
 
   return (
@@ -147,7 +148,7 @@ export const Playlist = () => {
                 width='1.5em'
                 fill='#E5E5E5'
                 className={styles.playlist__delete}
-                onClick={() => setIsDialogOpen(true)}
+                onClick={openModal}
               />
             }
           </div>
@@ -163,9 +164,9 @@ export const Playlist = () => {
       }
       </div>
       <AlertModal
-        isOpen={isDialogOpen}
-        backdropOnClick={closeDialog}
-        onCancel={closeDialog}
+        isOpen={isOpen}
+        closeModal={closeModal}
+        onCancel={closeModal}
         onConfirm={removePlaylist}
         text={'Are you sure you want to delete the playlist? This action cannot be undone.'}
         confirmText={'Yes'}

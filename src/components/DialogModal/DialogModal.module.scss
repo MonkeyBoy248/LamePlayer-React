@@ -1,0 +1,16 @@
+.dialog {
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  &__closeButton {
+    opacity: 0.8;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}

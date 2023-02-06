@@ -2,7 +2,7 @@ import { iconIds } from '@/utils/config/iconIds';
 import { MouseEventHandler } from 'react'
 import styles from './VolumeControls.module.scss';
 import { VolumeSlider } from '../VolumeSlider/VolumeSlider';
-import { IconButton } from '@/components/IconButton';
+import { IconButton } from '@/components/IconButton/IconButton';
 
 export interface VolumeProps {
   volume: number;
