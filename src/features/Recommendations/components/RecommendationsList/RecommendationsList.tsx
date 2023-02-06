@@ -5,6 +5,9 @@ import { setCurrentTrackIndex, setIsPlaying } from '@/features/Tracks/tracksSlic
 import { AppDispatch, RootState } from '@/app/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectCurrentTrack } from '@/features/Tracks/selectors';
+import { useModal } from '@/utils/hooks/useModal';
+import { AddToPlaylistPopup } from '@/features/Playlists/components/AddToPlaylistPopup/AddToPlaylistPopup';
+import { useState } from 'react';
 
 interface RecommendationsListProps {
   recommendationTracks: TrackModel[];
@@ -16,6 +19,8 @@ const RecommendationsList = ({ recommendationTracks, trackList }: Recommendation
   const currentTrackIndex = useSelector((state: RootState) => state.tracks.currentTrackIndex);
   const currentTrack = useSelector(selectCurrentTrack);
   const isPlaying = useSelector((state: RootState) => state.tracks.isPlaying);
+  const { openModal, isOpen, closeModal } = useModal();
+  const [trackToAdd, setTrackToAdd] = useState<TrackModel>({} as TrackModel);
 
   const setCurrentTrack = (id: string) => {
     const trackItemIndex = trackList.findIndex((track) => track.id === id);
@@ -33,7 +38,13 @@ const RecommendationsList = ({ recommendationTracks, trackList }: Recommendation
     dispatch(setCurrentTrackIndex(trackItemIndex));
   }
 
+  const addToPlaylist = (track: TrackModel) => {
+    setTrackToAdd(track);
+    openModal();
+  }
+
   return (
+    <>
     <ul className={styles.recommendationsList}>
       {recommendationTracks.length > 0 && recommendationTracks.map((item: TrackModel, index: number) => {
         return <RecommendationCard
@@ -42,10 +53,17 @@ const RecommendationsList = ({ recommendationTracks, trackList }: Recommendation
           isActive={item.id === currentTrack.id}
           dataIndex={index}
           trackInfo={item}
-          onClick={setCurrentTrack}
+          onPlay={setCurrentTrack}
+          onAdd={addToPlaylist}
           />
       })}
     </ul>
+    <AddToPlaylistPopup
+      isOpen={isOpen}
+      trackToAdd={trackToAdd}
+      closeModal={closeModal}
+    />
+    </>
   )
 }
 
