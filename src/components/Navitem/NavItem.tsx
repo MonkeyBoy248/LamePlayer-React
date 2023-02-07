@@ -11,7 +11,6 @@ const NavItem = ({ title, svg, link }: NavItemProps) => {
       <NavLink end to={link} className={ ({isActive}) => isActive ? styles.navItem_active : '' }>
         <Icon
             id={ svg.id }
-            blockName={ svg.blockName }
             width={ svg.width }
             height={ svg.height }
             fill={ svg.fill }

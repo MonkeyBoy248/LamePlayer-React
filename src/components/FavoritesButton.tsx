@@ -1,5 +1,6 @@
-import { AppDispatch, RootState } from '@/app/store';
-import { addToFavorites, removeFromFavorites } from '@/features/Playlists/playlistsSlice';
+import { AppDispatch } from '@/app/store';
+import { addTrackToPlaylist, removeTrackFromPlaylist } from '@/features/Playlists/playlistsSlice';
+import { selectFavorites } from '@/features/Playlists/selectors';
 import { TrackModel } from '@/interfaces/Track';
 import { iconIds } from '@/utils/config/iconIds';
 import { useMemo } from 'react';
@@ -24,19 +25,19 @@ export const FavoritesButton = (
   }: FavoritesButtonProps
   ) => {
   const dispatch: AppDispatch = useDispatch();
-  const favorites = useSelector((state: RootState) => state.playlists.favorites);
+  const favorites = useSelector(selectFavorites);
   const inFavorites = useMemo(
     () => favorites.tracks.findIndex((favorite) => favorite.id === track.id) !== -1,
-    [favorites]);
+    [favorites, track]);
 
   const updateFavorites = () => {
     if (inFavorites) {
-      dispatch(removeFromFavorites(track.id));
+      dispatch(removeTrackFromPlaylist({trackId: track.id, playlistId: favorites.id}));
 
       return;
     }
 
-    dispatch(addToFavorites(track))
+    dispatch(addTrackToPlaylist({track, playlistId: favorites.id}));
   }
 
   return (

@@ -55,10 +55,6 @@ export const Playlist = () => {
     return <TrackList tracks={searchResults} playlistId={id!} onDelete={deleteTrackFromPlaylist}/>
   }
 
-  const isThePlaylistCustom = (): boolean => {
-    return playlist.id !== favoritesId;
-  }
-
   const runPlayllist = (): void => {
     dispatch(setPlaybackQueue(playlist.tracks));
     dispatch(setCurrentTrackIndex(0));
@@ -109,7 +105,7 @@ export const Playlist = () => {
           <div className={styles.playlist__info}>
             <p className={styles.playlist__itemLabel}>Playlist</p>
             {
-              isThePlaylistCustom() ?
+              playlist.createdByUser ?
               <EditTitleInput
                 title={title}
                 onChange={handleInputChange}
@@ -142,7 +138,7 @@ export const Playlist = () => {
               onClick={(e) => console.log(e.target)}
             />
             {
-              isThePlaylistCustom() && <IconButton
+              playlist.createdByUser && <IconButton
                 iconId={iconIds.delete}
                 height='1.5em'
                 width='1.5em'

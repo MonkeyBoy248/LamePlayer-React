@@ -6,6 +6,11 @@ export interface PlaylistModel {
   tracks: TrackModel[];
   coverUrl: string;
   user: string;
+  createdByUser: boolean;
   dateOfUpdate: number;
   dateOfCreation: number;
+}
+
+export interface Playlists {
+  [key: string]: PlaylistModel;
 }
