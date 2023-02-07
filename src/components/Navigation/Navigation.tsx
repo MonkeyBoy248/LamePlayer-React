@@ -5,7 +5,6 @@ import styles from './Navigation.module.scss';
 import { iconIds } from '@utils/config/iconIds';
 
 const Navigation = () => {
-  const blockName = 'navItem';
   const width = '1.5em';
   const height = '1.5em';
   const fill = '#E5E5E5';
@@ -19,7 +18,6 @@ const Navigation = () => {
         width,
         height,
         fill,
-        blockName,
       }
     },
     {
@@ -30,7 +28,6 @@ const Navigation = () => {
         width,
         height,
         fill,
-        blockName,
       }
     },
     {
@@ -41,7 +38,6 @@ const Navigation = () => {
         width,
         height,
         fill,
-        blockName,
       }
     },
     {
@@ -52,7 +48,6 @@ const Navigation = () => {
         width,
         height,
         fill,
-        blockName,
       }
     },
     {
@@ -63,7 +58,6 @@ const Navigation = () => {
         width,
         height,
         fill,
-        blockName,
       }
     },
     {
@@ -74,7 +68,6 @@ const Navigation = () => {
         width,
         height,
         fill,
-        blockName,
       }
     }
   ]
