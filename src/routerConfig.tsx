@@ -5,6 +5,7 @@ import Artists from './pages/Artists/Artists';
 import Home from './pages/Home/Home';
 import { Playlist } from './pages/Playlist/Playlist';
 import PlaylistsPage from './pages/Playlists/PlaylistsPage';
+import { Settings } from './pages/Settings/Settings';
 import Tracks from './pages/Tracks/Tracks';
 
 export const router = createBrowserRouter([
@@ -35,6 +36,10 @@ export const router = createBrowserRouter([
       {
         path: 'playlist/:id',
         element: <Playlist/>
+      },
+      {
+        path: 'settings',
+        element: <Settings  title={'Settings'}/>
       }
     ]
   },
