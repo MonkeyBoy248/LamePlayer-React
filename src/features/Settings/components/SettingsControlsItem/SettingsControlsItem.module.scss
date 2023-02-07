@@ -1,0 +1,20 @@
+@use '../../../../styles/palette' as colors;
+
+.settingsControlsItem {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  color: colors.$text;
+  padding-block: 1rem;
+  border-top: 1px solid colors.$secondary;
+  border-bottom: 1px solid colors.$secondary;
+
+  &__title {
+    font-weight: bolder;
+  }
+
+  &__subtitle {
+    opacity: 0.8;
+    margin-top: 0.25rem;
+  }
+}
