@@ -1,4 +1,3 @@
-import styles from './Tracks.module.scss';
 import TrackList from "@features/Tracks/components/TrackList/TrackList";
 import { AppDispatch, RootState } from '@/app/store';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,9 +16,9 @@ const Tracks = ({ title }: TracksProps ) => {
   }
 
   return (
-    <section className={`${styles.tracks} _page`}>
-      <div className={`${styles.tracks__inner} _container`}>
-        <h2 className={`${styles.tracks__pageTitle} _pageTitle`}>{title}</h2>
+    <section className={`tracks _page`}>
+      <div className={`tracks__inner _container`}>
+        <h2 className={`tracks__pageTitle _pageTitle`}>{title}</h2>
         <TrackList onDelete={deleteTrackFromTracklist} tracks={tracks}/>
       </div>
     </section>
