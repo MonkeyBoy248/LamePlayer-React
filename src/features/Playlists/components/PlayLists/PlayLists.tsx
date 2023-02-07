@@ -9,17 +9,17 @@ import styles from './PlayLists.module.scss';
 
 interface PlaylistsProps {
   playlists: PlaylistModel[];
-  favorites: PlaylistModel;
 }
 
-const PlayLists = ({ playlists, favorites }: PlaylistsProps) => {
+const PlayLists = ({ playlists }: PlaylistsProps) => {
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
 
   const createNewPlaylist = () => {
-    const newPlaylist = {
+    const newPlaylist: PlaylistModel = {
       id: crypto.randomUUID(),
       title: 'New playlist',
+      createdByUser: true,
       dateOfCreation: Date.now(),
       dateOfUpdate: Date.now(),
       tracks: [],
@@ -36,7 +36,6 @@ const PlayLists = ({ playlists, favorites }: PlaylistsProps) => {
       <li className={styles.playlists__createPlaylist}>
         <button className={styles.playlists__createPlaylistButton} onClick={createNewPlaylist}>+</button>
       </li>
-      <PlaylistCard  playlist={favorites}/>
       { playlists.length > 0 && playlists.map((playlist) => {
         return <PlaylistCard key={playlist.id} playlist={playlist}/>
         })
