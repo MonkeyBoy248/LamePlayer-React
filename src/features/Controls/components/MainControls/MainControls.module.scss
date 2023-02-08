@@ -1,11 +1,9 @@
-@use '../../../../styles/palette' as colors;
-
 .controls {
   width: 100%;
   position: fixed;
   bottom: 0;
   left: 0;
-  background-color: rgba(32, 31, 31, .95);
+  background-color: var(--main-controls);
 
   button {
     opacity: 0.7;

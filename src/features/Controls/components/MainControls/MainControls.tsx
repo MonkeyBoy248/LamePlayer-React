@@ -142,7 +142,7 @@ const MainControls = () => {
             fill='#E5E5E5'
             width='2em'
             height='2em'
-            className={styles.controls__optionsButton}
+            className={`controls__optionsButton`}
             onClick={(e) => console.log(e.target)} />
           <IconButton
             className={styles.controls__shuffleButton}

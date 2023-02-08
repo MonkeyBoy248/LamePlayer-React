@@ -1,10 +1,45 @@
 :root {
-  --background: #201f1f;
+  --background-dark: #201F1F;
+  --background-light: #f3f3f3;
+
   --accent: #0FA750;
-  --text: #E5E5E5;
-  --white: #FFFFFF;
-  --secondary: #565656;
-  --background-transparent: rgba(0, 0, 0, .7);
-  --empty-message-icon-background: #292929;
-  --modal-background: #2C2C2C;
+
+  --text-dark: #E5E5E5;
+  --text-light: #201F1F;
+
+  --recommendations-card-text: #E5E5E5;
+
+  --secondary-dark: #565656;
+  --secondary-light: #272727;
+
+  --background-transparent-dark: rgba(0, 0, 0, .7);
+  --background-transparent-light: rgba(53, 53, 53, 0.8);
+
+  --empty-message-icon-background-dark: #292929;
+
+  --modal-background-dark: #2C2C2C;
+  --modal-background-light: #EDEDED;
+
+  --main-controls-dark: rgba(32, 31, 31, .95);
+  --main-controls-light: rgba(243, 243, 243, .95);
+}
+
+.dark {
+  --background: var(--background-dark);
+  --text: var(--text-dark);
+  --secondary: var(--secondary-dark);
+  --background-transparent: var(--background-transparent-dark);
+  --empty-message-icon-background: var(--empty-message-icon-background-dark);
+  --modal-background: var(--modal-background-dark);
+  --main-controls: var(--main-controls-dark);
+}
+
+.light {
+  --background: var(--background-light);
+  --text: var(--text-light);
+  --secondary: var(--secondary-light);
+  --background-transparent: var(--background-transparent-light);
+  --empty-message-icon-background: var(--empty-message-icon-background-dark);
+  --modal-background: var(--modal-background-light);
+  --main-controls: var(--main-controls-light);
 }
