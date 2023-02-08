@@ -7,7 +7,7 @@
     left: 0;
     margin: 0;
     z-index: 1000;
-    background-color: colors.$background-transparent;
+    background-color: var(--background-transparent);
     width: 100%;
     height: 100%;
     display: flex;
@@ -16,10 +16,10 @@
   }
 
   &__content {
-    color: colors.$text;
-    background-color: colors.$modal-background;
+    color: var(--text);
+    background-color: var(--modal-background);
     padding: 1.5rem 2rem;
     border-radius: 0.5rem;
-    outline: solid 2px colors.$accent;
+    outline: solid 2px var(--accent);
   }
 }

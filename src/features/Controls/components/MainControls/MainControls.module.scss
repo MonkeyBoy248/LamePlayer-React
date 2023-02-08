@@ -23,7 +23,7 @@
 
   &__progressBar {
     height: 0.8em;
-    background-color: colors.$secondary;
+    background-color: var(--secondary);
     z-index: -1;
     cursor: pointer;
 
@@ -34,7 +34,7 @@
 
   &__progress {
     height: 0.75em;
-    background-color: colors.$accent;
+    background-color: var(--accent);
     display: flex;
     justify-content: end;
     align-items: center;
@@ -51,7 +51,7 @@
     min-height: 1rem;
     min-width: 1rem;
     border-radius: 50%;
-    background-color: colors.$accent;
+    background-color: var(--accent);
     position: relative;
     left: 0.75rem;
     transition: .1s ease-in-out;
@@ -92,7 +92,7 @@
 
   &__trackDetails {
     text-align: left;
-    color: colors.$text;
+    color: var(--text);
   }
 
   &__artist {
@@ -123,7 +123,7 @@
   }
 
   &__timeLabel {
-    color: colors.$text;
+    color: var(--text);
     font-size: 0.75rem;
   }
 }

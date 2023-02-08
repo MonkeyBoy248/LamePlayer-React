@@ -20,23 +20,23 @@
     opacity: 0;
     height: 1.875em;
     width: 4px;
-    background-color: colors.$accent;
+    background-color: var(--accent);
     left: 0;
     top: 50%;
     translate: 0 -50%;
   }
 
   &__name {
-    color: colors.$text;
+    color: var(--text);
     font-size: 0.875rem;
   }
 
   &:hover {
-    background-color: colors.$text;
+    background-color: var(--text);
   }
 
   &:hover &__name {
-    color: colors.$background;
+    color: var(--background);
   }
 
   &:hover::before {
@@ -44,14 +44,14 @@
   }
 
   &:hover svg {
-    fill: colors.$background;
+    fill: var(--background);
   }
 
   &:has(.navItem_active) {
-    background-color: colors.$text;
+    background-color: var(--text);
 
     p {
-      color: colors.$background;
+      color: var(--background);
     }
 
     &::before {
@@ -59,7 +59,7 @@
     }
 
     svg {
-      fill: colors.$background;
+      fill: var(--background);
     }
   }
 }

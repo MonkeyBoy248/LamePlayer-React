@@ -2,7 +2,7 @@
 
 .artist {
   &:hover {
-    outline: 2px solid colors.$accent;
+    outline: 2px solid var(--accent);
     outline-offset: 0.5em;
   }
 
@@ -27,12 +27,12 @@
 
   &__name {
     text-decoration: none;
-    color: colors.$text;
+    color: var(--text);
     display: block;
     transition: .3s ease-in-out;
 
     &:hover {
-      color: colors.$accent;
+      color: var(--accent);
     }
   }
 
@@ -42,7 +42,7 @@
 
   &__genre {
     font-size: 0.75em;
-    color: colors.$text;
+    color: var(--text);
     opacity: 0.8;
     margin-bottom: 0.25rem;
     display: flex;
@@ -54,7 +54,7 @@
 
     &::before {
       content: '○';
-      color: colors.$accent;
+      color: var(--accent);
       margin-right: 0.5rem;
     }
   }

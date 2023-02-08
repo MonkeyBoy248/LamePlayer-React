@@ -2,7 +2,7 @@
 
 .playlistCard {
   &:hover {
-    outline: 2px solid colors.$accent;
+    outline: 2px solid var(--accent);
     outline-offset: 0.5em;
   }
 
@@ -23,18 +23,18 @@
   &__title {
     text-decoration: none;
     font-size: 1em;
-    color: colors.$text;
+    color: var(--text);
     display: block;
     margin-bottom: 0.5em;
 
     &:hover {
-      color: colors.$accent;
+      color: var(--accent);
     }
   }
 
   &__infoText {
     opacity: 0.8;
-    color: colors.$text;
+    color: var(--text);
     font-size: 0.875em;
   }
 

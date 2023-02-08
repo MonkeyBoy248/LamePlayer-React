@@ -1,7 +1,5 @@
-@use '../../styles/palette' as colors;
-
 .playlist {
-  color: colors.$text;
+  color: var(--text);
 
   ._date {
     font-size: 0.875rem;
@@ -32,7 +30,7 @@
   }
 
   &__itemLabel {
-    color: colors.$text;
+    color: var(--text);
     font-size: 1.2em;
     opacity: 0.8;
   }
@@ -44,7 +42,7 @@
 
 
   &__user {
-    color: colors.$text;
+    color: var(--text);
     font-weight: bolder;
     font-size: 1.25em;
     margin-bottom: 1rem;
@@ -83,7 +81,7 @@
     height: 3.5em;
 
     &:disabled {
-      background-color: colors.$secondary;
+      background-color: var(--secondary);
     }
   }
 }

@@ -9,7 +9,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: colors.$secondary;
+    background-color: var(--secondary);
     border-radius: 0.875em;
 
     &:hover button {
@@ -22,7 +22,7 @@
     height: 100%;
     border: none;
     background-color: transparent;
-    color: colors.$text;
+    color: var(--text);
     font-size: 4em;
     opacity: 0.8;
     cursor: pointer;

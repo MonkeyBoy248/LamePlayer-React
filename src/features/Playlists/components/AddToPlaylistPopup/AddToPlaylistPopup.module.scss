@@ -7,7 +7,7 @@
 
   &__divider {
     height: 1px;
-    background-color: colors.$text;
+    background-color: var(--text);
     border: none;
     outline-color: transparent;
   }

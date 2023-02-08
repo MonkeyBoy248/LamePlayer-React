@@ -2,7 +2,7 @@
 
 .track {
   &:hover {
-    outline: 2px solid colors.$accent;
+    outline: 2px solid var(--accent);
   }
 
   &:hover &__playButton{
@@ -10,7 +10,7 @@
   }
 
   &_active {
-    outline: 2px solid colors.$accent;
+    outline: 2px solid var(--accent);
   }
 
   &__playButton {
@@ -48,19 +48,19 @@
   &__name {
     text-decoration: none;
     display: block;
-    color: colors.$text;
+    color: var(--text);
     margin-bottom: 0.5em;
     font-weight: 800;
     font-size: 0.875em;
     transition: .2s ease-in-out;
 
     &:hover {
-      color: colors.$accent;
+      color: var(--accent);
     }
   }
 
   &__band {
-    color: colors.$text;
+    color: var(--text);
     font-size: 0.875em;
   }
 
@@ -84,11 +84,11 @@
 
   &__addToPlaylist {
     font-size: 2.2em;
-    color: colors.$text;
+    color: var(--text);
   }
 
   &__duration {
-    color: colors.$text;
+    color: var(--text);
     font-size: 0.875em;
     opacity: 0.8;
   }

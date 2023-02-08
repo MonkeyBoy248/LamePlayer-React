@@ -2,7 +2,7 @@
 
 .mainContent {
   width: 100%;
-  background-color: colors.$background;
+  background-color: var(--background);
 
   &__inner {
     width: 100%;

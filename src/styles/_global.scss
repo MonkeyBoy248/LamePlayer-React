@@ -4,7 +4,7 @@ body {
   padding: 0;
   margin: 0;
   font-family: Montserrat, Arial, Helvetica, sans-serif;
-  background-color: colors.$background;
+  background-color: var(--background);
 }
 
 h1, h2, h3, h4, h5, h6, p, ul, li, figure {
@@ -55,7 +55,7 @@ button {
   height: 2.5em;
   border-radius: 50%;
   border: none;
-  background-color: colors.$accent;
+  background-color: var(--accent);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -69,6 +69,6 @@ button {
   margin-bottom: 150px;
 
   h2 {
-    color: colors.$text
+    color: var(--text)
   }
 }

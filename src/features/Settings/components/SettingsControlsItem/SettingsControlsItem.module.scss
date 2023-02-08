@@ -1,13 +1,11 @@
-@use '../../../../styles/palette' as colors;
-
 .settingsControlsItem {
   display: flex;
   align-items: center;
   gap: 3rem;
-  color: colors.$text;
+  color: var(--text);
   padding-block: 1rem;
-  border-top: 1px solid colors.$secondary;
-  border-bottom: 1px solid colors.$secondary;
+  border-top: 1px solid var(--secondary);
+  border-bottom: 1px solid var(--secondary);
 
   &__title {
     font-weight: bolder;
