@@ -6,6 +6,7 @@ interface SettingsControlsProps {
   title: string;
   subtitle?: string;
 }
+
 export const SettingsControlsItem = ({ children, title, subtitle }: SettingsControlsProps) => {
   return (
     <div className={styles.settingsControlsItem}>
