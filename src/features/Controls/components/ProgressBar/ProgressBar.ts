@@ -2,7 +2,7 @@ import Slider, { SliderProps } from '@mui/material/Slider';
 import { styled } from '@mui/material/styles';
 
 export const ProgressBar = styled(Slider)<SliderProps>({
-  color: '#0FA750',
+  color: 'var(--accent)',
   height: '0.8rem',
   borderRadius: 0,
   padding: 0,
@@ -10,12 +10,12 @@ export const ProgressBar = styled(Slider)<SliderProps>({
     border: 'none',
   },
   '& .MuiSlider-rail': {
-    backgroundColor: '#E5E5E5',
+    backgroundColor: 'var(--range-rail)',
   },
   '& .MuiSlider-thumb': {
     height: 20,
     width: 20,
-    backgroundColor: '#E5E5E5',
+    backgroundColor: 'var(--range-thumb)',
     boxShadow: 'none',
     '&:focus, &:hover, &.Mui-active, &.Mui-focusVisible': {
       boxShadow: 'none',

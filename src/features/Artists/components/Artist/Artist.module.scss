@@ -1,5 +1,3 @@
-@use '../../../../styles/palette' as colors;
-
 .artist {
   &:hover {
     outline: 2px solid var(--accent);
@@ -26,10 +24,11 @@
   }
 
   &__name {
+    font-family: MontserratMedium, Arial, Helvetica, sans-serif;
     text-decoration: none;
     color: var(--text);
     display: block;
-    transition: .3s ease-in-out;
+    font-weight: 600;
 
     &:hover {
       color: var(--accent);
@@ -41,9 +40,9 @@
   }
 
   &__genre {
-    font-size: 0.75em;
-    color: var(--text);
-    opacity: 0.8;
+    font-size: 0.825em;
+    font-weight: 600;
+    color: var(--subtitle);
     margin-bottom: 0.25rem;
     display: flex;
     align-items: center;

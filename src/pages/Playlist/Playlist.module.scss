@@ -84,4 +84,8 @@
       background-color: var(--secondary);
     }
   }
+
+  &__addToPlayback:disabled {
+    opacity: 0.3;
+  }
 }

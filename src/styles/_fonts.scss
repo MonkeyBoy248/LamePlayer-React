@@ -1,7 +1,7 @@
-@use './palette' as colors;
+@forward './palette';
 
 ._pageTitle {
-  font-family: 'MontserratBold', Arial, Helvetica, sans-serif;
+  font-family: MontserratBold, Arial, Helvetica, sans-serif;
   margin-bottom: 1em;
   font-size: 2em;
 }

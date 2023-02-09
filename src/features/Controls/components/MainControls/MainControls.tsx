@@ -81,7 +81,7 @@ const MainControls = () => {
           <IconButton
               className={styles.controls__prevButton}
               iconId={iconIds.prev}
-              fill={'#E5E5E5'}
+              fill={'var(--controls-svg)'}
               width='1.5em'
               height='1.5em'
               isDisabled={!isShuffled && isDisabled(0)}
@@ -90,7 +90,7 @@ const MainControls = () => {
           <IconButton
               className={styles.controls__playButton}
               iconId={isPlaying ? iconIds.pause : iconIds.play}
-              fill='#E5E5E5'
+              fill='var(--controls-svg)'
               width='2em'
               height='2em'
               isDisabled={playbackQueue.length === 0}
@@ -99,7 +99,7 @@ const MainControls = () => {
           <IconButton
               className={styles.controls__nextButton}
               iconId={iconIds.next}
-              fill={'#E5E5E5'}
+              fill={'var(--controls-svg)'}
               width='1.5em'
               height='1.5em'
               isDisabled={!isShuffled && isDisabled(playbackQueue.length - 1)}
@@ -108,7 +108,7 @@ const MainControls = () => {
           <IconButton
               className={styles.controls__repeatButton}
               iconId={ isLooped ? iconIds.repeatOne : iconIds.repeat}
-              fill={ isLooped ? '#0FA750' : '#E5E5E5'}
+              fill={ isLooped ? 'var(--accent)' : 'var(--controls-svg)'}
               width='2em'
               height='2em'
               onClick={toggleLoopStatus}
@@ -116,7 +116,7 @@ const MainControls = () => {
           <IconButton
               className={styles.controls__playlistsButton}
               iconId={iconIds.playbackQueue}
-              fill='#E5E5E5'
+              fill='var(--controls-svg)'
               width='2em'
               height='2em'
               onClick={(e) => console.log(e.target)}
@@ -139,7 +139,7 @@ const MainControls = () => {
         <div className={styles.controls__secondaryControls}>
           <IconButton
             iconId={iconIds.dots}
-            fill='#E5E5E5'
+            fill='var(--controls-svg)'
             width='2em'
             height='2em'
             className={`controls__optionsButton`}
@@ -147,7 +147,7 @@ const MainControls = () => {
           <IconButton
             className={styles.controls__shuffleButton}
             iconId={iconIds.shuffle}
-            fill={ isShuffled ? '#0FA750' : '#E5E5E5'}
+            fill={ isShuffled ? 'var(--accent)' : 'var(--controls-svg)'}
             width='2em'
             height='2em'
             onClick={toggleShuffleStatus}

@@ -13,7 +13,7 @@ export const SearchBar = ({ onInput }: SearchBarProps) => {
       <span className={styles.searchBar__icon}>
         <Icon
           id={iconIds.search}
-          fill={'#E5E5E5'}
+          fill={'var(--controls-svg)'}
           width={'1.5rem'}
           height={'1.5rem'}
         />

@@ -1,5 +1,3 @@
-@use '../../../../styles/palette' as colors;
-
 .recommendationCard {
   position: relative;
   width: 250px;
@@ -17,7 +15,6 @@
   &__inner {
     width: 100%;
     height: 100%;
-    background-color: var(--secondary);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -62,6 +59,7 @@
 
   &__trackName {
     font-size: 1em;
+    font-weight: 600;
     line-height: calc(18 / 16 * 100%);
   }
 

@@ -1,5 +1,3 @@
-@use '../../../../styles/palette' as colors;
-
 .track {
   &:hover {
     outline: 2px solid var(--accent);
@@ -46,13 +44,13 @@
   }
 
   &__name {
+    font-family: MontserratMedium, Arial, Helvetica, sans-serif;
     text-decoration: none;
     display: block;
     color: var(--text);
     margin-bottom: 0.5em;
-    font-weight: 800;
+    font-weight: 600;
     font-size: 0.875em;
-    transition: .2s ease-in-out;
 
     &:hover {
       color: var(--accent);
@@ -60,8 +58,9 @@
   }
 
   &__band {
-    color: var(--text);
+    color: var(--subtitle);
     font-size: 0.875em;
+    font-weight: 600;
   }
 
   &__controlsWrapper {
@@ -74,7 +73,6 @@
       align-items: center;
       justify-content: center;
       opacity: 0.7;
-      transition: .2s ease-in-out;
 
       &:hover {
         opacity: 1;
@@ -88,8 +86,7 @@
   }
 
   &__duration {
-    color: var(--text);
+    color: var(--subtitle);
     font-size: 0.875em;
-    opacity: 0.8;
   }
 }

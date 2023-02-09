@@ -1,5 +1,3 @@
-@use '../../../../styles/palette' as colors;
-
 .playlistCard {
   &:hover {
     outline: 2px solid var(--accent);
@@ -21,6 +19,8 @@
   }
 
   &__title {
+    font-family: MontserratMedium, Arial, Helvetica, sans-serif;
+    font-weight: 600;
     text-decoration: none;
     font-size: 1em;
     color: var(--text);
@@ -33,8 +33,8 @@
   }
 
   &__infoText {
-    opacity: 0.8;
-    color: var(--text);
+    font-weight: 500;
+    color: var(--subtitle);
     font-size: 0.875em;
   }
 

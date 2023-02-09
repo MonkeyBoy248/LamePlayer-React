@@ -8,7 +8,7 @@ interface LogoProps {
 const Logo = ({width, height}: LogoProps) => {
   return (
     <svg width={width} height={height} viewBox="0 0 79 80" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
-      <ellipse cx="39.4878" cy="40" rx="39.0244" ry="40" fill="#0FA750"/>
+      <ellipse cx="39.4878" cy="40" rx="39.0244" ry="40" fill="var(--accent)"/>
       <rect x="19.9756" y="20" width="39.0244" height="40" fill="url(#pattern0)"/>
       <defs>
         <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">

@@ -48,7 +48,8 @@ const Track = (
               onClick={onPlay}>
               <Icon
                 id={getPlayButtonIconId()}
-                width="1.5em" height="1.5em"
+                width="1.5em"
+                height="1.5em"
               />
             </button>
             <img className={styles.track__cover} src={`/images/covers/${track.coverUrl}`} alt={`${track.album} cover`} />
@@ -66,9 +67,16 @@ const Track = (
               track={track}
               />
             <button className={styles.track__deleteButton} onClick={() => onDelete(track.id, playlistId)}>
-              <Icon id={iconIds.delete} width='1.5em' height='1.5em' fill='#E5E5E5'></Icon>
+              <Icon id={iconIds.delete} width='1.5em' height='1.5em' fill='var(--controls-svg)'></Icon>
             </button>
-            <button className={styles.track__addToPlaylist} onClick={() => onAddToPlaylist(track)}>+</button>
+            <button className={styles.track__addToPlaylist} onClick={() => onAddToPlaylist(track)}>
+            <Icon
+                id={iconIds.add}
+                width="1em"
+                height="1em"
+                fill='var(--controls-svg)'
+              />
+            </button>
             <p className={styles.track__duration}>0:00</p>
           </div>
       </div>

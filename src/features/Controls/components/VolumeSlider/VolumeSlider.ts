@@ -2,7 +2,7 @@ import Slider, { SliderProps } from '@mui/material/Slider';
 import { styled } from '@mui/material/styles';
 
 export const VolumeSlider = styled(Slider)<SliderProps>({
-  color: '#0FA750',
+  color: 'var(--accent)',
   width: '8rem',
   height: 5,
   position: 'relative',
@@ -13,7 +13,7 @@ export const VolumeSlider = styled(Slider)<SliderProps>({
     position: 'absolute',
     left: '50%',
     transform: 'translateX(-50%)',
-    backgroundColor: '#E5E5E5',
+    backgroundColor: 'var(--controls-svg)',
     zIndex: -1
   },
   '&::before': {
@@ -26,12 +26,12 @@ export const VolumeSlider = styled(Slider)<SliderProps>({
     border: 'none',
   },
   '& .MuiSlider-rail': {
-    backgroundColor: '#E5E5E5'
+    backgroundColor: 'var(--range-rail)'
   },
   '& .MuiSlider-thumb': {
     height: 20,
     width: 20,
-    backgroundColor: '#E5E5E5',
+    backgroundColor: 'var(--range-thumb)',
     boxShadow: 'none',
     '&:focus, &:hover, &.Mui-active, &.Mui-focusVisible': {
       boxShadow: 'none',
@@ -44,7 +44,7 @@ export const VolumeSlider = styled(Slider)<SliderProps>({
     width: 24,
     height: 24,
     color: '#201F1F',
-    backgroundColor: '#E5E5E5',
+    backgroundColor: 'var(--range-thumb)',
     top: -8,
 
     '&::before': {
