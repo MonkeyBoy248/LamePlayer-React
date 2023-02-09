@@ -23,7 +23,7 @@ export const AddToPlaylistPopupItem = ({ inPlaylist, dataId, onClick, title }: A
     <li className={styles.addToPlaylistPopupItem} data-id={dataId} onClick={onClick}>
       <Icon
         id={getIcon()}
-        fill={ inPlaylist ? '#61BDE5' : '#E5E5E5' }
+        fill={ inPlaylist ? 'var(--checkmark)' : 'var(--controls-svg)' }
         width={'1.5rem'}
         height={'1.5rem'}
       />

@@ -1,0 +1,10 @@
+.settingsToggle {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  &__label {
+    font-size: 0.825rem;
+    opacity: 0.8;
+  }
+}

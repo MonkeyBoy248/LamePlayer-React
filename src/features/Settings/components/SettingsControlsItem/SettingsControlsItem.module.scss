@@ -1,0 +1,18 @@
+.settingsControlsItem {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  color: var(--text);
+  padding-block: 1rem;
+  border-top: 1px solid var(--secondary);
+  border-bottom: 1px solid var(--secondary);
+
+  &__title {
+    font-weight: bolder;
+  }
+
+  &__subtitle {
+    opacity: 0.8;
+    margin-top: 0.25rem;
+  }
+}

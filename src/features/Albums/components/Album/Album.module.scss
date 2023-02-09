@@ -1,8 +1,6 @@
-@use '../../../../styles/palette' as colors;
-
 .album {
   &:hover {
-    outline: 2px solid colors.$accent;
+    outline: 2px solid var(--accent);
     outline-offset: 0.5em;
   }
 
@@ -26,19 +24,21 @@
   }
 
   &__title {
+    font-family: MontserratMedium, Arial, Helvetica, sans-serif;
+    font-size: 0.875rem;
     text-decoration: none;
-    color: colors.$text;
+    color: var(--text);
     display: block;
-    transition: .3s ease-in-out;
+    font-weight: 600;
 
     &:hover {
-      color: colors.$accent;
+      color: var(--accent);
     }
   }
 
   &__artist {
     font-size: 0.75em;
-    color: colors.$text;
-    opacity: 0.8;
+    font-weight: 600;
+    color: var(--subtitle);
   }
 }

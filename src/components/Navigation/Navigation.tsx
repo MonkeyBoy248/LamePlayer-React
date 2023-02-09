@@ -7,7 +7,7 @@ import { iconIds } from '@utils/config/iconIds';
 const Navigation = () => {
   const width = '1.5em';
   const height = '1.5em';
-  const fill = '#E5E5E5';
+  const fill = 'var(--controls-svg)';
 
   const navigationItems: NavigationItem[] = [
     {

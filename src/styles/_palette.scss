@@ -1,8 +1,75 @@
-$background: #201f1f;
-$accent: #0FA750;
-$text: #E5E5E5;
-$white: #FFFFFF;
-$secondary: #565656;
-$background-transparent: rgba(0, 0, 0, .7);
-$empty-message-icon-background: #292929;
-$modal-background: #2C2C2C;
+:root {
+  --background-dark: #201F1F;
+  --background-light: #f3f3f3;
+
+  --accent-dark: #0FA750;
+  --accent-light: #eda222;
+
+  --text-dark: #E5E5E5;
+  --text-light: #121212;
+
+  --subtitle-dark: #d2d2d2;
+  --subtitle-light: #4a4a4a;
+
+  --recommendations-card-text: #E5E5E5;
+
+  --secondary: #565656;
+
+  --background-transparent: rgba(31, 31, 31, 0.8);
+
+  --empty-message-icon-background-dark: #292929;
+  --empty-message-icon-background-light: #b7b7b7;
+
+  --modal-background-dark: #2C2C2C;
+  --modal-background-light: #EDEDED;
+
+  --main-controls-dark: rgba(32, 31, 31, .95);
+  --main-controls-light: rgba(243, 243, 243, .95);
+
+  --range-thumb: #CFCFCF;
+  --range-rail-light: #2E2E2E;
+  --range-rail-dark: #E5E5E5;
+  --range-label-light: #CFCFCF;
+  --range-label-dark: #E5E5E5;
+
+  --controls-svg-light: #2E2E2E;
+  --controls-svg-dark: #E5E5E5;
+
+  --nav-item-active-dark: #E5E5E5;
+  --nav-item-active-light: #121212;
+
+  --checkmark-dark: #61BDE5;
+  --checkmark-light: #0FA750;
+}
+
+.dark {
+  --background: var(--background-dark);
+  --accent: var(--accent-dark);
+  --text: var(--text-dark);
+  --empty-message-icon-background: var(--empty-message-icon-background-dark);
+  --modal-background: var(--modal-background-dark);
+  --main-controls: var(--main-controls-dark);
+  --controls-svg: var(--controls-svg-dark);
+  --range-label: var(--range-label-dark);
+  --range-rail: var(--range-rail-dark);
+  --nav-item-active: var(--nav-item-active-dark);
+  --modal-background: var(--modal-background-dark);
+  --checkmark: var(--checkmark-dark);
+  --subtitle: var(--subtitle-dark);
+}
+
+.light {
+  --background: var(--background-light);
+  --accent: var(--accent-light);
+  --text: var(--text-light);
+  --empty-message-icon-background: var(--empty-message-icon-background-light);
+  --modal-background: var(--modal-background-light);
+  --main-controls: var(--main-controls-light);
+  --controls-svg: var(--controls-svg-light);
+  --range-label: var(--range-label-light);
+  --range-rail: var(--range-rail-light);
+  --nav-item-active: var(--nav-item-active-light);
+  --modal-background: var(--modal-background-light);
+  --checkmark: var(--checkmark-light);
+  --subtitle: var(--subtitle-light);
+}

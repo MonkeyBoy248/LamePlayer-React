@@ -1,5 +1,3 @@
-@use '../../../../styles/palette' as colors;
-
 .progress {
   &__container {
     padding: 0;
@@ -17,7 +15,7 @@
   }
 
   &__timeLabel {
-    color: colors.$text;
+    color: var(--text);
     font-size: 0.75rem;
   }
 }

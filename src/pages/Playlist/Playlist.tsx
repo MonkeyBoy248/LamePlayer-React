@@ -133,7 +133,7 @@ export const Playlist = () => {
               isDisabled={playlist.tracks.length === 0}
               height='2em'
               width='2em'
-              fill={playlist.tracks.length === 0 ? '#565656' : '#E5E5E5'}
+              fill={'var(--controls-svg)'}
               className={styles.playlist__addToPlayback}
               onClick={(e) => console.log(e.target)}
             />
@@ -142,7 +142,7 @@ export const Playlist = () => {
                 iconId={iconIds.delete}
                 height='1.5em'
                 width='1.5em'
-                fill='#E5E5E5'
+                fill='var(--controls-svg)'
                 className={styles.playlist__delete}
                 onClick={openModal}
               />

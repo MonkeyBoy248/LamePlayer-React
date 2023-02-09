@@ -46,7 +46,7 @@ export const FavoritesButton = (
         id={iconIds.like}
         height={height}
         width={width}
-        fill={inFavorites ? '#0FA750' : '#E5E5E5'}
+        fill={inFavorites ? 'var(--accent)' : 'var(--controls-svg)'}
         stroke={stroke}
       />
     </button>

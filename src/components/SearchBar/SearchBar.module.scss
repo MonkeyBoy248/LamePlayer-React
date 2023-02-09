@@ -1,5 +1,3 @@
-@use '../../styles/palette' as colors;
-
 .searchBar {
   display: flex;
   align-items: center;
@@ -12,7 +10,7 @@
   }
 
   &:focus-within {
-    outline: 2px solid colors.$accent;
+    outline: 2px solid var(--accent);
     opacity: 1;
   }
 
@@ -30,7 +28,7 @@
     border: none;
     font-size: 1rem;
     background-color: transparent;
-    color: colors.$text;
+    color: var(--text);
     font-family: Montserrat, Arial, Helvetica, sans-serif;
 
     &:focus {

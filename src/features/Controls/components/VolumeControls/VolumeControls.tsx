@@ -37,7 +37,7 @@ export const VolumeControls = ({ volume, onChange, onClick }: VolumeProps) => {
       </div>
       <IconButton
          iconId={getVolumeIcon()}
-         fill='#E5E5E5'
+         fill='var(--controls-svg)'
          width='2.5em'
          height='2.5em'
          className={styles.controls__volumeButton}
