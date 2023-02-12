@@ -7,7 +7,7 @@ import { EditTitleInput } from '@/features/Playlists/components/EditTitleInput/E
 import { getTracksAmount } from '@/features/Playlists/helpers/getTracksAmount'
 import { getUpdateTime } from '@/features/Playlists/helpers/getUpdateTime'
 import { changePlaylistTitle, removePlaylistById, removeTrackFromPlaylist } from '@/features/Playlists/playlistsSlice'
-import { selectFavoritesId, selectPlaylistById } from '@/features/Playlists/selectors'
+import { selectPlaylistById } from '@/features/Playlists/selectors'
 import TrackList from '@/features/Tracks/components/TrackList/TrackList'
 import { setCurrentTrackIndex, setPlaybackQueue } from '@/features/Tracks/tracksSlice'
 import { iconIds } from '@/utils/config/iconIds'
