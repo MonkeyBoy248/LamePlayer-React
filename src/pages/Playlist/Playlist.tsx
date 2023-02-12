@@ -7,12 +7,13 @@ import { EditTitleInput } from '@/features/Playlists/components/EditTitleInput/E
 import { getTracksAmount } from '@/features/Playlists/helpers/getTracksAmount'
 import { getUpdateTime } from '@/features/Playlists/helpers/getUpdateTime'
 import { changePlaylistTitle, removePlaylistById, removeTrackFromPlaylist } from '@/features/Playlists/playlistsSlice'
-import { selectFavoritesId, selectPlaylistById } from '@/features/Playlists/selectors'
+import { selectPlaylistById } from '@/features/Playlists/selectors'
 import TrackList from '@/features/Tracks/components/TrackList/TrackList'
 import { setCurrentTrackIndex, setPlaybackQueue } from '@/features/Tracks/tracksSlice'
 import { iconIds } from '@/utils/config/iconIds'
 import { filterArrayByKeys } from '@/utils/helpers/filterArrayByKeys'
 import { useModal } from '@/utils/hooks/useModal'
+import { useSearchTrack } from '@/utils/hooks/useSearch'
 import { useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -23,23 +24,12 @@ export const Playlist = () => {
   const { id } = useParams();
   const playlist = useSelector((state: RootState) => selectPlaylistById(state, id!));
   const [title, setTitle] = useState<string>(playlist.title);
-  const [searchTerm, setSearchTerm] = useState<string>('');
-  const searchResults = useMemo(() => {
-    if (!searchTerm) {
-      return playlist.tracks;
-    }
-
-    return filterArrayByKeys(playlist.tracks, ['artist', 'title'], searchTerm);
-  }, [searchTerm, playlist.tracks]);
+  const {searchResults, searchTrack} = useSearchTrack(playlist.tracks);
   const navigate = useNavigate();
   const { isOpen, closeModal, openModal } = useModal();
 
   const getDateOfCreation = (): string => {
     return new Date(playlist.dateOfCreation).toLocaleDateString();
-  }
-
-  const searchTrack = (e: React.FormEvent<HTMLInputElement>): void => {
-    setSearchTerm(e.currentTarget.value);
   }
 
   const deleteTrackFromPlaylist = (trackId: string) => {

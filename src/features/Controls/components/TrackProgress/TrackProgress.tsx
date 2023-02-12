@@ -6,6 +6,7 @@ import styles from './TrackProgress.module.scss';
 interface TrackProgressProps {
   duration: number;
   currentTime: number;
+  disabled: boolean;
   onMouseDown: MouseEventHandler<HTMLSpanElement>;
   onChange: ((event: Event, value: number | number[], activeThumb: number) => void) | undefined;
 }
@@ -20,6 +21,7 @@ export const TrackProgress = (
   {
     duration,
     currentTime,
+    disabled,
     onMouseDown,
     onChange,
   }: TrackProgressProps
@@ -34,6 +36,7 @@ export const TrackProgress = (
       }
       <ProgressBar
         min={0}
+        disabled={disabled}
         max={duration}
         value={currentTime}
         onMouseDown={onMouseDown}

@@ -8,6 +8,7 @@ import { selectCurrentTrack } from '@/features/Tracks/selectors';
 import { useModal } from '@/utils/hooks/useModal';
 import { AddToPlaylistPopup } from '@/features/Playlists/components/AddToPlaylistPopup/AddToPlaylistPopup';
 import { useState } from 'react';
+import { isTrackActive } from '@/features/Tracks/helpers/isTrackActive';
 
 interface RecommendationsListProps {
   recommendationTracks: TrackModel[];
@@ -46,13 +47,13 @@ const RecommendationsList = ({ recommendationTracks, trackList }: Recommendation
   return (
     <>
     <ul className={styles.recommendationsList}>
-      {recommendationTracks.length > 0 && recommendationTracks.map((item: TrackModel, index: number) => {
+      {recommendationTracks.length > 0 && recommendationTracks.map((track: TrackModel, index: number) => {
         return <RecommendationCard
-          key={item.id}
+          key={track.id}
           isPlaying={isPlaying}
-          isActive={item.id === currentTrack.id}
+          isActive={isTrackActive(track, currentTrack)}
           dataIndex={index}
-          trackInfo={item}
+          trackInfo={track}
           onPlay={setCurrentTrack}
           onAdd={addToPlaylist}
           />
