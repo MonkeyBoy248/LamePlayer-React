@@ -8,6 +8,7 @@ import { setCurrentTrackIndex, setIsPlaying, setPlaybackQueue } from '../../trac
 import { selectCurrentTrack } from '../../selectors';
 import { AddToPlaylistPopup } from '@/features/Playlists/components/AddToPlaylistPopup/AddToPlaylistPopup';
 import { useModal } from '@/utils/hooks/useModal';
+import { isTrackActive } from '../../helpers/isTrackActive';
 
 interface TrackListProps {
   tracks: TrackModel[];
@@ -41,21 +42,13 @@ const TrackList = ({ tracks, onDelete, playlistId }: TrackListProps) => {
     openModal();
   }
 
-  const isTrackActive = (track: TrackModel): boolean => {
-    if (!currentTrack) {
-      return false;
-    }
-
-    return currentTrack.id === track.id;
-  }
-
   return (
     <>
       <ul className={styles.trackList}>
       { tracks.map((track: TrackModel, index: number) => {
         return <Track
           track={track}
-          isActive={isTrackActive(track)}
+          isActive={isTrackActive(track, currentTrack)}
           dataIndex={index}
           key={track.id}
           isPlaying={isPlaying}
