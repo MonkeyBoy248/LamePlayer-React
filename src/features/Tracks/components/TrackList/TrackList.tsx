@@ -41,13 +41,21 @@ const TrackList = ({ tracks, onDelete, playlistId }: TrackListProps) => {
     openModal();
   }
 
+  const isTrackActive = (track: TrackModel): boolean => {
+    if (!currentTrack) {
+      return false;
+    }
+
+    return currentTrack.id === track.id;
+  }
+
   return (
     <>
       <ul className={styles.trackList}>
       { tracks.map((track: TrackModel, index: number) => {
         return <Track
           track={track}
-          isActive={currentTrack.id === track.id}
+          isActive={isTrackActive(track)}
           dataIndex={index}
           key={track.id}
           isPlaying={isPlaying}

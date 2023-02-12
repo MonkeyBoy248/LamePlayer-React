@@ -43,16 +43,24 @@ const RecommendationsList = ({ recommendationTracks, trackList }: Recommendation
     openModal();
   }
 
+  const isTrackActive = (track: TrackModel): boolean => {
+    if (!currentTrack) {
+      return false;
+    }
+
+    return track.id === currentTrack.id;
+  }
+
   return (
     <>
     <ul className={styles.recommendationsList}>
-      {recommendationTracks.length > 0 && recommendationTracks.map((item: TrackModel, index: number) => {
+      {recommendationTracks.length > 0 && recommendationTracks.map((track: TrackModel, index: number) => {
         return <RecommendationCard
-          key={item.id}
+          key={track.id}
           isPlaying={isPlaying}
-          isActive={item.id === currentTrack.id}
+          isActive={isTrackActive(track)}
           dataIndex={index}
-          trackInfo={item}
+          trackInfo={track}
           onPlay={setCurrentTrack}
           onAdd={addToPlaylist}
           />
