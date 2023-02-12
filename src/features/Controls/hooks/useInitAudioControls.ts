@@ -5,10 +5,10 @@ import { useSelector } from 'react-redux';
 import { getTrackFullSrc } from '../helpers/getTrackFullSrc';
 
 export const useInitAudioControls = () => {
-  const playbackQueue: TrackModel[] = useSelector(selectPlaybackQueue);
-  const currentTrack: TrackModel = useSelector(selectCurrentTrack);
-  const isPlaying: boolean = useSelector(selectPlayingStatus);
-  const audioRef = useRef<HTMLAudioElement>(new Audio(getTrackFullSrc(currentTrack.src)));
+  const playbackQueue = useSelector(selectPlaybackQueue);
+  const currentTrack = useSelector(selectCurrentTrack);
+  const isPlaying = useSelector(selectPlayingStatus);
+  const audioRef = useRef<HTMLAudioElement>(new Audio(currentTrack ? getTrackFullSrc(currentTrack.src) : undefined));
 
   return {
     currentTrack,
