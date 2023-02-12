@@ -3,9 +3,8 @@ import { AppDispatch, RootState } from '@/app/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeTrack } from '@/features/Tracks/tracksSlice';
 import { SearchBar } from '@/components/SearchBar/SearchBar';
-import { filterArrayByKeys } from '@/utils/helpers/filterArrayByKeys';
-import { useState, useMemo } from 'react';
 import { EmptyMessage } from '@/components/EmptyMessage/EmptyMessage';
+import { useSearchTrack } from '@/utils/hooks/useSearch';
 
 interface TracksProps {
   title: string;
@@ -14,21 +13,10 @@ interface TracksProps {
 const Tracks = ({ title }: TracksProps ) => {
   const dispatch: AppDispatch = useDispatch();
   const tracks = useSelector((state: RootState) => state.tracks.tracklist);
-  const [searchTerm, setSearchTerm] = useState<string>('');
-  const searchResults = useMemo(() => {
-    if (!searchTerm) {
-      return tracks;
-    }
-
-    return filterArrayByKeys(tracks, ['artist', 'title'], searchTerm);
-  }, [searchTerm, tracks]);
+  const { searchResults, searchTrack } = useSearchTrack(tracks);
 
   const deleteTrackFromTracklist = (trackId: string) => {
     dispatch(removeTrack(trackId));
-  }
-
-  const searchTrack = (e: React.FormEvent<HTMLInputElement>): void => {
-    setSearchTerm(e.currentTarget.value);
   }
 
   const displaySearchResults = (): JSX.Element => {
