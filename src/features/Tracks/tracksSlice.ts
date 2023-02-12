@@ -52,7 +52,12 @@ export const trackSlice = createSlice({
       state.tracklist = state.tracklist.filter((track) => track.id !== action.payload);
       state.playbackQueue = state.playbackQueue.filter((track) => track.id !== action.payload);
 
+      if (state.currentTrackIndex === state.tracklist.length) {
+        state.currentTrackIndex = state.currentTrackIndex - 1;
+      }
+
       setItemToLocalStorage(tracklistKey, state.tracklist);
+      setItemToLocalStorage(currentTrackKey, state.currentTrackIndex);
       setItemToLocalStorage(playbackQueueKey, state.playbackQueue);
     }
   },

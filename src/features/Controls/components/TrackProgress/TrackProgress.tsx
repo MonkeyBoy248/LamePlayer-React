@@ -10,6 +10,12 @@ interface TrackProgressProps {
   onChange: ((event: Event, value: number | number[], activeThumb: number) => void) | undefined;
 }
 
+const getDuration = (duration: number) => {
+  const totalDuration = duration ?? 0;
+
+  return formatTime(totalDuration);
+}
+
 export const TrackProgress = (
   {
     duration,
@@ -20,10 +26,12 @@ export const TrackProgress = (
   ) => {
   return (
     <div className={styles.progress__container}>
-      <div className={styles.progress__timeInfo}>
+      {
+        <div className={styles.progress__timeInfo}>
         <span className={styles.progress__timeLabel}>{ formatTime(currentTime) }</span>
-        <span className={styles.progress__timeLabel}>{ (duration && !isNaN(duration)) && formatTime(duration) }</span>
+        <span className={styles.progress__timeLabel}>{ !isNaN(duration) && getDuration(duration) }</span>
       </div>
+      }
       <ProgressBar
         min={0}
         max={duration}

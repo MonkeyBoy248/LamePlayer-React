@@ -5,7 +5,7 @@ import { getTrackFullSrc } from '../helpers/getTrackFullSrc';
 export const usePlayCurrentTrack = (
   audio: MutableRefObject<HTMLAudioElement>,
   isPlaying: boolean,
-  currentTrack: TrackModel,
+  currentTrack: TrackModel | null,
 ) => {
   useEffect(() => {
     if (!isPlaying) {
@@ -14,16 +14,19 @@ export const usePlayCurrentTrack = (
       return;
     }
 
-    audio.current.play().then();
+    audio.current.play().then().catch((e) => console.log(e));
   }, [isPlaying]);
 
   useEffect(() => {
+    if (!currentTrack) {
+      return;
+    }
+
     if (!isPlaying) {
       return;
     }
 
     audio.current.src = getTrackFullSrc(currentTrack.src);
-
-    audio.current.play().then;
-  }, [currentTrack.id])
+    audio.current.play().then().catch((e) => console.log(e));
+  }, [currentTrack?.src])
 }

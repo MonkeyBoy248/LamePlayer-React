@@ -47,6 +47,10 @@ const MainControls = () => {
   usePlayCurrentTrack(audioRef, isPlaying, currentTrack);
 
   const isDisabled = (disableIndex: number): boolean => {
+    if (!currentTrack) {
+      return true;
+    }
+
     const currentTrackIndex = playbackQueue.findIndex((track) => track.id === currentTrack.id);
 
     return currentTrackIndex === disableIndex;
@@ -105,59 +109,68 @@ const MainControls = () => {
               isDisabled={!isShuffled && isDisabled(playbackQueue.length - 1)}
               onClick={nextTrack}
             />
-          <IconButton
-              className={styles.controls__repeatButton}
-              iconId={ isLooped ? iconIds.repeatOne : iconIds.repeat}
-              fill={ isLooped ? 'var(--accent)' : 'var(--controls-svg)'}
-              width='2em'
-              height='2em'
-              onClick={toggleLoopStatus}
-            />
-          <IconButton
-              className={styles.controls__playlistsButton}
-              iconId={iconIds.playbackQueue}
+          {
+            currentTrack &&
+              <>
+                <IconButton
+                  className={styles.controls__repeatButton}
+                  iconId={ isLooped ? iconIds.repeatOne : iconIds.repeat}
+                  fill={ isLooped ? 'var(--accent)' : 'var(--controls-svg)'}
+                  width='2em'
+                  height='2em'
+                  onClick={toggleLoopStatus}
+                />
+                <IconButton
+                    className={styles.controls__playlistsButton}
+                    iconId={iconIds.playbackQueue}
+                    fill='var(--controls-svg)'
+                    width='2em'
+                    height='2em'
+                    onClick={(e) => console.log(e.target)}
+                />
+                <div className={styles.controls__trackInfo}>
+                  <figure className={styles.controls__trackCoverWrapper}>
+                    <img src={`/images/covers/${currentTrack.coverUrl }`} alt={ currentTrack.src }/>
+                  </figure>
+                  <div className={styles.controls__trackDetails}>
+                    <p className={`${styles.controls__trackTitle} _text`}>{ currentTrack.title }</p>
+                    <p className={`${styles.controls__artist} _text`}>{ currentTrack.artist }</p>
+                  </div>
+              </div>
+              <FavoritesButton
+                className={styles.controls__favoritesButton}
+                track={currentTrack}
+                width='2em'
+                height='2em'
+              />
+            </>
+          }
+        </div>
+        {
+          currentTrack &&
+          <div className={styles.controls__secondaryControls}>
+            <IconButton
+              iconId={iconIds.dots}
               fill='var(--controls-svg)'
               width='2em'
               height='2em'
-              onClick={(e) => console.log(e.target)}
+              className={`controls__optionsButton`}
+              onClick={(e) => console.log(e.target)} />
+            <IconButton
+              className={styles.controls__shuffleButton}
+              iconId={iconIds.shuffle}
+              fill={ isShuffled ? 'var(--accent)' : 'var(--controls-svg)'}
+              width='2em'
+              height='2em'
+              onClick={toggleShuffleStatus}
+              />
+            <VolumeControls
+              volume={volume}
+              onChange={setTrackVolume}
+              onClick={muteTrack}
             />
-            <div className={styles.controls__trackInfo}>
-              <figure className={styles.controls__trackCoverWrapper}>
-                <img src={`/images/covers/${currentTrack.coverUrl }`} alt={ currentTrack.src }/>
-              </figure>
-              <div className={styles.controls__trackDetails}>
-                <p className={`${styles.controls__trackTitle} _text`}>{ currentTrack.title }</p>
-                <p className={`${styles.controls__artist} _text`}>{ currentTrack.artist }</p>
-              </div>
           </div>
-          <FavoritesButton
-            className={styles.controls__favoritesButton}
-            track={currentTrack}
-            width='2em'
-            height='2em'/>
-        </div>
-        <div className={styles.controls__secondaryControls}>
-          <IconButton
-            iconId={iconIds.dots}
-            fill='var(--controls-svg)'
-            width='2em'
-            height='2em'
-            className={`controls__optionsButton`}
-            onClick={(e) => console.log(e.target)} />
-          <IconButton
-            className={styles.controls__shuffleButton}
-            iconId={iconIds.shuffle}
-            fill={ isShuffled ? 'var(--accent)' : 'var(--controls-svg)'}
-            width='2em'
-            height='2em'
-            onClick={toggleShuffleStatus}
-            />
-          <VolumeControls
-            volume={volume}
-            onChange={setTrackVolume}
-            onClick={muteTrack}
-          />
-        </div>
+        }
       </div>
     </div>
   )

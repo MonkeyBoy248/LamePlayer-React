@@ -23,7 +23,6 @@ export const Playlist = () => {
   const { id } = useParams();
   const playlist = useSelector((state: RootState) => selectPlaylistById(state, id!));
   const [title, setTitle] = useState<string>(playlist.title);
-  const favoritesId = useSelector(selectFavoritesId);
   const [searchTerm, setSearchTerm] = useState<string>('');
   const searchResults = useMemo(() => {
     if (!searchTerm) {
