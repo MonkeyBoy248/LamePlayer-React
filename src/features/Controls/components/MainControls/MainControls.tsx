@@ -75,6 +75,7 @@ const MainControls = () => {
   return (
     <div className={styles.controls}>
       <TrackProgress
+        disabled={!currentTrack}
         duration={duration}
         currentTime={currentTime}
         onMouseDown={pauseAudioWhileDragging}
