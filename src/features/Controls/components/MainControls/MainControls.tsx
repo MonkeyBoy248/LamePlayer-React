@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import styles from './MainControls.module.scss';
 import { iconIds } from '@utils/config/iconIds';
 import { useDispatch } from "react-redux";
@@ -13,6 +13,7 @@ import { useTrackProgress } from '../../hooks/useTrackProgress';
 import { useTrackVolume } from '../../hooks/useTrackVolume';
 import { FavoritesButton } from '@/components/FavoritesButton';
 import { IconButton } from '@/components/IconButton/IconButton';
+import { TrackContextMenu } from '@/features/Tracks/components/TrackContextMenu/TrackContextMenu';
 
 const MainControls = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -43,6 +44,7 @@ const MainControls = () => {
     setTrackVolume,
     muteTrack
   } = useTrackVolume(audioRef);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   usePlayCurrentTrack(audioRef, isPlaying, currentTrack);
 
@@ -156,7 +158,7 @@ const MainControls = () => {
               width='2em'
               height='2em'
               className={`controls__optionsButton`}
-              onClick={(e) => console.log(e.target)} />
+              onClick={(e) => setIsOpen((currentValue) => !currentValue)} />
             <IconButton
               className={styles.controls__shuffleButton}
               iconId={iconIds.shuffle}
@@ -173,6 +175,10 @@ const MainControls = () => {
           </div>
         }
       </div>
+      <TrackContextMenu
+        track={currentTrack!}
+        isOpen={isOpen}
+      />
     </div>
   )
 }
