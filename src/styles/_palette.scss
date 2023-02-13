@@ -40,6 +40,11 @@
 
   --checkmark-dark: #61BDE5;
   --checkmark-light: #0FA750;
+
+  --context-menu-background-dark: #383838;
+  --context-menu-background-light: #D1D1D1;
+  --context-menu-hover-dark: #474747;
+  --context-menu-hover-light: #B8B8B8;
 }
 
 .dark {
@@ -56,6 +61,8 @@
   --modal-background: var(--modal-background-dark);
   --checkmark: var(--checkmark-dark);
   --subtitle: var(--subtitle-dark);
+  --context-menu-background: var(--context-menu-background-dark);
+  --context-menu-hover: var(--context-menu-hover-dark);
 }
 
 .light {
@@ -72,4 +79,6 @@
   --modal-background: var(--modal-background-light);
   --checkmark: var(--checkmark-light);
   --subtitle: var(--subtitle-light);
+  --context-menu-background: var(--context-menu-background-light);
+  --context-menu-hover: var(--context-menu-hover-light);
 }
