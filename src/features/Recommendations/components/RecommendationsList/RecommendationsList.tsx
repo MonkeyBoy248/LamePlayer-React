@@ -5,7 +5,7 @@ import { setCurrentTrackIndex, setIsPlaying } from '@/features/Tracks/tracksSlic
 import { AppDispatch, RootState } from '@/app/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectCurrentTrack } from '@/features/Tracks/selectors';
-import { useModal } from '@/utils/hooks/useModal';
+import { usePopUp } from '@/utils/hooks/usePopUp';
 import { AddToPlaylistPopup } from '@/features/Playlists/components/AddToPlaylistPopup/AddToPlaylistPopup';
 import { useState } from 'react';
 import { isTrackActive } from '@/features/Tracks/helpers/isTrackActive';
@@ -20,7 +20,7 @@ const RecommendationsList = ({ recommendationTracks, trackList }: Recommendation
   const currentTrackIndex = useSelector((state: RootState) => state.tracks.currentTrackIndex);
   const currentTrack = useSelector(selectCurrentTrack);
   const isPlaying = useSelector((state: RootState) => state.tracks.isPlaying);
-  const { openModal, isOpen, closeModal } = useModal();
+  const { showPopUp, isOpen, closePopUp } = usePopUp();
   const [trackToAdd, setTrackToAdd] = useState<TrackModel>({} as TrackModel);
 
   const setCurrentTrack = (id: string) => {
@@ -41,7 +41,7 @@ const RecommendationsList = ({ recommendationTracks, trackList }: Recommendation
 
   const addToPlaylist = (track: TrackModel) => {
     setTrackToAdd(track);
-    openModal();
+    showPopUp();
   }
 
   return (
@@ -62,7 +62,7 @@ const RecommendationsList = ({ recommendationTracks, trackList }: Recommendation
     <AddToPlaylistPopup
       isOpen={isOpen}
       trackToAdd={trackToAdd}
-      closeModal={closeModal}
+      closeModal={closePopUp}
     />
     </>
   )
