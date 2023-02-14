@@ -190,7 +190,7 @@ const MainControls = () => {
         }
       </div>
       <TrackContextMenu
-        closePopUp={closeTrackPopUp}
+        onClickOutside={closeTrackPopUp}
         track={currentTrack!}
         isOpen={isOpen}
       />

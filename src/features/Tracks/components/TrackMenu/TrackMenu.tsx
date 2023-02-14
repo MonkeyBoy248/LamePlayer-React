@@ -9,10 +9,10 @@ import { addToPlaybackQueue } from '../../tracksSlice';
 interface TrackContextMenuProps {
   track: TrackModel;
   isOpen: boolean;
-  closePopUp: () => void;
+  onClickOutside: () => void;
 }
 
-export const TrackContextMenu = ({ track, isOpen, closePopUp }: TrackContextMenuProps) => {
+export const TrackContextMenu = ({ track, isOpen, onClickOutside }: TrackContextMenuProps) => {
   const dispatch: AppDispatch = useDispatch();
 
   const addTrackToPlaybackQueue = () => {
@@ -20,7 +20,7 @@ export const TrackContextMenu = ({ track, isOpen, closePopUp }: TrackContextMenu
   }
 
   return (
-    <MenuWrapper isOpen={isOpen} placement={'top-end'} closePopUp={closePopUp}>
+    <MenuWrapper isOpen={isOpen} placement={'top-end'} onClickOutside={onClickOutside}>
       <MenuItem
         iconId={iconIds.playbackQueue}
         title={'Add to playback queue'}

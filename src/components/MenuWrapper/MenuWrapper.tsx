@@ -8,16 +8,16 @@ interface MenuWrapperProps {
   children: ReactNode;
   placement?: Placement;
   isOpen: boolean;
-  closePopUp: () => void;
+  onClickOutside: () => void;
 }
 
 interface Position {
   [key: string]: string;
 }
 
-export const MenuWrapper = ({ placement, children, isOpen, closePopUp }: MenuWrapperProps) => {
-  const ref = useClickOutside<HTMLUListElement>(closePopUp);
-  
+export const MenuWrapper = ({ placement, children, isOpen, onClickOutside }: MenuWrapperProps) => {
+  const ref = useClickOutside<HTMLUListElement>(onClickOutside);
+
   if (!isOpen) {
     return null;
   }
