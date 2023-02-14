@@ -45,9 +45,7 @@ const MainControls = () => {
     setTrackVolume,
     muteTrack
   } = useTrackVolume(audioRef);
-  const { closePopUp, isOpen, togglePopUpVisibility, showPopUp } = usePopUp();
-  console.log('is open', isOpen);
-
+  const { closePopUp, isOpen, togglePopUpVisibility } = usePopUp();
 
   usePlayCurrentTrack(audioRef, isPlaying, currentTrack);
 
