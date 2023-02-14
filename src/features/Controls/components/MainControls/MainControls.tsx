@@ -13,7 +13,8 @@ import { useTrackProgress } from '../../hooks/useTrackProgress';
 import { useTrackVolume } from '../../hooks/useTrackVolume';
 import { FavoritesButton } from '@/components/FavoritesButton';
 import { IconButton } from '@/components/IconButton/IconButton';
-import { TrackContextMenu } from '@/features/Tracks/components/TrackContextMenu/TrackContextMenu';
+import { TrackContextMenu } from '@/features/Tracks/components/TrackMenu/TrackMenu';
+import { usePopUp } from '@/utils/hooks/usePopUp';
 
 const MainControls = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -44,7 +45,9 @@ const MainControls = () => {
     setTrackVolume,
     muteTrack
   } = useTrackVolume(audioRef);
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const { closePopUp, isOpen, togglePopUpVisibility, showPopUp } = usePopUp();
+  console.log('is open', isOpen);
+
 
   usePlayCurrentTrack(audioRef, isPlaying, currentTrack);
 
@@ -73,6 +76,14 @@ const MainControls = () => {
 
     setTrackCurrentTime(rangeValue);
   }, []);
+
+  const closeTrackPopUp = useCallback(() => {
+    if (!isOpen) {
+      return;
+    }
+
+    closePopUp();
+  }, [isOpen])
 
   return (
     <div className={styles.controls}>
@@ -158,7 +169,10 @@ const MainControls = () => {
               width='2em'
               height='2em'
               className={`controls__optionsButton`}
-              onClick={(e) => setIsOpen((currentValue) => !currentValue)} />
+              onClick={(e) => {
+                e.stopPropagation();
+                togglePopUpVisibility()
+                }} />
             <IconButton
               className={styles.controls__shuffleButton}
               iconId={iconIds.shuffle}
@@ -176,6 +190,7 @@ const MainControls = () => {
         }
       </div>
       <TrackContextMenu
+        closePopUp={closeTrackPopUp}
         track={currentTrack!}
         isOpen={isOpen}
       />
