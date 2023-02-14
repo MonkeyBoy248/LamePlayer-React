@@ -1,19 +1,23 @@
+import { useClickOutside } from '@/utils/hooks/useClickOutside';
 import { ReactNode } from 'react';
-import styles from './ContextMenuWrapper.module.scss';
+import styles from './MenuWrapper.module.scss';
 
 type Placement = 'top' | 'bottom' | 'left' | 'right' | 'top-start' | 'top-end';
 
-interface ContextMenuWrapperProps {
+interface MenuWrapperProps {
   children: ReactNode;
   placement?: Placement;
   isOpen: boolean;
+  closePopUp: () => void;
 }
 
 interface Position {
   [key: string]: string;
 }
 
-export const ContextMenuWrapper = ({ placement, children, isOpen }: ContextMenuWrapperProps) => {
+export const MenuWrapper = ({ placement, children, isOpen, closePopUp }: MenuWrapperProps) => {
+  const ref = useClickOutside<HTMLUListElement>(closePopUp);
+  
   if (!isOpen) {
     return null;
   }
@@ -36,7 +40,7 @@ export const ContextMenuWrapper = ({ placement, children, isOpen }: ContextMenuW
   }
 
   return (
-    <ul className={`${styles.contextMenuWrapper} ${getPlacement()}`}>
+    <ul ref={ref} className={`${styles.contextMenuWrapper} ${getPlacement()}`}>
       {children}
     </ul>
   )

@@ -1,14 +1,13 @@
-import { TrackModel } from '@/interfaces/Track';
 import Icon from '../Icon';
-import styles from './ContextMenuItem.module.scss';
+import styles from './MenuItem.module.scss';
 
-interface ContextMenuItemProps {
+interface MenuItemProps {
   iconId: string;
   title: string;
   onClick: () => void;
 }
 
-export const ContextMenuItem = ({ iconId, title, onClick }: ContextMenuItemProps) => {
+export const MenuItem = ({ iconId, title, onClick }: MenuItemProps) => {
   return (
     <li className={styles.contextMenuItem__wrapper} onClick={() => onClick()}>
       <Icon
