@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 import styles from './MainControls.module.scss';
 import { iconIds } from '@utils/config/iconIds';
 import { useDispatch } from "react-redux";
@@ -14,7 +14,7 @@ import { useTrackVolume } from '../../hooks/useTrackVolume';
 import { FavoritesButton } from '@/components/FavoritesButton';
 import { IconButton } from '@/components/IconButton/IconButton';
 import { TrackContextMenu } from '@/features/Tracks/components/TrackMenu/TrackMenu';
-import { usePopUp } from '@/utils/hooks/usePopUp';
+import { useMenu } from '@/utils/hooks/useMenu';
 
 const MainControls = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -45,7 +45,7 @@ const MainControls = () => {
     setTrackVolume,
     muteTrack
   } = useTrackVolume(audioRef);
-  const { closePopUp, isOpen, togglePopUpVisibility } = usePopUp();
+  const { isMenuOpen, anchorElement, setAnchor, closeMenu, toggleMenu } = useMenu<HTMLButtonElement>();
 
   usePlayCurrentTrack(audioRef, isPlaying, currentTrack);
 
@@ -75,13 +75,10 @@ const MainControls = () => {
     setTrackCurrentTime(rangeValue);
   }, []);
 
-  const closeTrackPopUp = useCallback(() => {
-    if (!isOpen) {
-      return;
-    }
-
-    closePopUp();
-  }, [isOpen])
+  const showTrackMenu = (e: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchor(e.currentTarget);
+    toggleMenu()
+  }
 
   return (
     <div className={styles.controls}>
@@ -167,10 +164,7 @@ const MainControls = () => {
               width='2em'
               height='2em'
               className={`controls__optionsButton`}
-              onClick={(e) => {
-                e.stopPropagation();
-                togglePopUpVisibility()
-                }} />
+              onClick={showTrackMenu} />
             <IconButton
               className={styles.controls__shuffleButton}
               iconId={iconIds.shuffle}
@@ -188,9 +182,10 @@ const MainControls = () => {
         }
       </div>
       <TrackContextMenu
-        onClickOutside={closeTrackPopUp}
+        anchorElement={anchorElement}
+        onClose={closeMenu}
         track={currentTrack!}
-        isOpen={isOpen}
+        isOpen={isMenuOpen}
       />
     </div>
   )
