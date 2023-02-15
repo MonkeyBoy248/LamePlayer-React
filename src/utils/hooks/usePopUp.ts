@@ -1,13 +1,10 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 
 export const usePopUp = () => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isPopUpOpen, setIsPopUpOpen] = useState<boolean>(false);
 
-  const showPopUp = useCallback(() => setIsOpen(true), []);
-  const closePopUp = useCallback(() => setIsOpen(false), []);
-  const togglePopUpVisibility = useCallback(() => {
-    setIsOpen(currentValue => !currentValue);
-  }, [])
+  const showPopUp = useCallback(() => setIsPopUpOpen(true), []);
+  const closePopUp = useCallback(() => setIsPopUpOpen(false), []);
 
-  return { isOpen, showPopUp, closePopUp, togglePopUpVisibility }
+  return { isPopUpOpen, showPopUp, closePopUp }
 }

@@ -21,7 +21,7 @@ const TrackList = ({ tracks, onDelete, playlistId }: TrackListProps) => {
   const currentTrackIndex = useSelector((state: RootState) => state.tracks.currentTrackIndex);
   const currentTrack = useSelector(selectCurrentTrack);
   const isPlaying = useSelector((state: RootState) => state.tracks.isPlaying);
-  const { isOpen, closePopUp, showPopUp } = usePopUp();
+  const { isPopUpOpen, closePopUp, showPopUp } = usePopUp();
   const [trackToAdd, setTrackToAdd] = useState<TrackModel>({} as TrackModel);
 
   const setCurrentTrack = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -60,7 +60,7 @@ const TrackList = ({ tracks, onDelete, playlistId }: TrackListProps) => {
       })}
     </ul>
     <AddToPlaylistPopup
-      isOpen={isOpen}
+      isOpen={isPopUpOpen}
       trackToAdd={trackToAdd}
       closeModal={closePopUp}
     />
