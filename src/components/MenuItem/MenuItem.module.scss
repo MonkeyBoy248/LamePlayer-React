@@ -1,0 +1,20 @@
+.contextMenuItem {
+  &__wrapper {
+    padding: 0.75rem 1rem;
+    background-color: var(--context-menu-background);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    list-style: none;
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--context-menu-hover);
+    }
+  }
+
+  &__title {
+    color: var(--text);
+    font-size: 0.875rem;
+  }
+}

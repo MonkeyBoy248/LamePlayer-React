@@ -43,8 +43,19 @@ export const trackSlice = createSlice({
 
         return;
       }
+      
+      const trackIndex = state.playbackQueue.findIndex((track) => track.id === (action.payload as TrackModel).id);
 
-      state.playbackQueue = [...state.playbackQueue, action.payload];
+      if (trackIndex !== -1) {
+        const trackCopy: TrackModel = {...action.payload, id: crypto.randomUUID()};
+
+        state.playbackQueue.push(trackCopy);
+        setItemToLocalStorage(playbackQueueKey, state.playbackQueue);
+
+        return;
+      }
+
+      state.playbackQueue.push(action.payload);
       setItemToLocalStorage(playbackQueueKey, state.playbackQueue)
     },
 

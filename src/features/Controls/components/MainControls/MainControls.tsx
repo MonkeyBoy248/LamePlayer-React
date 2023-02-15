@@ -13,6 +13,8 @@ import { useTrackProgress } from '../../hooks/useTrackProgress';
 import { useTrackVolume } from '../../hooks/useTrackVolume';
 import { FavoritesButton } from '@/components/FavoritesButton';
 import { IconButton } from '@/components/IconButton/IconButton';
+import { TrackContextMenu } from '@/features/Tracks/components/TrackMenu/TrackMenu';
+import { useMenu } from '@/utils/hooks/useMenu';
 
 const MainControls = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -43,6 +45,7 @@ const MainControls = () => {
     setTrackVolume,
     muteTrack
   } = useTrackVolume(audioRef);
+  const { isMenuOpen, anchorElement, setAnchor, closeMenu, toggleMenu } = useMenu<HTMLButtonElement>();
 
   usePlayCurrentTrack(audioRef, isPlaying, currentTrack);
 
@@ -71,6 +74,11 @@ const MainControls = () => {
 
     setTrackCurrentTime(rangeValue);
   }, []);
+
+  const showTrackMenu = (e: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchor(e.currentTarget);
+    toggleMenu()
+  }
 
   return (
     <div className={styles.controls}>
@@ -156,7 +164,7 @@ const MainControls = () => {
               width='2em'
               height='2em'
               className={`controls__optionsButton`}
-              onClick={(e) => console.log(e.target)} />
+              onClick={showTrackMenu} />
             <IconButton
               className={styles.controls__shuffleButton}
               iconId={iconIds.shuffle}
@@ -173,6 +181,12 @@ const MainControls = () => {
           </div>
         }
       </div>
+      <TrackContextMenu
+        anchorElement={anchorElement}
+        onClose={closeMenu}
+        track={currentTrack!}
+        isOpen={isMenuOpen}
+      />
     </div>
   )
 }

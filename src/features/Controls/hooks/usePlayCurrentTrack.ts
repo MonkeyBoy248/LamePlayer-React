@@ -28,5 +28,5 @@ export const usePlayCurrentTrack = (
 
     audio.current.src = getTrackFullSrc(currentTrack.src);
     audio.current.play().then().catch((e) => console.log(e));
-  }, [currentTrack?.src])
+  }, [currentTrack?.id])
 }

@@ -7,7 +7,7 @@ import { AppDispatch, RootState } from '@/app/store';
 import { setCurrentTrackIndex, setIsPlaying, setPlaybackQueue } from '../../tracksSlice';
 import { selectCurrentTrack } from '../../selectors';
 import { AddToPlaylistPopup } from '@/features/Playlists/components/AddToPlaylistPopup/AddToPlaylistPopup';
-import { useModal } from '@/utils/hooks/useModal';
+import { usePopUp } from '@/utils/hooks/usePopUp';
 import { isTrackActive } from '../../helpers/isTrackActive';
 
 interface TrackListProps {
@@ -21,7 +21,7 @@ const TrackList = ({ tracks, onDelete, playlistId }: TrackListProps) => {
   const currentTrackIndex = useSelector((state: RootState) => state.tracks.currentTrackIndex);
   const currentTrack = useSelector(selectCurrentTrack);
   const isPlaying = useSelector((state: RootState) => state.tracks.isPlaying);
-  const { isOpen, closeModal, openModal } = useModal();
+  const { isPopUpOpen, closePopUp, showPopUp } = usePopUp();
   const [trackToAdd, setTrackToAdd] = useState<TrackModel>({} as TrackModel);
 
   const setCurrentTrack = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -39,7 +39,7 @@ const TrackList = ({ tracks, onDelete, playlistId }: TrackListProps) => {
 
   const addToPlaylist = (track: TrackModel) => {
     setTrackToAdd(track);
-    openModal();
+    showPopUp();
   }
 
   return (
@@ -60,9 +60,9 @@ const TrackList = ({ tracks, onDelete, playlistId }: TrackListProps) => {
       })}
     </ul>
     <AddToPlaylistPopup
-      isOpen={isOpen}
+      isOpen={isPopUpOpen}
       trackToAdd={trackToAdd}
-      closeModal={closeModal}
+      closeModal={closePopUp}
     />
     </>
   )
