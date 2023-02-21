@@ -8,7 +8,7 @@ import { selectTheme } from './features/User/selectors';
 function App() {
   const theme = useSelector(selectTheme);
   document.body.className = theme;
-  
+
   return (
     <>
       <Header />
