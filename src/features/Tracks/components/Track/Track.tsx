@@ -1,10 +1,13 @@
-import React, { MouseEventHandler } from "react";
+import React, { MouseEventHandler, useEffect, useRef, useState } from "react";
 import styles from './Track.module.scss';
 import { Link } from 'react-router-dom';
 import { TrackModel } from "@interfaces/Track";
 import Icon from "@components/Icon";
 import { iconIds } from "@utils/config/iconIds";
 import { FavoritesButton } from '@/components/FavoritesButton';
+import { getTrackFullSrc } from '@/features/Controls/helpers/getTrackFullSrc';
+import { formatTime } from '@/utils/helpers/formatTime';
+import { useEventListener } from '@/utils/hooks/useEventListener';
 
 
 interface TrackProps {
@@ -29,6 +32,17 @@ const Track = (
     onAddToPlaylist,
     onDelete
   }: TrackProps) => {
+  const audioRef = useRef(new Audio(getTrackFullSrc(track.src)));
+  const [trackDuration, setTrackDuration] = useState<number>(0);
+
+  const getDuration = () => {
+    const duration = audioRef.current.duration;
+
+    setTrackDuration(duration);
+  }
+
+  useEventListener(audioRef, 'loadedmetadata', getDuration);
+
   const getPlayButtonIconId = () => {
     if (isActive && isPlaying) {
       return iconIds.pause;
@@ -76,7 +90,7 @@ const Track = (
                 fill='var(--controls-svg)'
               />
             </button>
-            <p className={styles.track__duration}>0:00</p>
+            <p className={styles.track__duration}>{ formatTime(trackDuration) }</p>
           </div>
       </div>
     </li>
