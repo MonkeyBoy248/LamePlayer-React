@@ -15,6 +15,8 @@ import { FavoritesButton } from '@/components/FavoritesButton';
 import { IconButton } from '@/components/IconButton/IconButton';
 import { TrackContextMenu } from '@/features/Tracks/components/TrackMenu/TrackMenu';
 import { useMenu } from '@/utils/hooks/useMenu';
+import { usePopUp } from '@/utils/hooks/usePopUp';
+import { PlaybackQueuePopUp } from '@/features/Tracks/components/PlaybackQueuePopUp/PlaybackQueuePopUp';
 
 const MainControls = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -46,6 +48,7 @@ const MainControls = () => {
     muteTrack
   } = useTrackVolume(audioRef);
   const { isMenuOpen, anchorElement, setAnchor, closeMenu, toggleMenu } = useMenu<HTMLButtonElement>();
+  const { isPopUpOpen, showPopUp, closePopUp } = usePopUp();
 
   usePlayCurrentTrack(audioRef, isPlaying, currentTrack);
 
@@ -130,12 +133,12 @@ const MainControls = () => {
                   onClick={toggleLoopStatus}
                 />
                 <IconButton
-                    className={styles.controls__playlistsButton}
+                    className={styles.controls__playbackQueue}
                     iconId={iconIds.playbackQueue}
                     fill='var(--controls-svg)'
                     width='2em'
                     height='2em'
-                    onClick={(e) => console.log(e.target)}
+                    onClick={showPopUp}
                 />
                 <div className={styles.controls__trackInfo}>
                   <figure className={styles.controls__trackCoverWrapper}>
@@ -147,7 +150,6 @@ const MainControls = () => {
                   </div>
               </div>
               <FavoritesButton
-                className={styles.controls__favoritesButton}
                 track={currentTrack}
                 width='2em'
                 height='2em'
@@ -181,6 +183,7 @@ const MainControls = () => {
           </div>
         }
       </div>
+      <PlaybackQueuePopUp isOpen={isPopUpOpen} closePopUp={closePopUp} />
       <TrackContextMenu
         anchorElement={anchorElement}
         onClose={closeMenu}
