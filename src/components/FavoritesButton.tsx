@@ -5,13 +5,13 @@ import { TrackModel } from '@/interfaces/Track';
 import { iconIds } from '@/utils/config/iconIds';
 import { useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Icon from './Icon';
+import { IconButton } from './IconButton/IconButton';
 
 interface FavoritesButtonProps {
   height: string;
   width: string;
   stroke?: string;
-  className: string;
+  className?: string;
   track: TrackModel
 }
 
@@ -41,14 +41,14 @@ export const FavoritesButton = (
   }
 
   return (
-    <button className={className} onClick={updateFavorites}>
-      <Icon
-        id={iconIds.like}
-        height={height}
-        width={width}
-        fill={inFavorites ? 'var(--accent)' : 'var(--controls-svg)'}
-        stroke={stroke}
-      />
-    </button>
+    <IconButton
+      iconId={iconIds.like}
+      height={height}
+      width={width}
+      fill={inFavorites ? 'var(--accent)' : 'var(--controls-svg)'}
+      stroke={stroke}
+      onClick={updateFavorites}
+      className={className}
+    />
   )
 }
