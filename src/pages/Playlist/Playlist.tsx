@@ -25,7 +25,7 @@ export const Playlist = () => {
   const [title, setTitle] = useState<string>(playlist.title);
   const {searchResults, searchTrack} = useSearchTrack(playlist.tracks);
   const navigate = useNavigate();
-  const { isOpen, closePopUp, showPopUp } = usePopUp();
+  const { isPopUpOpen, closePopUp, showPopUp } = usePopUp();
 
   const getDateOfCreation = (): string => {
     return new Date(playlist.dateOfCreation).toLocaleDateString();
@@ -148,7 +148,7 @@ export const Playlist = () => {
       }
       </div>
       <AlertModal
-        isOpen={isOpen}
+        isOpen={isPopUpOpen}
         closeModal={closePopUp}
         onCancel={closePopUp}
         onConfirm={removePlaylist}
