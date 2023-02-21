@@ -21,7 +21,7 @@ export const PlaybackQueuePopUp = ({ isOpen, closePopUp }: PlaybackQueuePopUpPro
 
   if (!isOpen) {
     document.documentElement.classList.remove('_no-scroll');
-    
+
     return null;
   }
 
@@ -64,9 +64,7 @@ export const PlaybackQueuePopUp = ({ isOpen, closePopUp }: PlaybackQueuePopUpPro
             iconId={iconIds.close}
             width={'2.5rem'}
             height={'2.5rem'}
-            onClick={() => {console.log('clicked');
-              closePopUp();
-            }}
+            onClick={() => closePopUp()}
             stroke={'var(--controls-svg)'}
             className={styles.playbackQueuePopUp__closeButton}
             />

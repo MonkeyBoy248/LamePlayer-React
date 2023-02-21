@@ -22,11 +22,12 @@ export const usePlayCurrentTrack = (
       return;
     }
 
+    audio.current.src = getTrackFullSrc(currentTrack.src);
+
     if (!isPlaying) {
       return;
     }
-
-    audio.current.src = getTrackFullSrc(currentTrack.src);
+    
     audio.current.play().then().catch((e) => console.log(e));
   }, [currentTrack?.id])
 }
