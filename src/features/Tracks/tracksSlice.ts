@@ -43,7 +43,7 @@ export const trackSlice = createSlice({
 
         return;
       }
-      
+
       const trackIndex = state.playbackQueue.findIndex((track) => track.id === (action.payload as TrackModel).id);
 
       if (trackIndex !== -1) {
@@ -70,7 +70,19 @@ export const trackSlice = createSlice({
       setItemToLocalStorage(tracklistKey, state.tracklist);
       setItemToLocalStorage(currentTrackKey, state.currentTrackIndex);
       setItemToLocalStorage(playbackQueueKey, state.playbackQueue);
-    }
+    },
+
+    removeFromPlaybackQueue: (state, action: PayloadAction<string>) => {
+      state.playbackQueue = state.playbackQueue.filter((track) => track.id !== action.payload);
+
+      setItemToLocalStorage(playbackQueueKey, state.playbackQueue);
+    },
+
+    clearPlaybackQueue: (state) => {
+      state.playbackQueue = [];
+
+      setItemToLocalStorage(playbackQueueKey, state.playbackQueue);
+    },
   },
 })
 
@@ -87,5 +99,13 @@ function getInitialState (): TrackState {
   }
 }
 
-export const { setCurrentTrackIndex, setIsPlaying, setPlaybackQueue, addToPlaybackQueue, removeTrack } = trackSlice.actions;
+export const {
+  setCurrentTrackIndex,
+  setIsPlaying,
+  setPlaybackQueue,
+  addToPlaybackQueue,
+  removeTrack,
+  clearPlaybackQueue,
+  removeFromPlaybackQueue
+} = trackSlice.actions;
 export default trackSlice.reducer;
