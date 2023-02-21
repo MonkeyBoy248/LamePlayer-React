@@ -14,3 +14,4 @@ export const selectCurrentTrack = (state: RootState): TrackModel | null => {
 };
 export const selectPlayingStatus = (state: RootState) => state.tracks.isPlaying;
 export const selectPlaybackQueue = (state: RootState) => state.tracks.playbackQueue;
+export const selectCurrentTrackIndex = (state: RootState) => state.tracks.currentTrackIndex;
