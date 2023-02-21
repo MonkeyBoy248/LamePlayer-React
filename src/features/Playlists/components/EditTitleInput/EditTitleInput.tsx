@@ -15,6 +15,7 @@ export const EditTitleInput =  ({ title, onChange, onBlur, onKeyDown }: EditTitl
       type="text"
       onKeyDown={onKeyDown} onBlur={onBlur}
       value={title}
+      maxLength={36}
       onChange={onChange}
       />
   )
