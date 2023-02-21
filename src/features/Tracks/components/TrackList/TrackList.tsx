@@ -3,9 +3,9 @@ import Track from "../Track/Track";
 import styles from './TrackList.module.scss';
 import { TrackModel } from '@interfaces/Track'
 import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '@/app/store';
+import { AppDispatch } from '@/app/store';
 import { setCurrentTrackIndex, setIsPlaying, setPlaybackQueue } from '../../tracksSlice';
-import { selectCurrentTrack } from '../../selectors';
+import { selectCurrentTrack, selectCurrentTrackIndex, selectPlayingStatus } from '../../selectors';
 import { AddToPlaylistPopup } from '@/features/Playlists/components/AddToPlaylistPopup/AddToPlaylistPopup';
 import { usePopUp } from '@/utils/hooks/usePopUp';
 import { isTrackActive } from '../../helpers/isTrackActive';
@@ -18,9 +18,9 @@ interface TrackListProps {
 
 const TrackList = ({ tracks, onDelete, playlistId }: TrackListProps) => {
   const dispatch: AppDispatch = useDispatch();
-  const currentTrackIndex = useSelector((state: RootState) => state.tracks.currentTrackIndex);
+  const currentTrackIndex = useSelector(selectCurrentTrackIndex);
   const currentTrack = useSelector(selectCurrentTrack);
-  const isPlaying = useSelector((state: RootState) => state.tracks.isPlaying);
+  const isPlaying = useSelector(selectPlayingStatus);
   const { isPopUpOpen, closePopUp, showPopUp } = usePopUp();
   const [trackToAdd, setTrackToAdd] = useState<TrackModel>({} as TrackModel);
 

@@ -9,19 +9,15 @@ interface ModalProps {
 }
 
 export const Modal = ({isOpen, children, closeModal }: ModalProps) => {
-  useEffect(() => {
-    return () => {
-      document.body.style.overflow = '';
-    }
-  }, [])
-
   if (!isOpen) {
-    document.body.style.overflow = ''
+    document.body.style.overflow = '';
+    document.body.style.paddingRight = '0';
 
     return null;
   }
 
   document.body.style.overflow = 'hidden';
+  document.body.style.paddingRight = '17px';
 
   return createPortal(
     <div className={styles.modal__backdrop} onClick={closeModal}>

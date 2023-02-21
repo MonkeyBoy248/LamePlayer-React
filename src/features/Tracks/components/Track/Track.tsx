@@ -61,7 +61,6 @@ const Track = (
           </div>
           <div className={styles.track__controlsWrapper}>
             <FavoritesButton
-              className={styles.track__addToFavoritesButton}
               width='1.5em'
               height='1.5em'
               track={track}

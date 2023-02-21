@@ -47,15 +47,16 @@ export const playlistsSlice = createSlice({
       setItemToLocalStorage(playlistsKey, state.playlists);
     },
 
-    addTrackToTheNewPlaylist: (state, action: PayloadAction<TrackModel>) => {
+    addTracksToTheNewPlaylist: (state, action: PayloadAction<TrackModel[]>) => {
+      const lastTrack = action.payload.at(-1)!;
       const newPlaylist: PlaylistModel = {
         id: crypto.randomUUID(),
         title: 'New playlist',
         createdByUser: true,
         dateOfCreation: Date.now(),
         dateOfUpdate: Date.now(),
-        tracks: [action.payload],
-        coverUrl: action.payload.coverUrl,
+        tracks: action.payload,
+        coverUrl: lastTrack.coverUrl,
         user: 'MonkeyBoy'
       };
 
@@ -121,7 +122,7 @@ export const {
   changePlaylistTitle,
   removePlaylistById,
   addTrackToPlaylist,
-  addTrackToTheNewPlaylist,
+  addTracksToTheNewPlaylist,
   removeTrackFromPlaylist,
 } = playlistsSlice.actions;
 export default playlistsSlice.reducer;

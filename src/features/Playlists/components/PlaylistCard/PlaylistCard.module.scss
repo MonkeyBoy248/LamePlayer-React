@@ -26,6 +26,7 @@
     color: var(--text);
     display: block;
     margin-bottom: 0.5em;
+    word-wrap: break-word;
 
     &:hover {
       color: var(--accent);

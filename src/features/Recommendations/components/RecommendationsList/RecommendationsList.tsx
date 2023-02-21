@@ -20,7 +20,7 @@ const RecommendationsList = ({ recommendationTracks, trackList }: Recommendation
   const currentTrackIndex = useSelector((state: RootState) => state.tracks.currentTrackIndex);
   const currentTrack = useSelector(selectCurrentTrack);
   const isPlaying = useSelector((state: RootState) => state.tracks.isPlaying);
-  const { showPopUp, isOpen, closePopUp } = usePopUp();
+  const { showPopUp, isPopUpOpen, closePopUp } = usePopUp();
   const [trackToAdd, setTrackToAdd] = useState<TrackModel>({} as TrackModel);
 
   const setCurrentTrack = (id: string) => {
@@ -60,7 +60,7 @@ const RecommendationsList = ({ recommendationTracks, trackList }: Recommendation
       })}
     </ul>
     <AddToPlaylistPopup
-      isOpen={isOpen}
+      isOpen={isPopUpOpen}
       trackToAdd={trackToAdd}
       closeModal={closePopUp}
     />

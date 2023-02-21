@@ -37,6 +37,10 @@ button {
   src: url("../assets/fonts/Montserrat/static/Montserrat-Medium.ttf");
 }
 
+._no-scroll {
+  overflow-y: hidden;
+}
+
 ._container {
   width: 100%;
   padding-inline: 1.5em;

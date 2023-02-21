@@ -1,0 +1,88 @@
+.playbackQueuePopUp {
+  &__page {
+    position: fixed;
+    z-index: 9;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+  }
+
+  &__wrapper {
+    background-color: var(--background);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+  }
+
+  &__content {
+    width: 100%;
+    position: absolute;
+    overflow: auto;
+    top: 83px;
+    bottom: 0;
+    padding-block: 1rem;
+    background-color: var(--background);
+    margin-bottom: 9rem;
+  }
+
+  &__tracksWrapper {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  &__header {
+    width: 100%;
+    padding: 1.5rem 1rem;
+    position: relative;
+  }
+
+  &__headerInner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  &__title {
+    font-weight: bolder;
+    color: var(--text);
+  }
+
+  &__controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    button {
+      opacity: 0.8;
+      color: var(--text);
+      font-size: 1rem;
+      outline: solid 1px var(--text);
+      border-radius: 5px;
+      padding: 0.5rem 1rem;
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: auto;
+      }
+
+      &:hover:not(:disabled) {
+        opacity: 1;
+        background-color: var(--accent);
+      }
+    }
+  }
+
+  &__closeButton {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+  }
+}

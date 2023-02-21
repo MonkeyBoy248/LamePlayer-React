@@ -3,7 +3,7 @@ import { DialogModal } from '@/components/DialogModal/DialogModal';
 import { PlaylistModel } from '@/interfaces/Playlist';
 import { TrackModel } from '@/interfaces/Track';
 import { useDispatch, useSelector } from 'react-redux';
-import { addTrackToTheNewPlaylist, addTrackToPlaylist, removeTrackFromPlaylist } from '../../playlistsSlice';
+import { addTracksToTheNewPlaylist, addTrackToPlaylist, removeTrackFromPlaylist } from '../../playlistsSlice';
 import { selectAllPlaylists } from '../../selectors';
 import { AddToPlaylistPopupItem } from '../AddToPlaylistPopupItem/AddToPlaylistPopupItem';
 import styles from './AddToPlaylistPopup.module.scss';
@@ -26,7 +26,7 @@ export const AddToPlaylistPopup = ({ isOpen, closeModal, trackToAdd }: PlaylistP
   }
 
   const createPlaylistWithTheTrack = () => {
-    dispatch(addTrackToTheNewPlaylist(trackToAdd));
+    dispatch(addTracksToTheNewPlaylist([trackToAdd]));
     closeModal();
   }
 
