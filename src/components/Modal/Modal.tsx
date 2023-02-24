@@ -1,4 +1,4 @@
-import { ReactNode, useEffect } from 'react';
+import { FC, ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import styles from './Modal.module.scss';
 
@@ -8,7 +8,7 @@ interface ModalProps {
   closeModal: () => void;
 }
 
-export const Modal = ({isOpen, children, closeModal }: ModalProps) => {
+export const Modal: FC<ModalProps> = ({ isOpen, children, closeModal }: ModalProps): JSX.Element | null => {
   if (!isOpen) {
     document.body.style.overflow = '';
     document.body.style.paddingRight = '0';
@@ -21,11 +21,10 @@ export const Modal = ({isOpen, children, closeModal }: ModalProps) => {
 
   return createPortal(
     <div className={styles.modal__backdrop} onClick={closeModal}>
-      <div className={styles.modal__content} onClick={(e) => e.stopPropagation()}>
+      <div className={styles.modal__content} onClick={(e): void => e.stopPropagation()}>
         {children}
       </div>
     </div>,
-    document.getElementById('portal')!
-  )
-}
-
+    document.getElementById('portal') as HTMLElement
+  );
+};

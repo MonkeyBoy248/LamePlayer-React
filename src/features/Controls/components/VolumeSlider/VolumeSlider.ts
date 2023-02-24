@@ -14,19 +14,19 @@ export const VolumeSlider = styled(Slider)<SliderProps>({
     left: '50%',
     transform: 'translateX(-50%)',
     backgroundColor: 'var(--controls-svg)',
-    zIndex: -1
+    zIndex: -1,
   },
   '&::before': {
-    top: 4
+    top: 4,
   },
   '&::after': {
-    bottom: 4
+    bottom: 4,
   },
   '& .MuiSlider-track': {
     border: 'none',
   },
   '& .MuiSlider-rail': {
-    backgroundColor: 'var(--range-rail)'
+    backgroundColor: 'var(--range-rail)',
   },
   '& .MuiSlider-thumb': {
     height: 20,
@@ -36,7 +36,7 @@ export const VolumeSlider = styled(Slider)<SliderProps>({
     '&:focus, &:hover, &.Mui-active, &.Mui-focusVisible': {
       boxShadow: 'none',
       border: '2px solid currentColor',
-    }
+    },
   },
   '& .MuiSlider-valueLabel': {
     lineHeight: 1.2,
@@ -48,7 +48,7 @@ export const VolumeSlider = styled(Slider)<SliderProps>({
     top: -8,
 
     '&::before': {
-      display: 'none'
-    }
+      display: 'none',
+    },
   },
 });

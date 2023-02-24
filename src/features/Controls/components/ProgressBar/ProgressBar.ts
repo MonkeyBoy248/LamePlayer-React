@@ -20,6 +20,6 @@ export const ProgressBar = styled(Slider)<SliderProps>({
     '&:focus, &:hover, &.Mui-active, &.Mui-focusVisible': {
       boxShadow: 'none',
       border: '2px solid currentColor',
-    }
-  }
+    },
+  },
 });

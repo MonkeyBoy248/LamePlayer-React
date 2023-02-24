@@ -1,5 +1,5 @@
-import { FocusEventHandler, FormEventHandler, KeyboardEventHandler } from 'react';
-import styles from './EditTitleInput.module.scss'
+import { FC, FocusEventHandler, FormEventHandler, KeyboardEventHandler } from 'react';
+import styles from './EditTitleInput.module.scss';
 
 interface EditTitleInput {
   title: string;
@@ -8,15 +8,21 @@ interface EditTitleInput {
   onKeyDown: KeyboardEventHandler<HTMLInputElement>;
 }
 
-export const EditTitleInput =  ({ title, onChange, onBlur, onKeyDown }: EditTitleInput) => {
+export const EditTitleInput: FC<EditTitleInput> = ({
+  title,
+  onChange,
+  onBlur,
+  onKeyDown,
+}: EditTitleInput): JSX.Element => {
   return (
     <input
       className={styles.editTitle__editTitleInput}
       type="text"
-      onKeyDown={onKeyDown} onBlur={onBlur}
+      onKeyDown={onKeyDown}
+      onBlur={onBlur}
       value={title}
       maxLength={36}
       onChange={onChange}
-      />
-  )
-}
+    />
+  );
+};

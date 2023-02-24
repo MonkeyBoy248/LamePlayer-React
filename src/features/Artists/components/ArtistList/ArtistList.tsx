@@ -1,5 +1,5 @@
-import React from "react";
-import { ArtistModel } from "@interfaces/Artist";
+import React, { FC } from 'react';
+import { ArtistModel } from '@interfaces/Artist';
 import styles from './ArtistList.module.scss';
 import Artist from '../Artist/Artist';
 
@@ -7,14 +7,14 @@ interface ArtistListProps {
   artists: ArtistModel[];
 }
 
-const ArtistList = ({ artists }: ArtistListProps) => {
+const ArtistList: FC<ArtistListProps> = ({ artists }: ArtistListProps): JSX.Element => {
   return (
     <ul className={`${styles.artistList} _grid`}>
-      { artists.map((artist) => {
-        return <Artist key={artist.id} artist={artist} />
-      }) }
+      {artists.map((artist) => {
+        return <Artist key={artist.id} artist={artist} />;
+      })}
     </ul>
-  )
-}
+  );
+};
 
-export default ArtistList
+export default ArtistList;

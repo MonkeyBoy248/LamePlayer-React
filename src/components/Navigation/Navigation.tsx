@@ -1,10 +1,10 @@
-import React from 'react';
+import { FC } from 'react';
 import NavItem from '../Navitem/NavItem';
 import { NavigationItem } from '@interfaces/NavigationItem';
 import styles from './Navigation.module.scss';
 import { iconIds } from '@utils/config/iconIds';
 
-const Navigation = () => {
+const Navigation: FC = (): JSX.Element => {
   const width = '1.5em';
   const height = '1.5em';
   const fill = 'var(--controls-svg)';
@@ -18,7 +18,7 @@ const Navigation = () => {
         width,
         height,
         fill,
-      }
+      },
     },
     {
       title: 'Tracks',
@@ -28,7 +28,7 @@ const Navigation = () => {
         width,
         height,
         fill,
-      }
+      },
     },
     {
       title: 'Artists',
@@ -38,7 +38,7 @@ const Navigation = () => {
         width,
         height,
         fill,
-      }
+      },
     },
     {
       title: 'Albums',
@@ -48,7 +48,7 @@ const Navigation = () => {
         width,
         height,
         fill,
-      }
+      },
     },
     {
       title: 'Playlists',
@@ -58,7 +58,7 @@ const Navigation = () => {
         width,
         height,
         fill,
-      }
+      },
     },
     {
       title: 'Settings',
@@ -68,19 +68,20 @@ const Navigation = () => {
         width,
         height,
         fill,
-      }
-    }
-  ]
+      },
+    },
+  ];
 
   return (
     <nav className={styles.navigation}>
       <ul className={styles.navigation__navList}>
-        { navigationItems.length > 0 && navigationItems.map((item) =>
-          <NavItem key={item.svg.id} title={item.title} svg={{...item.svg}} link={item.link}/>
-        )}
+        {navigationItems.length > 0 &&
+          navigationItems.map((item) => (
+            <NavItem key={item.svg.id} title={item.title} svg={{ ...item.svg }} link={item.link} />
+          ))}
       </ul>
     </nav>
-  )
-}
+  );
+};
 
 export default Navigation;

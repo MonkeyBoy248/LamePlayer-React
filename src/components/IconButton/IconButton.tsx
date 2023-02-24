@@ -1,4 +1,4 @@
-import { MouseEventHandler } from 'react';
+import { FC, MouseEventHandler } from 'react';
 import styles from './IconButton.module.scss';
 import Icon from '../Icon';
 
@@ -13,26 +13,19 @@ interface IconButtonProps {
   isDisabled?: boolean;
 }
 
-export const IconButton = (
-  {
-    iconId,
-    height,
-    width,
-    fill,
-    stroke,
-    className,
-    isDisabled,
-    onClick
-  }: IconButtonProps) => {
+export const IconButton: FC<IconButtonProps> = ({
+  iconId,
+  height,
+  width,
+  fill,
+  stroke,
+  className,
+  isDisabled,
+  onClick,
+}: IconButtonProps): JSX.Element => {
   return (
     <button className={`${styles.iconButton} ${className}`} onClick={onClick} disabled={isDisabled}>
-      <Icon
-        id={iconId}
-        height={height}
-        width={width}
-        fill={fill}
-        stroke={stroke}
-      />
+      <Icon id={iconId} height={height} width={width} fill={fill} stroke={stroke} />
     </button>
-  )
-}
+  );
+};

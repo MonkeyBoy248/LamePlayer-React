@@ -5,7 +5,21 @@ import { getRandomIndex } from '@/utils/helpers/getRandomIndex';
 import { MutableRefObject, useCallback, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-export const usePlaybackQueue = (audioRef: MutableRefObject<HTMLAudioElement>, playlist: TrackModel[], currentTrack: TrackModel | null, hasEnded: boolean) => {
+interface UsePlaybackQueue {
+  isLooped: boolean;
+  isShuffled: boolean;
+  nextTrack: () => void;
+  previousTrack: () => void;
+  toggleShuffleStatus: () => void;
+  toggleLoopStatus: () => void;
+}
+
+export const usePlaybackQueue = (
+  audioRef: MutableRefObject<HTMLAudioElement>,
+  playbackQueue: TrackModel[],
+  currentTrack: TrackModel | null,
+  hasEnded: boolean
+): UsePlaybackQueue => {
   const [isLooped, setIsLooped] = useState<boolean>(false);
   const [isShuffled, setIsShuffled] = useState<boolean>(false);
   const dispatch: AppDispatch = useDispatch();
@@ -16,7 +30,7 @@ export const usePlaybackQueue = (audioRef: MutableRefObject<HTMLAudioElement>, p
     }
 
     isLooped ? audioRef.current.play().then() : nextTrack();
-  }, [hasEnded]);
+  }, [hasEnded, isLooped]);
 
   const toggleShuffleStatus = useCallback((): void => {
     setIsShuffled((currentValue) => !currentValue);
@@ -37,11 +51,11 @@ export const usePlaybackQueue = (audioRef: MutableRefObject<HTMLAudioElement>, p
       return;
     }
 
-    const currentTrackIndex = playlist.findIndex((track) => track.id === currentTrack.id);
+    const currentTrackIndex = playbackQueue.findIndex((track) => track.id === currentTrack.id);
     const previousTrackIndex = currentTrackIndex - 1;
 
     dispatch(setCurrentTrackIndex(previousTrackIndex));
-  }, [isShuffled, playlist, currentTrack]);
+  }, [currentTrack, isShuffled]);
 
   const nextTrack = useCallback((): void => {
     if (!currentTrack) {
@@ -54,17 +68,17 @@ export const usePlaybackQueue = (audioRef: MutableRefObject<HTMLAudioElement>, p
       return;
     }
 
-    const currentTrackIndex = playlist.findIndex((track) => track.id === currentTrack.id);
-    const nextTrackIndex = currentTrackIndex === playlist.length - 1 ? 0 : currentTrackIndex + 1;
+    const currentTrackIndex = playbackQueue.findIndex((track) => track.id === currentTrack.id);
+    const nextTrackIndex = currentTrackIndex === playbackQueue.length - 1 ? 0 : currentTrackIndex + 1;
 
     dispatch(setCurrentTrackIndex(nextTrackIndex));
-  }, [isShuffled, playlist, currentTrack]);
+  }, [currentTrack, isShuffled]);
 
   const setRandomTrack = (): void => {
-    const randomTrackIndex = getRandomIndex(playlist);
+    const randomTrackIndex = getRandomIndex(playbackQueue);
 
     dispatch(setCurrentTrackIndex(randomTrackIndex));
-  }
+  };
 
   return {
     isLooped,
@@ -72,6 +86,6 @@ export const usePlaybackQueue = (audioRef: MutableRefObject<HTMLAudioElement>, p
     nextTrack,
     previousTrack,
     toggleShuffleStatus,
-    toggleLoopStatus
-  }
-}
+    toggleLoopStatus,
+  };
+};

@@ -4,9 +4,9 @@ import viteTsconfigPaths from 'vite-tsconfig-paths';
 import svgrPlugin from 'vite-plugin-svgr';
 
 export default defineConfig({
-    server: {
-        port: 3300,
-        open: true,
-    },
-    plugins: [react(), viteTsconfigPaths(), svgrPlugin()],
+  server: {
+    port: 3300,
+    open: true,
+  },
+  plugins: [react(), viteTsconfigPaths(), svgrPlugin()],
 });

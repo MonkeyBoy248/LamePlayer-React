@@ -3,31 +3,37 @@ import { MutableRefObject, useEffect } from 'react';
 import { getTrackFullSrc } from '../helpers/getTrackFullSrc';
 
 export const usePlayCurrentTrack = (
-  audio: MutableRefObject<HTMLAudioElement>,
+  audioRef: MutableRefObject<HTMLAudioElement>,
   isPlaying: boolean,
-  currentTrack: TrackModel | null,
-) => {
+  currentTrack: TrackModel | null
+): void => {
   useEffect(() => {
     if (!isPlaying) {
-      audio.current.pause();
+      audioRef.current.pause();
 
       return;
     }
 
-    audio.current.play().then().catch((e) => console.log(e));
-  }, [isPlaying]);
+    audioRef.current
+      .play()
+      .then()
+      .catch((e) => console.log(e));
+  }, [isPlaying, audioRef]);
 
   useEffect(() => {
     if (!currentTrack) {
       return;
     }
 
-    audio.current.src = getTrackFullSrc(currentTrack.src);
+    audioRef.current.src = getTrackFullSrc(currentTrack.src);
 
     if (!isPlaying) {
       return;
     }
-    
-    audio.current.play().then().catch((e) => console.log(e));
-  }, [currentTrack?.id])
-}
+
+    audioRef.current
+      .play()
+      .then()
+      .catch((e) => console.log(e));
+  }, [currentTrack?.id]);
+};

@@ -1,13 +1,13 @@
 import styles from './RecommendationsList.module.scss';
-import RecommendationCard from "../RecommendationCard/RecommendationCard";
-import { TrackModel } from "@interfaces/Track";
+import RecommendationCard from '../RecommendationCard/RecommendationCard';
+import { TrackModel } from '@interfaces/Track';
 import { setCurrentTrackIndex, setIsPlaying } from '@/features/Tracks/tracksSlice';
 import { AppDispatch, RootState } from '@/app/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectCurrentTrack } from '@/features/Tracks/selectors';
 import { usePopUp } from '@/utils/hooks/usePopUp';
 import { AddToPlaylistPopup } from '@/features/Playlists/components/AddToPlaylistPopup/AddToPlaylistPopup';
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import { isTrackActive } from '@/features/Tracks/helpers/isTrackActive';
 
 interface RecommendationsListProps {
@@ -15,7 +15,10 @@ interface RecommendationsListProps {
   trackList: TrackModel[];
 }
 
-const RecommendationsList = ({ recommendationTracks, trackList }: RecommendationsListProps) => {
+const RecommendationsList: FC<RecommendationsListProps> = ({
+  recommendationTracks,
+  trackList,
+}: RecommendationsListProps) => {
   const dispatch: AppDispatch = useDispatch();
   const currentTrackIndex = useSelector((state: RootState) => state.tracks.currentTrackIndex);
   const currentTrack = useSelector(selectCurrentTrack);
@@ -23,7 +26,7 @@ const RecommendationsList = ({ recommendationTracks, trackList }: Recommendation
   const { showPopUp, isPopUpOpen, closePopUp } = usePopUp();
   const [trackToAdd, setTrackToAdd] = useState<TrackModel>({} as TrackModel);
 
-  const setCurrentTrack = (id: string) => {
+  const setCurrentTrack = (id: string): void => {
     const trackItemIndex = trackList.findIndex((track) => track.id === id);
 
     if (trackItemIndex === -1) {
@@ -37,35 +40,34 @@ const RecommendationsList = ({ recommendationTracks, trackList }: Recommendation
     }
 
     dispatch(setCurrentTrackIndex(trackItemIndex));
-  }
+  };
 
-  const addToPlaylist = (track: TrackModel) => {
+  const addToPlaylist = (track: TrackModel): void => {
     setTrackToAdd(track);
     showPopUp();
-  }
+  };
 
   return (
     <>
-    <ul className={styles.recommendationsList}>
-      {recommendationTracks.length > 0 && recommendationTracks.map((track: TrackModel, index: number) => {
-        return <RecommendationCard
-          key={track.id}
-          isPlaying={isPlaying}
-          isActive={isTrackActive(track, currentTrack)}
-          dataIndex={index}
-          trackInfo={track}
-          onPlay={setCurrentTrack}
-          onAdd={addToPlaylist}
-          />
-      })}
-    </ul>
-    <AddToPlaylistPopup
-      isOpen={isPopUpOpen}
-      trackToAdd={trackToAdd}
-      closeModal={closePopUp}
-    />
+      <ul className={styles.recommendationsList}>
+        {recommendationTracks.length > 0 &&
+          recommendationTracks.map((track: TrackModel, index: number) => {
+            return (
+              <RecommendationCard
+                key={track.id}
+                isPlaying={isPlaying}
+                isActive={isTrackActive(track, currentTrack)}
+                dataIndex={index}
+                trackInfo={track}
+                onPlay={setCurrentTrack}
+                onAdd={addToPlaylist}
+              />
+            );
+          })}
+      </ul>
+      <AddToPlaylistPopup isOpen={isPopUpOpen} trackToAdd={trackToAdd} closeModal={closePopUp} />
     </>
-  )
-}
+  );
+};
 
 export default RecommendationsList;

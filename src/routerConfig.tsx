@@ -15,32 +15,32 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Home title={'Home'} />
+        element: <Home title={'Home'} />,
       },
       {
         path: 'tracks',
-        element: <Tracks title={'Tracks'} />
+        element: <Tracks title={'Tracks'} />,
       },
       {
         path: 'playlists',
-        element: <PlaylistsPage title={'Playlists'} />
+        element: <PlaylistsPage title={'Playlists'} />,
       },
       {
         path: 'albums',
-        element: <Albums title={'Albums'} />
+        element: <Albums title={'Albums'} />,
       },
       {
         path: 'artists',
-        element: <Artists title={'Artists'} />
+        element: <Artists title={'Artists'} />,
       },
       {
         path: 'playlist/:id',
-        element: <Playlist/>
+        element: <Playlist />,
       },
       {
         path: 'settings',
-        element: <Settings  title={'Settings'}/>
-      }
-    ]
+        element: <Settings title={'Settings'} />,
+      },
+    ],
   },
-])
+]);

@@ -1,8 +1,7 @@
-import styled from '@emotion/styled'
-import { MenuProps, Menu } from '@mui/material'
+import styled from '@emotion/styled';
+import { MenuProps, Menu } from '@mui/material';
 
-export const StyledMenu = styled(Menu)<MenuProps>(
-  {
+export const StyledMenu = styled(Menu)<MenuProps>({
   '& .MuiPaper-root': {
     backgroundColor: 'var(--context-menu-background)',
     borderRadius: 6,

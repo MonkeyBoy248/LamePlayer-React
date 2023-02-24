@@ -1,6 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { PayloadAction } from "@reduxjs/toolkit";
-import { getItemFromLocalStorage, setItemToLocalStorage } from "@utils/helpers/localStorage";
+import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction } from '@reduxjs/toolkit';
+import { getItemFromLocalStorage, setItemToLocalStorage } from '@utils/helpers/localStorage';
 
 export type Theme = 'light' | 'dark';
 
@@ -18,16 +18,16 @@ export const userSlice = createSlice({
       state.theme = action.payload;
 
       setItemToLocalStorage(themeKey, state.theme);
-    }
+    },
   },
-})
+});
 
-function getInitialState (): UserState {
+function getInitialState(): UserState {
   const theme = getItemFromLocalStorage<Theme>(themeKey) ?? 'dark';
 
   return {
-    theme
-  }
+    theme,
+  };
 }
 
 export const { setTheme } = userSlice.actions;

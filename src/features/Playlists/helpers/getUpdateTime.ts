@@ -12,4 +12,4 @@ export const getUpdateTime = (timestamp: number): string => {
   }
 
   return new Date(timestamp).toLocaleDateString();
-}
+};

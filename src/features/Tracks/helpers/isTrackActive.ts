@@ -6,4 +6,4 @@ export const isTrackActive = (track: TrackModel, currentTrack: TrackModel | null
   }
 
   return currentTrack.id === track.id;
-}
+};

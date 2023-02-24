@@ -2,7 +2,12 @@ import { TrackModel } from '@/interfaces/Track';
 import { useCallback, useMemo, useState } from 'react';
 import { filterArrayByKeys } from '../helpers/filterArrayByKeys';
 
-export const useSearchTrack = (tracks: TrackModel[]) => {
+interface UseSearchTrack {
+  searchResults: TrackModel[];
+  searchTrack: (e: React.FormEvent<HTMLInputElement>) => void;
+}
+
+export const useSearchTrack = (tracks: TrackModel[]): UseSearchTrack => {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const searchResults = useMemo(() => {
     if (!searchTerm) {
@@ -16,5 +21,5 @@ export const useSearchTrack = (tracks: TrackModel[]) => {
     setSearchTerm(e.currentTarget.value);
   }, []);
 
-  return { searchResults, searchTrack }
-}
+  return { searchResults, searchTrack };
+};
