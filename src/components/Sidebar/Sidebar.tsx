@@ -1,8 +1,8 @@
-import React from 'react';
+import { FC } from 'react';
 import Navigation from '../Navigation/Navigation';
 import styles from './Sidebar.module.scss';
 
-const Sidebar = () => {
+const Sidebar: FC = (): JSX.Element => {
   const sidebarTitle = 'My music';
 
   return (
@@ -10,7 +10,7 @@ const Sidebar = () => {
       <h2 className={`${styles.sidebar__title} _pageTitle`}>{sidebarTitle}</h2>
       <Navigation />
     </aside>
-  )
-}
+  );
+};
 
 export default Sidebar;

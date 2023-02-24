@@ -1,7 +1,16 @@
 import { useEventListener } from '@/utils/hooks/useEventListener';
 import { MutableRefObject, useCallback, useEffect, useState } from 'react';
 
-export const useTrackProgress = (audioRef: MutableRefObject<HTMLAudioElement>) => {
+interface UseTrackProgress {
+  currentTime: number;
+  duration: number;
+  hasEnded: boolean;
+  setTrackCurrentTime: (trackCurrentTime: number) => void;
+  setTrackTimeData: () => void;
+  setTrackHasEnded: (trackHasEnded: boolean) => void;
+}
+
+export const useTrackProgress = (audioRef: MutableRefObject<HTMLAudioElement>): UseTrackProgress => {
   const [duration, setDuration] = useState<number>(0);
   const [currentTime, setCurrentTime] = useState<number>(0);
   const [hasEnded, setHasEnded] = useState<boolean>(false);
@@ -13,7 +22,7 @@ export const useTrackProgress = (audioRef: MutableRefObject<HTMLAudioElement>) =
 
   const setTrackCurrentTime = useCallback((trackCurrentTime: number): void => {
     setCurrentTime(trackCurrentTime);
-  }, [])
+  }, []);
 
   const setTrackHasEnded = useCallback((trackHasEnded: boolean): void => {
     setHasEnded(trackHasEnded);
@@ -21,7 +30,7 @@ export const useTrackProgress = (audioRef: MutableRefObject<HTMLAudioElement>) =
 
   useEventListener(audioRef, 'loadedmetadata', setTrackTimeData);
   useEventListener(audioRef, 'ended', () => setTrackHasEnded(true));
-  useEventListener(audioRef,'timeupdate', () => setTrackCurrentTime(audioRef.current.currentTime));
+  useEventListener(audioRef, 'timeupdate', () => setTrackCurrentTime(audioRef.current.currentTime));
 
   useEffect(() => {
     if (currentTime !== duration) {
@@ -29,7 +38,7 @@ export const useTrackProgress = (audioRef: MutableRefObject<HTMLAudioElement>) =
     }
 
     setHasEnded(false);
-  }, [currentTime, duration])
+  }, [currentTime, duration]);
 
   return {
     currentTime,
@@ -37,6 +46,6 @@ export const useTrackProgress = (audioRef: MutableRefObject<HTMLAudioElement>) =
     hasEnded,
     setTrackCurrentTime,
     setTrackTimeData,
-    setTrackHasEnded
-  }
-}
+    setTrackHasEnded,
+  };
+};

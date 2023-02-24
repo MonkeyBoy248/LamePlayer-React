@@ -3,7 +3,7 @@ import { addTrackToPlaylist, removeTrackFromPlaylist } from '@/features/Playlist
 import { selectFavorites } from '@/features/Playlists/selectors';
 import { TrackModel } from '@/interfaces/Track';
 import { iconIds } from '@/utils/config/iconIds';
-import { useMemo } from 'react';
+import { FC, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { IconButton } from './IconButton/IconButton';
 
@@ -12,33 +12,32 @@ interface FavoritesButtonProps {
   width: string;
   stroke?: string;
   className?: string;
-  track: TrackModel
+  track: TrackModel;
 }
 
-export const FavoritesButton = (
-  {
-    height,
-    width,
-    stroke,
-    className,
-    track
-  }: FavoritesButtonProps
-  ) => {
+export const FavoritesButton: FC<FavoritesButtonProps> = ({
+  height,
+  width,
+  stroke,
+  className,
+  track,
+}: FavoritesButtonProps): JSX.Element => {
   const dispatch: AppDispatch = useDispatch();
   const favorites = useSelector(selectFavorites);
   const inFavorites = useMemo(
     () => favorites.tracks.findIndex((favorite) => favorite.id === track.id) !== -1,
-    [favorites, track]);
+    [favorites, track]
+  );
 
-  const updateFavorites = () => {
+  const updateFavorites = (): void => {
     if (inFavorites) {
-      dispatch(removeTrackFromPlaylist({trackId: track.id, playlistId: favorites.id}));
+      dispatch(removeTrackFromPlaylist({ trackId: track.id, playlistId: favorites.id }));
 
       return;
     }
 
-    dispatch(addTrackToPlaylist({track, playlistId: favorites.id}));
-  }
+    dispatch(addTrackToPlaylist({ track, playlistId: favorites.id }));
+  };
 
   return (
     <IconButton
@@ -50,5 +49,5 @@ export const FavoritesButton = (
       onClick={updateFavorites}
       className={className}
     />
-  )
-}
+  );
+};

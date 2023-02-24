@@ -1,11 +1,11 @@
 import { TrackModel } from '@/interfaces/Track';
 import { tracks } from '@/services/mockDataService';
-import { createSlice } from "@reduxjs/toolkit";
-import { PayloadAction } from "@reduxjs/toolkit";
-import { getItemFromLocalStorage, setItemToLocalStorage } from "@utils/helpers/localStorage";
+import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction } from '@reduxjs/toolkit';
+import { getItemFromLocalStorage, setItemToLocalStorage } from '@utils/helpers/localStorage';
 
 export interface TrackState {
-  tracklist: TrackModel[],
+  tracklist: TrackModel[];
   currentTrackIndex: number;
   isPlaying: boolean;
   playbackQueue: TrackModel[];
@@ -13,7 +13,7 @@ export interface TrackState {
 
 const currentTrackKey = 'currentTrackIndex';
 const tracklistKey = 'tracklist';
-const playbackQueueKey = 'playbackQueue'
+const playbackQueueKey = 'playbackQueue';
 
 export const trackSlice = createSlice({
   name: 'tracks',
@@ -33,30 +33,25 @@ export const trackSlice = createSlice({
     setPlaybackQueue: (state, action: PayloadAction<TrackModel[]>) => {
       state.playbackQueue = action.payload;
 
-      setItemToLocalStorage(playbackQueueKey, state.playbackQueue)
+      setItemToLocalStorage(playbackQueueKey, state.playbackQueue);
     },
 
     addToPlaybackQueue: (state, action: PayloadAction<TrackModel | TrackModel[]>) => {
       if (Array.isArray(action.payload)) {
-        state.playbackQueue = [...state.playbackQueue, ...action.payload];
-        setItemToLocalStorage(playbackQueueKey, state.playbackQueue)
+        const playlistTracsCopy = action.payload.map((track) => {
+          return { ...track, id: crypto.randomUUID() };
+        });
 
-        return;
-      }
-
-      const trackIndex = state.playbackQueue.findIndex((track) => track.id === (action.payload as TrackModel).id);
-
-      if (trackIndex !== -1) {
-        const trackCopy: TrackModel = {...action.payload, id: crypto.randomUUID()};
-
-        state.playbackQueue.push(trackCopy);
+        state.playbackQueue = [...state.playbackQueue, ...playlistTracsCopy];
         setItemToLocalStorage(playbackQueueKey, state.playbackQueue);
 
         return;
       }
 
-      state.playbackQueue.push(action.payload);
-      setItemToLocalStorage(playbackQueueKey, state.playbackQueue)
+      const trackCopy: TrackModel = { ...action.payload, id: crypto.randomUUID() };
+
+      state.playbackQueue.push(trackCopy);
+      setItemToLocalStorage(playbackQueueKey, state.playbackQueue);
     },
 
     removeTrack: (state, action: PayloadAction<string>) => {
@@ -75,7 +70,12 @@ export const trackSlice = createSlice({
     removeFromPlaybackQueue: (state, action: PayloadAction<string>) => {
       state.playbackQueue = state.playbackQueue.filter((track) => track.id !== action.payload);
 
+      if (state.currentTrackIndex === state.playbackQueue.length) {
+        state.currentTrackIndex = state.currentTrackIndex - 1;
+      }
+
       setItemToLocalStorage(playbackQueueKey, state.playbackQueue);
+      setItemToLocalStorage(currentTrackKey, state.currentTrackIndex);
     },
 
     clearPlaybackQueue: (state) => {
@@ -84,9 +84,9 @@ export const trackSlice = createSlice({
       setItemToLocalStorage(playbackQueueKey, state.playbackQueue);
     },
   },
-})
+});
 
-function getInitialState (): TrackState {
+function getInitialState(): TrackState {
   const currentTrackIndex = getItemFromLocalStorage<number>(currentTrackKey) ?? 0;
   const tracklist = getItemFromLocalStorage<TrackModel[]>(tracklistKey) ?? tracks;
   const playbackQueue = getItemFromLocalStorage<TrackModel[]>(playbackQueueKey) ?? tracklist;
@@ -96,7 +96,7 @@ function getInitialState (): TrackState {
     tracklist,
     playbackQueue,
     isPlaying: false,
-  }
+  };
 }
 
 export const {
@@ -106,6 +106,6 @@ export const {
   addToPlaybackQueue,
   removeTrack,
   clearPlaybackQueue,
-  removeFromPlaybackQueue
+  removeFromPlaybackQueue,
 } = trackSlice.actions;
 export default trackSlice.reducer;

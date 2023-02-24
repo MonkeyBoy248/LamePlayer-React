@@ -1,3 +1,3 @@
-export const getTrackFullSrc = (src: string) => {
+export const getTrackFullSrc = (src: string): string => {
   return `/tracks/${src}`;
-}
+};

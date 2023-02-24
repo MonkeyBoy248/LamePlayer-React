@@ -1,4 +1,4 @@
-import { TrackModel } from "./Track";
+import { TrackModel } from './Track';
 
 export interface AlbumModel {
   id: string;

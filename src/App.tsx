@@ -5,7 +5,7 @@ import MainControls from './features/Controls/components/MainControls/MainContro
 import { useSelector } from 'react-redux';
 import { selectTheme } from './features/User/selectors';
 
-function App() {
+function App(): JSX.Element {
   const theme = useSelector(selectTheme);
   document.body.className = theme;
 

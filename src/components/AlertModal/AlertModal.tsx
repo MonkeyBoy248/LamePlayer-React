@@ -1,5 +1,4 @@
-import { MouseEventHandler, useEffect } from 'react';
-import { createPortal } from 'react-dom';
+import { FC, MouseEventHandler } from 'react';
 import { Modal } from '../Modal/Modal';
 import styles from './AlertModal.module.scss';
 
@@ -14,37 +13,28 @@ interface AlertModalProps {
   onCancel: MouseEventHandler<HTMLButtonElement>;
 }
 
-export const AlertModal = (
-  {
-    isOpen,
-    title,
-    text,
-    confirmText,
-    cancelText,
-    closeModal,
-    onConfirm,
-    onCancel
-  }: AlertModalProps) => {
+export const AlertModal: FC<AlertModalProps> = ({
+  isOpen,
+  title,
+  text,
+  confirmText,
+  cancelText,
+  closeModal,
+  onConfirm,
+  onCancel,
+}: AlertModalProps): JSX.Element => {
   return (
     <Modal isOpen={isOpen} closeModal={closeModal}>
-       {
-          title && <h3 className={styles.alertModal__title}>{title}</h3>
-        }
-        <p className={styles.alertModal__text}>{text}</p>
-        <footer className={styles.alertModal__controlsWrapper}>
-          <button
-            className={`${styles.alertModal__button} ${styles.alertModal__button_confirm}`}
-            onClick={onConfirm}
-            >
-              {confirmText}
-            </button>
-          <button
-            className={`${styles.alertModal__button} ${styles.alertModal__button_cancel}`}
-            onClick={onCancel}
-            >
-              {cancelText}
-            </button>
-        </footer>
+      {title && <h3 className={styles.alertModal__title}>{title}</h3>}
+      <p className={styles.alertModal__text}>{text}</p>
+      <footer className={styles.alertModal__controlsWrapper}>
+        <button className={`${styles.alertModal__button} ${styles.alertModal__button_confirm}`} onClick={onConfirm}>
+          {confirmText}
+        </button>
+        <button className={`${styles.alertModal__button} ${styles.alertModal__button_cancel}`} onClick={onCancel}>
+          {cancelText}
+        </button>
+      </footer>
     </Modal>
-  )
-}
+  );
+};

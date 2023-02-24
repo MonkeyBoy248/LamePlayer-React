@@ -26,10 +26,10 @@ export const CustomSwitch = styled(Switch)<SwitchProps>({
       border: '6px solid #fff',
     },
     '&.Mui-disabled .MuiSwitch-thumb': {
-      color: '#E5E5E5'
+      color: '#E5E5E5',
     },
     '&.Mui-disabled + .MuiSwitch-track': {
-      opacity: 0.8
+      opacity: 0.8,
     },
   },
   '& .MuiSwitch-thumb': {

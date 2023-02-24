@@ -5,7 +5,21 @@ import { getRandomIndex } from '@/utils/helpers/getRandomIndex';
 import { MutableRefObject, useCallback, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-export const usePlaybackQueue = (audioRef: MutableRefObject<HTMLAudioElement>, playlist: TrackModel[], currentTrack: TrackModel | null, hasEnded: boolean) => {
+interface UsePlaybackQueue {
+  isLooped: boolean;
+  isShuffled: boolean;
+  nextTrack: () => void;
+  previousTrack: () => void;
+  toggleShuffleStatus: () => void;
+  toggleLoopStatus: () => void;
+}
+
+export const usePlaybackQueue = (
+  audioRef: MutableRefObject<HTMLAudioElement>,
+  playlist: TrackModel[],
+  currentTrack: TrackModel | null,
+  hasEnded: boolean
+): UsePlaybackQueue => {
   const [isLooped, setIsLooped] = useState<boolean>(false);
   const [isShuffled, setIsShuffled] = useState<boolean>(false);
   const dispatch: AppDispatch = useDispatch();
@@ -64,7 +78,7 @@ export const usePlaybackQueue = (audioRef: MutableRefObject<HTMLAudioElement>, p
     const randomTrackIndex = getRandomIndex(playlist);
 
     dispatch(setCurrentTrackIndex(randomTrackIndex));
-  }
+  };
 
   return {
     isLooped,
@@ -72,6 +86,6 @@ export const usePlaybackQueue = (audioRef: MutableRefObject<HTMLAudioElement>, p
     nextTrack,
     previousTrack,
     toggleShuffleStatus,
-    toggleLoopStatus
-  }
-}
+    toggleLoopStatus,
+  };
+};

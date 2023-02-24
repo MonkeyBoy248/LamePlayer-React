@@ -1,5 +1,5 @@
 import { iconIds } from '@/utils/config/iconIds';
-import { MouseEventHandler } from 'react'
+import { FC, MouseEventHandler } from 'react';
 import styles from './VolumeControls.module.scss';
 import { VolumeSlider } from '../VolumeSlider/VolumeSlider';
 import { IconButton } from '@/components/IconButton/IconButton';
@@ -10,9 +10,9 @@ export interface VolumeProps {
   onClick: MouseEventHandler<HTMLButtonElement>;
 }
 
-export const VolumeControls = ({ volume, onChange, onClick }: VolumeProps) => {
+export const VolumeControls: FC<VolumeProps> = ({ volume, onChange, onClick }: VolumeProps): JSX.Element => {
   const getVolumeIcon = (): string => {
-    switch(true) {
+    switch (true) {
       case volume === 0:
         return iconIds.mute;
       case volume > 50:
@@ -20,31 +20,30 @@ export const VolumeControls = ({ volume, onChange, onClick }: VolumeProps) => {
       default:
         return iconIds.mid;
     }
-  }
+  };
 
   return (
     <div className={styles.volume__container}>
       <div className={styles.volume__sliderContainer}>
-          <VolumeSlider
-            size='medium'
-            max={100}
-            min={0}
-            value={volume}
-            valueLabelDisplay='auto'
-            onChange={onChange}
-            >
-          </VolumeSlider>
+        <VolumeSlider
+          size="medium"
+          max={100}
+          min={0}
+          value={volume}
+          valueLabelDisplay="auto"
+          onChange={onChange}
+        ></VolumeSlider>
       </div>
       <IconButton
-         iconId={getVolumeIcon()}
-         fill='var(--controls-svg)'
-         width='2.5em'
-         height='2.5em'
-         className={styles.controls__volumeButton}
-         onClick={onClick}
+        iconId={getVolumeIcon()}
+        fill="var(--controls-svg)"
+        width="2.5em"
+        height="2.5em"
+        className={styles.controls__volumeButton}
+        onClick={onClick}
       />
     </div>
-  )
-}
+  );
+};
 
 export default VolumeControls;
