@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { AppDispatch, RootState } from '@/app/store';
 import { AlertModal } from '@/components/AlertModal/AlertModal';
 import { EmptyMessage } from '@/components/EmptyMessage/EmptyMessage';
