@@ -16,7 +16,7 @@ interface UsePlaybackQueue {
 
 export const usePlaybackQueue = (
   audioRef: MutableRefObject<HTMLAudioElement>,
-  playlist: TrackModel[],
+  playbackQueue: TrackModel[],
   currentTrack: TrackModel | null,
   hasEnded: boolean
 ): UsePlaybackQueue => {
@@ -30,7 +30,7 @@ export const usePlaybackQueue = (
     }
 
     isLooped ? audioRef.current.play().then() : nextTrack();
-  }, [hasEnded]);
+  }, [hasEnded, isLooped]);
 
   const toggleShuffleStatus = useCallback((): void => {
     setIsShuffled((currentValue) => !currentValue);
@@ -51,11 +51,11 @@ export const usePlaybackQueue = (
       return;
     }
 
-    const currentTrackIndex = playlist.findIndex((track) => track.id === currentTrack.id);
+    const currentTrackIndex = playbackQueue.findIndex((track) => track.id === currentTrack.id);
     const previousTrackIndex = currentTrackIndex - 1;
 
     dispatch(setCurrentTrackIndex(previousTrackIndex));
-  }, [isShuffled, playlist, currentTrack]);
+  }, [currentTrack, isShuffled]);
 
   const nextTrack = useCallback((): void => {
     if (!currentTrack) {
@@ -68,14 +68,14 @@ export const usePlaybackQueue = (
       return;
     }
 
-    const currentTrackIndex = playlist.findIndex((track) => track.id === currentTrack.id);
-    const nextTrackIndex = currentTrackIndex === playlist.length - 1 ? 0 : currentTrackIndex + 1;
+    const currentTrackIndex = playbackQueue.findIndex((track) => track.id === currentTrack.id);
+    const nextTrackIndex = currentTrackIndex === playbackQueue.length - 1 ? 0 : currentTrackIndex + 1;
 
     dispatch(setCurrentTrackIndex(nextTrackIndex));
-  }, [isShuffled, playlist, currentTrack]);
+  }, [currentTrack, isShuffled]);
 
   const setRandomTrack = (): void => {
-    const randomTrackIndex = getRandomIndex(playlist);
+    const randomTrackIndex = getRandomIndex(playbackQueue);
 
     dispatch(setCurrentTrackIndex(randomTrackIndex));
   };

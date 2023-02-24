@@ -27,7 +27,7 @@ const useRecommendations = (tracklist: TrackModel[]): TrackModel[] => {
     const randomTracks = getRandomTracks(tracklist);
 
     setRecommendations(randomTracks);
-  }, []);
+  }, [tracklist]);
 
   return recommendations;
 };

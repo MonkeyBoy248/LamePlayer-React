@@ -18,7 +18,7 @@ export const useTrackProgress = (audioRef: MutableRefObject<HTMLAudioElement>): 
   const setTrackTimeData = useCallback((): void => {
     setDuration(audioRef.current.duration);
     setCurrentTime(audioRef.current.currentTime);
-  }, []);
+  }, [audioRef]);
 
   const setTrackCurrentTime = useCallback((trackCurrentTime: number): void => {
     setCurrentTime(trackCurrentTime);

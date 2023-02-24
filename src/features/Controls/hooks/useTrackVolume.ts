@@ -15,7 +15,7 @@ export const useTrackVolume = (audioRef: MutableRefObject<HTMLAudioElement>): Us
 
   useEffect(() => {
     audioRef.current.volume = volume / 100;
-  }, [volume]);
+  }, [audioRef, volume]);
 
   useEffect(() => {
     if (!isMuted) {
@@ -25,7 +25,7 @@ export const useTrackVolume = (audioRef: MutableRefObject<HTMLAudioElement>): Us
     }
 
     setVolume(0);
-  }, [isMuted]);
+  }, [isMuted, lastVolumeValue]);
 
   const setTrackVolume = useCallback((e: Event, value: number | number[]): void => {
     const trackVolume = Array.isArray(value) ? value[0] : value;
