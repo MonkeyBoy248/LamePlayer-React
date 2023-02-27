@@ -1,14 +1,15 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import Track from '../Track/Track';
 import styles from './TrackList.module.scss';
 import { TrackModel } from '@interfaces/Track';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/app/store';
 import { setCurrentTrackIndex, setIsPlaying, setPlaybackQueue } from '../../tracksSlice';
-import { selectCurrentTrack, selectCurrentTrackIndex, selectPlayingStatus } from '../../selectors';
 import { AddToPlaylistPopup } from '@/features/Playlists/components/AddToPlaylistPopup/AddToPlaylistPopup';
 import { usePopUp } from '@/utils/hooks/usePopUp';
 import { isTrackActive } from '../../helpers/isTrackActive';
+import { useAddToPlaylist } from '@/features/Playlists/hooks/useAddToPlaylist';
+import { useInitTrackList } from '../../hooks/useInitTrackList';
 
 interface TrackListProps {
   tracks: TrackModel[];
@@ -18,11 +19,9 @@ interface TrackListProps {
 
 const TrackList: FC<TrackListProps> = ({ tracks, onDelete, playlistId }: TrackListProps): JSX.Element => {
   const dispatch: AppDispatch = useDispatch();
-  const currentTrackIndex = useSelector(selectCurrentTrackIndex);
-  const currentTrack = useSelector(selectCurrentTrack);
-  const isPlaying = useSelector(selectPlayingStatus);
+  const { currentTrack, currentTrackIndex, isPlaying } = useInitTrackList();
   const { isPopUpOpen, closePopUp, showPopUp } = usePopUp();
-  const [trackToAdd, setTrackToAdd] = useState<TrackModel>({} as TrackModel);
+  const { trackToAdd, addToPlaylist } = useAddToPlaylist(showPopUp);
 
   const setCurrentTrack = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
     const trackItemIndex = Number(e.currentTarget.dataset.index);
@@ -35,11 +34,6 @@ const TrackList: FC<TrackListProps> = ({ tracks, onDelete, playlistId }: TrackLi
     }
 
     dispatch(setCurrentTrackIndex(trackItemIndex));
-  };
-
-  const addToPlaylist = (track: TrackModel): void => {
-    setTrackToAdd(track);
-    showPopUp();
   };
 
   return (
