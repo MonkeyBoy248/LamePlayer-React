@@ -6,7 +6,7 @@ import { selectPlaylistById } from '../selectors';
 
 export const useInitPlaylist = (): PlaylistModel => {
   const { id } = useParams();
-  const playlist = useSelector((state: RootState) => selectPlaylistById(state, id!));
+  const playlist = useSelector((state: RootState) => selectPlaylistById(state, id as string));
 
   return playlist;
 };
