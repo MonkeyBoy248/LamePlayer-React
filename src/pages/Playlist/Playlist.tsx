@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { AppDispatch, RootState } from '@/app/store';
 import { AlertModal } from '@/components/AlertModal/AlertModal';
 import { EmptyMessage } from '@/components/EmptyMessage/EmptyMessage';
 import { IconButton } from '@/components/IconButton/IconButton';
@@ -7,33 +5,26 @@ import { SearchBar } from '@/components/SearchBar/SearchBar';
 import { EditTitleInput } from '@/features/Playlists/components/EditTitleInput/EditTitleInput';
 import { getTracksAmount } from '@/features/Playlists/helpers/getTracksAmount';
 import { getUpdateTime } from '@/features/Playlists/helpers/getUpdateTime';
-import { changePlaylistTitle, removePlaylistById, removeTrackFromPlaylist } from '@/features/Playlists/playlistsSlice';
-import { selectPlaylistById } from '@/features/Playlists/selectors';
+import { useInitPlaylist } from '@/features/Playlists/hooks/useInitPlaylist';
+import { usePlaylistControls } from '@/features/Playlists/hooks/usePlaylistControls';
+import { usePlaylistTitle } from '@/features/Playlists/hooks/usePlaylistTitle';
 import TrackList from '@/features/Tracks/components/TrackList/TrackList';
-import { addToPlaybackQueue, setCurrentTrackIndex, setPlaybackQueue } from '@/features/Tracks/tracksSlice';
 import { iconIds } from '@/utils/config/iconIds';
 import { usePopUp } from '@/utils/hooks/usePopUp';
 import { useSearchTrack } from '@/utils/hooks/useSearch';
-import { FC, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
+import { FC } from 'react';
 import styles from './Playlist.module.scss';
 
 export const Playlist: FC = (): JSX.Element => {
-  const dispatch: AppDispatch = useDispatch();
-  const { id } = useParams();
-  const playlist = useSelector((state: RootState) => selectPlaylistById(state, id!));
-  const [title, setTitle] = useState<string>(playlist.title);
+  const playlist = useInitPlaylist();
+  const { addPlaylistTracksToPlaybackQueue, removePlaylist, deleteTrackFromPlaylist, runPlayllist } =
+    usePlaylistControls(playlist);
+  const { title, editPlaylistTitle, handleEnterKeyDown, handleInputChange } = usePlaylistTitle(playlist);
   const { searchResults, searchTrack } = useSearchTrack(playlist.tracks);
-  const navigate = useNavigate();
   const { isPopUpOpen, closePopUp, showPopUp } = usePopUp();
 
   const getDateOfCreation = (): string => {
     return new Date(playlist.dateOfCreation).toLocaleDateString();
-  };
-
-  const deleteTrackFromPlaylist = (trackId: string): void => {
-    dispatch(removeTrackFromPlaylist({ trackId, playlistId: id! }));
   };
 
   const displaySearchResults = (): JSX.Element => {
@@ -41,50 +32,7 @@ export const Playlist: FC = (): JSX.Element => {
       return <EmptyMessage title={'Nothing found'} />;
     }
 
-    return <TrackList tracks={searchResults} playlistId={id!} onDelete={deleteTrackFromPlaylist} />;
-  };
-
-  const runPlayllist = (): void => {
-    dispatch(setPlaybackQueue(playlist.tracks));
-    dispatch(setCurrentTrackIndex(0));
-  };
-
-  const handleInputChange = (e: React.FormEvent<HTMLInputElement>): void => {
-    const newTitle = e.currentTarget.value;
-
-    setTitle(newTitle);
-  };
-
-  const editPlaylistTitle = (): void => {
-    if (!title) {
-      setTitle(playlist.title);
-      dispatch(changePlaylistTitle({ id: playlist.id, title: playlist.title }));
-
-      return;
-    }
-
-    if (title === playlist.title) {
-      return;
-    }
-
-    dispatch(changePlaylistTitle({ id: playlist.id, title }));
-  };
-
-  const handleEnterKeyDown = (e: React.KeyboardEvent<HTMLInputElement>): void => {
-    if (e.key !== 'Enter') {
-      return;
-    }
-
-    e.currentTarget.blur();
-  };
-
-  const removePlaylist = (): void => {
-    dispatch(removePlaylistById(id!));
-    navigate('/playlists');
-  };
-
-  const addPlaylistTracksToPlaybackQueue = (): void => {
-    dispatch(addToPlaybackQueue(playlist.tracks));
+    return <TrackList tracks={searchResults} playlistId={playlist.id} onDelete={deleteTrackFromPlaylist} />;
   };
 
   return (

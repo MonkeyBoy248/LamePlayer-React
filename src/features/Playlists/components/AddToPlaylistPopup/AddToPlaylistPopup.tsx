@@ -36,8 +36,7 @@ export const AddToPlaylistPopup: FC<PlaylistPopupProps> = ({
   };
 
   const addTrack = (e: React.MouseEvent<HTMLLIElement>): void => {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    const playlistId = e.currentTarget.dataset.id!;
+    const playlistId = e.currentTarget.dataset.id as string;
     const playlist = allPlaylistsMap[playlistId];
     const isInPlaylist = isTrackInPlaylist(playlist);
 

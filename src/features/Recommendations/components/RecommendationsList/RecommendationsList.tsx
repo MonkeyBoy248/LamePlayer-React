@@ -2,13 +2,14 @@ import styles from './RecommendationsList.module.scss';
 import RecommendationCard from '../RecommendationCard/RecommendationCard';
 import { TrackModel } from '@interfaces/Track';
 import { setCurrentTrackIndex, setIsPlaying } from '@/features/Tracks/tracksSlice';
-import { AppDispatch, RootState } from '@/app/store';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectCurrentTrack } from '@/features/Tracks/selectors';
+import { AppDispatch } from '@/app/store';
+import { useDispatch } from 'react-redux';
 import { usePopUp } from '@/utils/hooks/usePopUp';
 import { AddToPlaylistPopup } from '@/features/Playlists/components/AddToPlaylistPopup/AddToPlaylistPopup';
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { isTrackActive } from '@/features/Tracks/helpers/isTrackActive';
+import { useAddToPlaylist } from '@/features/Playlists/hooks/useAddToPlaylist';
+import { useInitTrackList } from '@/features/Tracks/hooks/useInitTrackList';
 
 interface RecommendationsListProps {
   recommendationTracks: TrackModel[];
@@ -20,11 +21,9 @@ const RecommendationsList: FC<RecommendationsListProps> = ({
   trackList,
 }: RecommendationsListProps) => {
   const dispatch: AppDispatch = useDispatch();
-  const currentTrackIndex = useSelector((state: RootState) => state.tracks.currentTrackIndex);
-  const currentTrack = useSelector(selectCurrentTrack);
-  const isPlaying = useSelector((state: RootState) => state.tracks.isPlaying);
-  const { showPopUp, isPopUpOpen, closePopUp } = usePopUp();
-  const [trackToAdd, setTrackToAdd] = useState<TrackModel>({} as TrackModel);
+  const { currentTrack, currentTrackIndex, isPlaying } = useInitTrackList();
+  const { isPopUpOpen, closePopUp, showPopUp } = usePopUp();
+  const { addToPlaylist, trackToAdd } = useAddToPlaylist(showPopUp);
 
   const setCurrentTrack = (id: string): void => {
     const trackItemIndex = trackList.findIndex((track) => track.id === id);
@@ -40,11 +39,6 @@ const RecommendationsList: FC<RecommendationsListProps> = ({
     }
 
     dispatch(setCurrentTrackIndex(trackItemIndex));
-  };
-
-  const addToPlaylist = (track: TrackModel): void => {
-    setTrackToAdd(track);
-    showPopUp();
   };
 
   return (
