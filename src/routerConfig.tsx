@@ -3,8 +3,9 @@ import App from './App';
 import Albums from './pages/Albums/Albums';
 import Artists from './pages/Artists/Artists';
 import Home from './pages/Home/Home';
+import { NotFound } from './pages/NotFound/NotFound';
 import { Playlist } from './pages/Playlist/Playlist';
-import PlaylistsPage from './pages/Playlists/PlaylistsPage';
+import Playlists from './pages/Playlists/Playlists';
 import { Settings } from './pages/Settings/Settings';
 import Tracks from './pages/Tracks/Tracks';
 
@@ -23,7 +24,12 @@ export const router = createBrowserRouter([
       },
       {
         path: 'playlists',
-        element: <PlaylistsPage title={'Playlists'} />,
+        element: <Playlists title={'Playlists'} />,
+      },
+      {
+        path: 'playlists/:id',
+        element: <Playlist />,
+        errorElement: <NotFound />,
       },
       {
         path: 'albums',
@@ -34,12 +40,12 @@ export const router = createBrowserRouter([
         element: <Artists title={'Artists'} />,
       },
       {
-        path: 'playlist/:id',
-        element: <Playlist />,
-      },
-      {
         path: 'settings',
         element: <Settings title={'Settings'} />,
+      },
+      {
+        path: '*',
+        element: <NotFound />,
       },
     ],
   },

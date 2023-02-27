@@ -12,7 +12,7 @@ interface PlaylistCardProps {
 const PlaylistCard: FC<PlaylistCardProps> = ({ playlist }: PlaylistCardProps): JSX.Element => {
   return (
     <li className={styles.playlistCard}>
-      <Link className={styles.playlistCard__inner} to={`/playlist/${playlist.id}`}>
+      <Link className={styles.playlistCard__inner} to={`/playlists/${playlist.id}`}>
         <div className={styles.playlistCard__coverWrapper}>
           <img
             className={styles.playlistCard__cover}
@@ -21,7 +21,7 @@ const PlaylistCard: FC<PlaylistCardProps> = ({ playlist }: PlaylistCardProps): J
           />
         </div>
       </Link>
-      <Link to={`/playlist/${playlist.id}`} className={`${styles.playlistCard__title} _itemTitle`}>
+      <Link to={`/playlists/${playlist.id}`} className={`${styles.playlistCard__title} _itemTitle`}>
         {playlist.title}
       </Link>
       <p className={`${styles.playlistCard__tracksAmount} ${styles.playlistCard__infoText}`}>

@@ -23,4 +23,5 @@ export const iconIds = {
   checkmark: 'icon-checkmark',
   add: 'icon-add',
   close: 'icon-close',
+  warning: 'icon-warning',
 };

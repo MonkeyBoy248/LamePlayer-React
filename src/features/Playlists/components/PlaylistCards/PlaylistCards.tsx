@@ -5,13 +5,13 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { createPlaylist } from '../../playlistsSlice';
 import PlaylistCard from '../PlaylistCard/PlaylistCard';
-import styles from './PlayLists.module.scss';
+import styles from './PlaylistCards.module.scss';
 
 interface PlaylistsProps {
   playlists: PlaylistModel[];
 }
 
-const PlayLists: FC<PlaylistsProps> = ({ playlists }: PlaylistsProps): JSX.Element => {
+const PlaylistCards: FC<PlaylistsProps> = ({ playlists }: PlaylistsProps): JSX.Element => {
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -28,7 +28,7 @@ const PlayLists: FC<PlaylistsProps> = ({ playlists }: PlaylistsProps): JSX.Eleme
     };
 
     dispatch(createPlaylist(newPlaylist));
-    navigate(`/playlist/${newPlaylist.id}`);
+    navigate(`/playlists/${newPlaylist.id}`);
   };
 
   return (
@@ -46,4 +46,4 @@ const PlayLists: FC<PlaylistsProps> = ({ playlists }: PlaylistsProps): JSX.Eleme
   );
 };
 
-export default PlayLists;
+export default PlaylistCards;
