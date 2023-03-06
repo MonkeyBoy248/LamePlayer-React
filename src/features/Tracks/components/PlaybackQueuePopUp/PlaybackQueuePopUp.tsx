@@ -1,9 +1,10 @@
 import { AppDispatch } from '@/app/store';
 import { EmptyMessage } from '@/components/EmptyMessage/EmptyMessage';
+import Icon from '@/components/Icon';
 import { IconButton } from '@/components/IconButton/IconButton';
 import { addTracksToTheNewPlaylist } from '@/features/Playlists/playlistsSlice';
 import { iconIds } from '@/utils/config/iconIds';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectPlaybackQueue } from '../../selectors';
@@ -22,6 +23,7 @@ export const PlaybackQueuePopUp: FC<PlaybackQueuePopUpProps> = ({
 }: PlaybackQueuePopUpProps): JSX.Element | null => {
   const dispatch: AppDispatch = useDispatch();
   const playbackQueue = useSelector(selectPlaybackQueue);
+  const [isSaved, setIsSaved] = useState<boolean>(false);
 
   if (!isOpen) {
     document.documentElement.classList.remove('_no-scroll');
@@ -30,6 +32,10 @@ export const PlaybackQueuePopUp: FC<PlaybackQueuePopUpProps> = ({
   }
 
   document.documentElement.classList.add('_no-scroll');
+
+  if (isSaved) {
+    setTimeout(() => setIsSaved(false), 5000);
+  }
 
   const removeTrackFromPlaybackQueue = (trackId: string): void => {
     dispatch(removeFromPlaybackQueue(trackId));
@@ -53,6 +59,12 @@ export const PlaybackQueuePopUp: FC<PlaybackQueuePopUpProps> = ({
 
   const saveQueueAsPlaylist = (): void => {
     dispatch(addTracksToTheNewPlaylist(playbackQueue));
+
+    if (isSaved) {
+      return;
+    }
+
+    setIsSaved(true);
   };
 
   return createPortal(
@@ -65,9 +77,16 @@ export const PlaybackQueuePopUp: FC<PlaybackQueuePopUpProps> = ({
               <button onClick={clearQueue} disabled={playbackQueue.length === 0}>
                 Clear
               </button>
-              <button onClick={saveQueueAsPlaylist} disabled={playbackQueue.length === 0}>
-                Save as playlist
-              </button>
+              <span className={styles.playbackQueuePopUp__saveAsPlaylistWrapper}>
+                <button onClick={saveQueueAsPlaylist} disabled={playbackQueue.length === 0}>
+                  Save as playlist
+                </button>
+                {isSaved && (
+                  <span className={styles.playbackQueuePopUp__notification}>
+                    <Icon id={iconIds.checkmark} width={'1rem'} height={'1rem'} fill={'var(--checkmark)'} />
+                  </span>
+                )}
+              </span>
             </div>
             <IconButton
               iconId={iconIds.close}
