@@ -1,5 +1,4 @@
 import { IconButton } from '@/components/IconButton/IconButton';
-import Icon from '@components/Icon';
 import { TrackModel } from '@interfaces/Track';
 import { iconIds } from '@utils/config/iconIds';
 import { FC } from 'react';
