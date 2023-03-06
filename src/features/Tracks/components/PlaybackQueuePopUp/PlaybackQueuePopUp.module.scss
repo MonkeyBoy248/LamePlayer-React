@@ -85,4 +85,17 @@
     top: 1rem;
     right: 1rem;
   }
+
+  &__saveAsPlaylistWrapper {
+    position: relative;
+  }
+
+  &__notification {
+    background-color: var(--notification);
+    padding: 0.2rem;
+    border-radius: 5px;
+    position: absolute;
+    bottom: -0.5rem;
+    right: -1rem;
+  }
 }

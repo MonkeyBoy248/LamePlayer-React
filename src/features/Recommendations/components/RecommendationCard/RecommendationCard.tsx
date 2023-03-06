@@ -1,3 +1,4 @@
+import { IconButton } from '@/components/IconButton/IconButton';
 import Icon from '@components/Icon';
 import { TrackModel } from '@interfaces/Track';
 import { iconIds } from '@utils/config/iconIds';
@@ -42,9 +43,13 @@ const RecommendationCard: FC<RecommendationCardProps> = ({
         className={styles.recommendationCard__inner}
         style={{ backgroundImage: `url(images/covers/${trackInfo.coverUrl})` }}
       >
-        <button className={`${styles.recommendationCard__playButton} _playButton`} onClick={playTrack}>
-          <Icon id={getPlayButtonIconId()} width="2em" height="2em" fill="#000000" />
-        </button>
+        <IconButton
+          iconId={getPlayButtonIconId()}
+          className={`${styles.recommendationCard__playButton} _playButton`}
+          width={'2em'}
+          height={'2em'}
+          onClick={playTrack}
+        />
         <div className={styles.recommendationCard__trackInfoWrapper}>
           <div className={styles.recommendationCard__trackInfo}>
             <p className={styles.recommendationCard__trackName}>{trackInfo.title}</p>
@@ -52,9 +57,14 @@ const RecommendationCard: FC<RecommendationCardProps> = ({
             <p className={styles.recommendationCard__duration}></p>
           </div>
           <div className={styles.recommendationCard__controls}>
-            <button className={styles.recommendationCard__addButton} onClick={addTrackToPlaylist}>
-              <Icon id={iconIds.add} width={'1.5rem'} height={'1.5rem'} fill={'#E5E5E5'} />
-            </button>
+            <IconButton
+              className={styles.recommendationCard__addButton}
+              iconId={iconIds.add}
+              width={'1.5rem'}
+              height={'1.5rem'}
+              fill={'#E5E5E5'}
+              onClick={addTrackToPlaylist}
+            />
           </div>
         </div>
       </div>

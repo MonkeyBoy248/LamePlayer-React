@@ -45,6 +45,9 @@
   --context-menu-background-light: #D1D1D1;
   --context-menu-hover-dark: #474747;
   --context-menu-hover-light: #B8B8B8;
+
+  --notification-dark: #646464;
+  --notification-light: #cecece;
 }
 
 .dark {
@@ -63,6 +66,7 @@
   --subtitle: var(--subtitle-dark);
   --context-menu-background: var(--context-menu-background-dark);
   --context-menu-hover: var(--context-menu-hover-dark);
+  --notification: var(--notification-dark);
 }
 
 .light {
@@ -81,4 +85,5 @@
   --subtitle: var(--subtitle-light);
   --context-menu-background: var(--context-menu-background-light);
   --context-menu-hover: var(--context-menu-hover-light);
+  --notification: var(--notification-light);
 }

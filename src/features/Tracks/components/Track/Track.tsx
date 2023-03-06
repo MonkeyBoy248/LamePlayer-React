@@ -8,6 +8,7 @@ import { FavoritesButton } from '@/components/FavoritesButton';
 import { getTrackFullSrc } from '@/features/Controls/helpers/getTrackFullSrc';
 import { formatTime } from '@/utils/helpers/formatTime';
 import { useEventListener } from '@/utils/hooks/useEventListener';
+import { IconButton } from '@/components/IconButton/IconButton';
 
 interface TrackProps {
   track: TrackModel;
@@ -72,12 +73,22 @@ const Track: FC<TrackProps> = ({
         </div>
         <div className={styles.track__controlsWrapper}>
           <FavoritesButton width="1.5em" height="1.5em" track={track} />
-          <button className={styles.track__deleteButton} onClick={(): void => onDelete(track.id, playlistId)}>
-            <Icon id={iconIds.delete} width="1.5em" height="1.5em" fill="var(--controls-svg)"></Icon>
-          </button>
-          <button className={styles.track__addToPlaylist} onClick={(): void => onAddToPlaylist(track)}>
-            <Icon id={iconIds.add} width="1em" height="1em" fill="var(--controls-svg)" />
-          </button>
+          <IconButton
+            iconId={iconIds.delete}
+            width="1.5em"
+            height="1.5em"
+            fill="var(--controls-svg)"
+            className={styles.track__deleteButton}
+            onClick={(): void => onDelete(track.id, playlistId)}
+          />
+          <IconButton
+            iconId={iconIds.add}
+            width="1em"
+            height="1em"
+            fill="var(--controls-svg)"
+            className={styles.track__addToPlaylist}
+            onClick={(): void => onAddToPlaylist(track)}
+          />
           <p className={styles.track__duration}>{formatTime(trackDuration)}</p>
         </div>
       </div>
