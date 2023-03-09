@@ -1,16 +1,26 @@
 .sidebar {
   display: flex;
   flex-direction: column;
-  max-width: 250px;
   max-height: fit-content;
-  height: 100%;
+  max-width: 250px;
   width: 100%;
+  height: 100%;
   border-right: 2px solid var(--text);
+  transition: max-width .2s ease-in-out;
 
   &__title {
     font-family: MontserratBold, Arial, Helvetica, sans-serif;
     padding-left: 1.5rem;
     color: var(--text);
     margin-bottom: 0.5em;
+    white-space: nowrap;
+  }
+
+  &_closed {
+    max-width: 80px;
+
+    p {
+      opacity: 0;
+    }
   }
 }
