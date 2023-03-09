@@ -5,8 +5,8 @@ import styles from './Navigation.module.scss';
 import { iconIds } from '@utils/config/iconIds';
 
 const Navigation: FC = (): JSX.Element => {
-  const width = '1.5em';
-  const height = '1.5em';
+  const width = '1.5rem';
+  const height = '1.5rem';
   const fill = 'var(--controls-svg)';
 
   const navigationItems: NavigationItem[] = [

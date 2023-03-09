@@ -4,7 +4,7 @@ import { Svg } from '../interfaces/Svg';
 
 const Icon: FC<Svg> = ({ id, width, height, fill, stroke }: Svg): JSX.Element => {
   return (
-    <svg width={width} height={height} fill={fill} stroke={stroke}>
+    <svg width={width} height={height} fill={fill} stroke={stroke} style={{ flex: 'none' }}>
       <use href={`${sprite}#${id}`}></use>
     </svg>
   );
