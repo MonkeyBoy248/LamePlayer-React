@@ -6,7 +6,7 @@ import Icon from '@components/Icon';
 import { iconIds } from '@utils/config/iconIds';
 import { FavoritesButton } from '@/components/FavoritesButton';
 import { getTrackFullSrc } from '@/features/Controls/helpers/getTrackFullSrc';
-import { formatTime } from '@/utils/helpers/formatTime';
+import { formatTime } from '@/utils/helpers/formatTime/formatTime';
 import { useEventListener } from '@/utils/hooks/useEventListener';
 import { IconButton } from '@/components/IconButton/IconButton';
 

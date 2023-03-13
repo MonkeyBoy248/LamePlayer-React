@@ -1,7 +1,7 @@
 import { AppDispatch } from '@/app/store';
 import { setCurrentTrackIndex } from '@/features/Tracks/tracksSlice';
 import { TrackModel } from '@/interfaces/Track';
-import { getRandomIndex } from '@/utils/helpers/getRandomIndex';
+import { getRandomIndex } from '@/utils/helpers/getRandomIndex/getRandomIndex';
 import { MutableRefObject, useCallback, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 

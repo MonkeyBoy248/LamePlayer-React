@@ -1,4 +1,4 @@
-import { formatTime } from '@/utils/helpers/formatTime';
+import { formatTime } from '@/utils/helpers/formatTime/formatTime';
 import { FC, MouseEventHandler } from 'react';
 import { ProgressBar } from '../ProgressBar/ProgressBar';
 import styles from './TrackProgress.module.scss';

@@ -2,7 +2,7 @@ import { TrackModel } from '@/interfaces/Track';
 import { tracks } from '@/services/mockDataService';
 import { createSlice } from '@reduxjs/toolkit';
 import { PayloadAction } from '@reduxjs/toolkit';
-import { getItemFromLocalStorage, setItemToLocalStorage } from '@utils/helpers/localStorage';
+import { getItemFromLocalStorage, setItemToLocalStorage } from '@/utils/helpers/localStorage/localStorage';
 
 export interface TrackState {
   tracklist: TrackModel[];

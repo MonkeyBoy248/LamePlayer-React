@@ -3,7 +3,7 @@ import { PlaylistModel } from '@interfaces/Playlist';
 import { AlbumModel } from '@interfaces/Album';
 import { ArtistModel } from '@interfaces/Artist';
 import { getRandomElements } from '@/utils/helpers/getRandomElements';
-import { getItemFromLocalStorage, setItemToLocalStorage } from '@/utils/helpers/localStorage';
+import { getItemFromLocalStorage, setItemToLocalStorage } from '@/utils/helpers/localStorage/localStorage';
 
 const mockTracks: Omit<TrackModel, 'id'>[] = [
   {

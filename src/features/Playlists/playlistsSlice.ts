@@ -3,7 +3,7 @@ import { TrackModel } from '@/interfaces/Track';
 import { getInitialPlaylists } from '@/services/mockDataService';
 import { createSlice } from '@reduxjs/toolkit';
 import { PayloadAction } from '@reduxjs/toolkit';
-import { getItemFromLocalStorage, setItemToLocalStorage } from '@utils/helpers/localStorage';
+import { getItemFromLocalStorage, setItemToLocalStorage } from '@/utils/helpers/localStorage/localStorage';
 import { removeTrack } from '../Tracks/tracksSlice';
 
 export interface PlaylistsState {
