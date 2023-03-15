@@ -1,12 +1,16 @@
+import { useDispatch } from 'react-redux';
 import { TrackModel } from '@/interfaces/Track';
 import { MutableRefObject, useEffect } from 'react';
 import { getTrackFullSrc } from '../helpers/getTrackFullSrc';
+import { setIsPlaying } from '@/features/Tracks/tracksSlice';
 
 export const usePlayCurrentTrack = (
   audioRef: MutableRefObject<HTMLAudioElement>,
   isPlaying: boolean,
   currentTrack: TrackModel | null
 ): void => {
+  const dispatch = useDispatch();
+
   useEffect(() => {
     if (!isPlaying) {
       audioRef.current.pause();
@@ -17,7 +21,10 @@ export const usePlayCurrentTrack = (
     audioRef.current
       .play()
       .then()
-      .catch((e) => console.log(e));
+      .catch((e) => {
+        console.log(e);
+        dispatch(setIsPlaying(false));
+      });
   }, [isPlaying, audioRef]);
 
   useEffect(() => {
@@ -34,6 +41,9 @@ export const usePlayCurrentTrack = (
     audioRef.current
       .play()
       .then()
-      .catch((e) => console.log(e));
+      .catch((e) => {
+        console.log(e);
+        dispatch(setIsPlaying(false));
+      });
   }, [currentTrack?.id]);
 };

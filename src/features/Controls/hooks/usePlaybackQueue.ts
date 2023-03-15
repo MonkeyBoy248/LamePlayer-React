@@ -18,19 +18,19 @@ export const usePlaybackQueue = (
   audioRef: MutableRefObject<HTMLAudioElement>,
   playbackQueue: TrackModel[],
   currentTrack: TrackModel | null,
-  hasEnded: boolean
+  hasEnded: MutableRefObject<boolean>
 ): UsePlaybackQueue => {
   const [isLooped, setIsLooped] = useState<boolean>(false);
   const [isShuffled, setIsShuffled] = useState<boolean>(false);
   const dispatch: AppDispatch = useDispatch();
 
   useEffect(() => {
-    if (!hasEnded) {
+    if (!hasEnded.current) {
       return;
     }
 
     isLooped ? audioRef.current.play().then() : nextTrack();
-  }, [hasEnded, isLooped]);
+  }, [hasEnded.current, isLooped]);
 
   const toggleShuffleStatus = useCallback((): void => {
     setIsShuffled((currentValue) => !currentValue);
