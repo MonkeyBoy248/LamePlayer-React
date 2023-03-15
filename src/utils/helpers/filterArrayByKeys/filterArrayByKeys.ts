@@ -8,6 +8,6 @@ export const filterArrayByKeys = <T>(array: T[], filters: (keyof T)[], value: st
   }
 
   return array.filter((item) => {
-    return filters.some((filter) => (item[filter] as string).toLowerCase().includes(value.toLowerCase()));
+    return filters.some((filter) => String(item[filter]).toLowerCase().includes(value.toLowerCase()));
   });
 };
