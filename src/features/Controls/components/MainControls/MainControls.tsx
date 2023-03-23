@@ -15,7 +15,7 @@ import { FavoritesButton } from '@/components/FavoritesButton';
 import { IconButton } from '@/components/IconButton/IconButton';
 import { TrackContextMenu } from '@/features/Tracks/components/TrackMenu/TrackMenu';
 import { useMenu } from '@/utils/hooks/useMenu';
-import { usePopUp } from '@/utils/hooks/usePopUp';
+import { usePopUp } from '@/utils/hooks/usePopUp/usePopUp';
 import { PlaybackQueuePopUp } from '@/features/Tracks/components/PlaybackQueuePopUp/PlaybackQueuePopUp';
 
 const MainControls: FC = (): JSX.Element => {
