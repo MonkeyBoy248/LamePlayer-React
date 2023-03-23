@@ -1,6 +1,6 @@
 import { TrackModel } from '@/interfaces/Track';
 import { useCallback, useMemo, useState } from 'react';
-import { filterArrayByKeys } from '../helpers/filterArrayByKeys';
+import { filterArrayByKeys } from '../../../utils/helpers/filterArrayByKeys';
 
 interface UseSearchTrack {
   searchResults: TrackModel[];
