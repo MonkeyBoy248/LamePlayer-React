@@ -3,6 +3,7 @@ body {
   margin: 0;
   font-family: Montserrat, Arial, Helvetica, sans-serif;
   background-color: var(--background);
+  scrollbar-gutter: stable;
 }
 
 h1, h2, h3, h4, h5, h6, p, ul, li, figure {
@@ -37,8 +38,9 @@ button {
   src: url("../assets/fonts/Montserrat/static/Montserrat-Medium.ttf");
 }
 
-._no-scroll {
+._scroll-lock {
   overflow-y: hidden;
+  padding-right: 17px;
 }
 
 ._container {
