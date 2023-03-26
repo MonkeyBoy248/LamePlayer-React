@@ -6,8 +6,8 @@ import { iconIds } from '@/utils/config/iconIds';
 import { useDispatch } from 'react-redux';
 import { addToPlaybackQueue } from '../../tracksSlice';
 import { AddToPlaylistPopup } from '@/features/Playlists/components/AddToPlaylistPopup/AddToPlaylistPopup';
-import { usePopUp } from '@/utils/hooks/usePopUp';
 import { FC } from 'react';
+import { useModals } from '@/contexts/ModalsContext';
 
 interface TrackContextMenuProps {
   track: TrackModel | null;
@@ -23,7 +23,7 @@ export const TrackContextMenu: FC<TrackContextMenuProps> = ({
   anchorElement,
 }: TrackContextMenuProps): JSX.Element | null => {
   const dispatch: AppDispatch = useDispatch();
-  const { isPopUpOpen, closePopUp, showPopUp } = usePopUp();
+  const { openModal, closeModal } = useModals();
 
   if (!track) {
     return null;
@@ -35,7 +35,7 @@ export const TrackContextMenu: FC<TrackContextMenuProps> = ({
   };
 
   const addTrackToPlaylist = (): void => {
-    showPopUp();
+    openModal(<AddToPlaylistPopup closeModal={closeModal} trackToAdd={track} />);
     onClose();
   };
 
@@ -56,7 +56,6 @@ export const TrackContextMenu: FC<TrackContextMenuProps> = ({
         <MenuItem iconId={iconIds.playbackQueue} title={'Add to playback queue'} onClick={addTrackToPlaybackQueue} />
         <MenuItem iconId={iconIds.add} title={'Add to playlist'} onClick={addTrackToPlaylist} />
       </StyledMenu>
-      <AddToPlaylistPopup isOpen={isPopUpOpen} closeModal={closePopUp} trackToAdd={track} />
     </>
   );
 };

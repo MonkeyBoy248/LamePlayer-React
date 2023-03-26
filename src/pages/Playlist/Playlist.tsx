@@ -10,10 +10,10 @@ import { usePlaylistControls } from '@/features/Playlists/hooks/usePlaylistContr
 import { usePlaylistTitle } from '@/features/Playlists/hooks/usePlaylistTitle';
 import TrackList from '@/features/Tracks/components/TrackList/TrackList';
 import { iconIds } from '@/utils/config/iconIds';
-import { usePopUp } from '@/utils/hooks/usePopUp';
 import { useSearchTrack } from '@/utils/hooks/useSearch';
 import { FC } from 'react';
 import styles from './Playlist.module.scss';
+import { useModals } from '@/contexts/ModalsContext';
 
 export const Playlist: FC = (): JSX.Element => {
   const playlist = useInitPlaylist();
@@ -21,7 +21,7 @@ export const Playlist: FC = (): JSX.Element => {
     usePlaylistControls(playlist);
   const { title, editPlaylistTitle, handleEnterKeyDown, handleInputChange } = usePlaylistTitle(playlist);
   const { searchResults, searchTrack } = useSearchTrack(playlist.tracks);
-  const { isPopUpOpen, closePopUp, showPopUp } = usePopUp();
+  const { openModal, closeModal } = useModals();
 
   const getDateOfCreation = (): string => {
     return new Date(playlist.dateOfCreation).toLocaleDateString();
@@ -33,6 +33,19 @@ export const Playlist: FC = (): JSX.Element => {
     }
 
     return <TrackList tracks={searchResults} playlistId={playlist.id} onDelete={deleteTrackFromPlaylist} />;
+  };
+
+  const openDeletePlaylistAlert = (): void => {
+    openModal(
+      <AlertModal
+        closeModal={closeModal}
+        onCancel={closeModal}
+        onConfirm={removePlaylist}
+        text={'Are you sure you want to delete the playlist? This action cannot be undone.'}
+        confirmText={'Yes'}
+        cancelText={'No'}
+      />
+    );
   };
 
   return (
@@ -93,7 +106,7 @@ export const Playlist: FC = (): JSX.Element => {
                   width="1.5em"
                   fill="var(--controls-svg)"
                   className={styles.playlist__delete}
-                  onClick={showPopUp}
+                  onClick={openDeletePlaylistAlert}
                 />
               )}
             </div>
@@ -106,15 +119,6 @@ export const Playlist: FC = (): JSX.Element => {
           <EmptyMessage title={'The playlist is empty'} message={'Add some tracks to the playlist!'} />
         )}
       </div>
-      <AlertModal
-        isOpen={isPopUpOpen}
-        closeModal={closePopUp}
-        onCancel={closePopUp}
-        onConfirm={removePlaylist}
-        text={'Are you sure you want to delete the playlist? This action cannot be undone.'}
-        confirmText={'Yes'}
-        cancelText={'No'}
-      />
     </section>
   );
 };
