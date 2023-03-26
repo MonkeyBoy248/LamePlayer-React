@@ -5,6 +5,7 @@ import MainControls from './features/Controls/components/MainControls/MainContro
 import { useSelector } from 'react-redux';
 import { selectTheme } from './features/User/selectors';
 import { SidebarAppearanceProvider } from './contexts/SidebarAppearanceContext';
+import { ModalsProvider } from './contexts/ModalsContext';
 
 function App(): JSX.Element {
   const theme = useSelector(selectTheme);
@@ -12,11 +13,13 @@ function App(): JSX.Element {
 
   return (
     <>
-      <SidebarAppearanceProvider>
-        <Header />
-        <MainContentContainer />
-        <MainControls />
-      </SidebarAppearanceProvider>
+      <ModalsProvider>
+        <SidebarAppearanceProvider>
+          <Header />
+          <MainContentContainer />
+          <MainControls />
+        </SidebarAppearanceProvider>
+      </ModalsProvider>
     </>
   );
 }
