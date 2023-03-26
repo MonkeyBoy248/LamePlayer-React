@@ -5,11 +5,9 @@ import { TrackModel } from '@interfaces/Track';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/app/store';
 import { setCurrentTrackIndex, setIsPlaying, setPlaybackQueue } from '../../tracksSlice';
-import { AddToPlaylistPopup } from '@/features/Playlists/components/AddToPlaylistPopup/AddToPlaylistPopup';
-import { usePopUp } from '@/utils/hooks/usePopUp';
 import { isTrackActive } from '../../helpers/isTrackActive';
-import { useAddToPlaylist } from '@/features/Playlists/hooks/useAddToPlaylist';
 import { useInitTrackList } from '../../hooks/useInitTrackList';
+import { useAddToPlaylist } from '@/features/Playlists/hooks/useAddToPlaylist';
 
 interface TrackListProps {
   tracks: TrackModel[];
@@ -20,8 +18,7 @@ interface TrackListProps {
 const TrackList: FC<TrackListProps> = ({ tracks, onDelete, playlistId }: TrackListProps): JSX.Element => {
   const dispatch: AppDispatch = useDispatch();
   const { currentTrack, currentTrackIndex, isPlaying } = useInitTrackList();
-  const { isPopUpOpen, closePopUp, showPopUp } = usePopUp();
-  const { trackToAdd, addToPlaylist } = useAddToPlaylist(showPopUp);
+  const addToPlaylist = useAddToPlaylist();
 
   const setCurrentTrack = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
     const trackItemIndex = Number(e.currentTarget.dataset.index);
@@ -55,7 +52,6 @@ const TrackList: FC<TrackListProps> = ({ tracks, onDelete, playlistId }: TrackLi
           );
         })}
       </ul>
-      <AddToPlaylistPopup isOpen={isPopUpOpen} trackToAdd={trackToAdd} closeModal={closePopUp} />
     </>
   );
 };

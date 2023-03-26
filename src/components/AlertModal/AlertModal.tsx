@@ -3,7 +3,6 @@ import { Modal } from '../Modal/Modal';
 import styles from './AlertModal.module.scss';
 
 interface AlertModalProps {
-  isOpen: boolean;
   title?: string;
   text: string;
   confirmText: string;
@@ -14,7 +13,6 @@ interface AlertModalProps {
 }
 
 export const AlertModal: FC<AlertModalProps> = ({
-  isOpen,
   title,
   text,
   confirmText,
@@ -24,7 +22,7 @@ export const AlertModal: FC<AlertModalProps> = ({
   onCancel,
 }: AlertModalProps): JSX.Element => {
   return (
-    <Modal isOpen={isOpen} closeModal={closeModal}>
+    <Modal closeModal={closeModal}>
       {title && <h3 className={styles.alertModal__title}>{title}</h3>}
       <p className={styles.alertModal__text}>{text}</p>
       <footer className={styles.alertModal__controlsWrapper}>

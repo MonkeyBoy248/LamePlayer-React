@@ -4,12 +4,10 @@ import { TrackModel } from '@interfaces/Track';
 import { setCurrentTrackIndex, setIsPlaying } from '@/features/Tracks/tracksSlice';
 import { AppDispatch } from '@/app/store';
 import { useDispatch } from 'react-redux';
-import { usePopUp } from '@/utils/hooks/usePopUp';
-import { AddToPlaylistPopup } from '@/features/Playlists/components/AddToPlaylistPopup/AddToPlaylistPopup';
 import { FC } from 'react';
 import { isTrackActive } from '@/features/Tracks/helpers/isTrackActive';
-import { useAddToPlaylist } from '@/features/Playlists/hooks/useAddToPlaylist';
 import { useInitTrackList } from '@/features/Tracks/hooks/useInitTrackList';
+import { useAddToPlaylist } from '@/features/Playlists/hooks/useAddToPlaylist';
 
 interface RecommendationsListProps {
   recommendationTracks: TrackModel[];
@@ -22,8 +20,7 @@ const RecommendationsList: FC<RecommendationsListProps> = ({
 }: RecommendationsListProps) => {
   const dispatch: AppDispatch = useDispatch();
   const { currentTrack, currentTrackIndex, isPlaying } = useInitTrackList();
-  const { isPopUpOpen, closePopUp, showPopUp } = usePopUp();
-  const { addToPlaylist, trackToAdd } = useAddToPlaylist(showPopUp);
+  const addToPlaylist = useAddToPlaylist();
 
   const setCurrentTrack = (id: string): void => {
     const trackItemIndex = trackList.findIndex((track) => track.id === id);
@@ -59,7 +56,6 @@ const RecommendationsList: FC<RecommendationsListProps> = ({
             );
           })}
       </ul>
-      <AddToPlaylistPopup isOpen={isPopUpOpen} trackToAdd={trackToAdd} closeModal={closePopUp} />
     </>
   );
 };

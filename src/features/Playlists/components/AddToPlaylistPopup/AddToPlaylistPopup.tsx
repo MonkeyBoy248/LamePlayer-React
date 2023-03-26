@@ -10,13 +10,11 @@ import { AddToPlaylistPopupItem } from '../AddToPlaylistPopupItem/AddToPlaylistP
 import styles from './AddToPlaylistPopup.module.scss';
 
 interface PlaylistPopupProps {
-  isOpen: boolean;
   closeModal: () => void;
   trackToAdd: TrackModel;
 }
 
 export const AddToPlaylistPopup: FC<PlaylistPopupProps> = ({
-  isOpen,
   closeModal,
   trackToAdd,
 }: PlaylistPopupProps): JSX.Element => {
@@ -50,7 +48,7 @@ export const AddToPlaylistPopup: FC<PlaylistPopupProps> = ({
   };
 
   return (
-    <DialogModal isOpen={isOpen} closeModal={closeModal} title={'Choose a playlist'}>
+    <DialogModal closeModal={closeModal} title={'Choose a playlist'}>
       <ul className={styles.addToPlaylistPopup__playlists}>
         {allPlaylists.length > 0 &&
           allPlaylists.map((playlist) => {

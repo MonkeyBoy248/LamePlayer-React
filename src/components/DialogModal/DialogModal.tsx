@@ -5,20 +5,14 @@ import { Modal } from '../Modal/Modal';
 import styles from './DialogModal.module.scss';
 
 interface DialogModalProps {
-  isOpen: boolean;
   closeModal: () => void;
   children: ReactNode;
   title: string;
 }
 
-export const DialogModal: FC<DialogModalProps> = ({
-  isOpen,
-  closeModal,
-  children,
-  title,
-}: DialogModalProps): JSX.Element => {
+export const DialogModal: FC<DialogModalProps> = ({ closeModal, children, title }: DialogModalProps): JSX.Element => {
   return (
-    <Modal isOpen={isOpen} closeModal={closeModal}>
+    <Modal closeModal={closeModal}>
       <header className={styles.dialog__header}>
         <h3 className={styles.dialog__title}>{title}</h3>
         <IconButton
