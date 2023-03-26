@@ -46,7 +46,7 @@ const TrackList: FC<TrackListProps> = ({ tracks, onDelete, playlistId }: TrackLi
               isPlaying={isPlaying}
               playlistId={playlistId}
               onPlay={setCurrentTrack}
-              onAddToPlaylist={addToPlaylist}
+              onAddToPlaylist={(): void => addToPlaylist(track)}
               onDelete={onDelete}
             />
           );

@@ -51,7 +51,7 @@ const RecommendationsList: FC<RecommendationsListProps> = ({
                 dataIndex={index}
                 trackInfo={track}
                 onPlay={setCurrentTrack}
-                onAdd={addToPlaylist}
+                onAdd={(): void => addToPlaylist(track)}
               />
             );
           })}
