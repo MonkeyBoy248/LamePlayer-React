@@ -1,5 +1,5 @@
 import { useEventListener } from '@/utils/hooks/useEventListener';
-import { MutableRefObject, useCallback, useRef, useState } from 'react';
+import { MutableRefObject, useCallback, useState } from 'react';
 
 interface UseTrackProgress {
   currentTime: number;
