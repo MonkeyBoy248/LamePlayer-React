@@ -44,10 +44,10 @@ const MainControls: FC = (): JSX.Element => {
     return currentTrackIndex === disableIndex;
   };
 
-  const showTrackMenu = (e: React.MouseEvent<HTMLButtonElement>): void => {
+  const showTrackMenu = useCallback((e: React.MouseEvent<HTMLButtonElement>): void => {
     setAnchor(e.currentTarget);
     toggleMenu();
-  };
+  }, []);
 
   const playTrack = (): void => {
     dispatch(setIsPlaying(!isPlaying));
