@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { TrackModel } from '@/interfaces/Track';
-import { MutableRefObject, useEffect } from 'react';
+import { MutableRefObject, useEffect, useRef } from 'react';
 import { getTrackFullSrc } from '../helpers/getTrackFullSrc';
 import { setIsPlaying } from '@/features/Tracks/tracksSlice';
 
@@ -10,6 +10,12 @@ export const usePlayCurrentTrack = (
   currentTrack: TrackModel | null
 ): void => {
   const dispatch = useDispatch();
+  const { id, src } = currentTrack ?? {};
+  const isTrackReady = useRef<boolean>(false);
+
+  useEffect(() => {
+    isTrackReady.current = isPlaying;
+  }, [isPlaying]);
 
   useEffect(() => {
     if (!isPlaying) {
@@ -25,16 +31,16 @@ export const usePlayCurrentTrack = (
         console.log(e);
         dispatch(setIsPlaying(false));
       });
-  }, [isPlaying, audioRef]);
+  }, [isPlaying, audioRef, dispatch]);
 
   useEffect(() => {
-    if (!currentTrack) {
+    if (!id || !src) {
       return;
     }
 
-    audioRef.current.src = getTrackFullSrc(currentTrack.src);
+    audioRef.current.src = getTrackFullSrc(src);
 
-    if (!isPlaying) {
+    if (!isTrackReady.current) {
       return;
     }
 
@@ -45,5 +51,5 @@ export const usePlayCurrentTrack = (
         console.log(e);
         dispatch(setIsPlaying(false));
       });
-  }, [currentTrack?.id]);
+  }, [id, src, dispatch, audioRef]);
 };

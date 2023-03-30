@@ -6,9 +6,12 @@ import { AddToPlaylistPopup } from '../components/AddToPlaylistPopup/AddToPlayli
 export const useAddToPlaylist = (): ((track: TrackModel) => void) => {
   const { openModal, closeModal } = useModals();
 
-  const addToPlaylist = useCallback((track: TrackModel): void => {
-    openModal(<AddToPlaylistPopup trackToAdd={track} closeModal={closeModal} />);
-  }, []);
+  const addToPlaylist = useCallback(
+    (track: TrackModel): void => {
+      openModal(<AddToPlaylistPopup trackToAdd={track} closeModal={closeModal} />);
+    },
+    [closeModal, openModal]
+  );
 
   return addToPlaylist;
 };
