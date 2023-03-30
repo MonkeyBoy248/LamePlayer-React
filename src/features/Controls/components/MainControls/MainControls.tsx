@@ -1,4 +1,4 @@
-import { FC, useCallback } from 'react';
+import { FC } from 'react';
 import styles from './MainControls.module.scss';
 import { iconIds } from '@utils/config/iconIds';
 import { useDispatch } from 'react-redux';
@@ -44,10 +44,10 @@ const MainControls: FC = (): JSX.Element => {
     return currentTrackIndex === disableIndex;
   };
 
-  const showTrackMenu = useCallback((e: React.MouseEvent<HTMLButtonElement>): void => {
+  const showTrackMenu = (e: React.MouseEvent<HTMLButtonElement>): void => {
     setAnchor(e.currentTarget);
     toggleMenu();
-  }, []);
+  };
 
   const playTrack = (): void => {
     dispatch(setIsPlaying(!isPlaying));

@@ -1,7 +1,7 @@
 import { AppDispatch } from '@/app/store';
 import { setIsPlaying } from '@/features/Tracks/tracksSlice';
 import { formatTime } from '@/utils/helpers/formatTime';
-import { FC, useCallback } from 'react';
+import { FC } from 'react';
 import { useDispatch } from 'react-redux';
 import { useTrackProgress } from '../../hooks/useTrackProgress';
 import { ProgressBar } from '../ProgressBar/ProgressBar';
@@ -29,7 +29,7 @@ export const TrackProgress: FC<TrackProgressProps> = ({
   const dispatch: AppDispatch = useDispatch();
   const { setTrackCurrentTime } = useTrackProgress(audioRef);
 
-  const pauseAudioWhileDragging = useCallback((): void => {
+  const pauseAudioWhileDragging = (): void => {
     dispatch(setIsPlaying(false));
 
     document.addEventListener(
@@ -39,15 +39,15 @@ export const TrackProgress: FC<TrackProgressProps> = ({
       },
       { once: true }
     );
-  }, []);
+  };
 
-  const setProgressBarValueAsAudioCurrentTime = useCallback((e: Event, value: number | number[]): void => {
+  const setProgressBarValueAsAudioCurrentTime = (e: Event, value: number | number[]): void => {
     const rangeValue = Array.isArray(value) ? value[0] : value;
 
     audioRef.current.currentTime = rangeValue;
 
     setTrackCurrentTime(rangeValue);
-  }, []);
+  };
 
   return (
     <div className={styles.progress__container}>
