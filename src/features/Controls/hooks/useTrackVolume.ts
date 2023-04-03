@@ -1,45 +1,41 @@
-import { MutableRefObject, useState, useEffect, useCallback } from 'react';
+import { MutableRefObject, useState, useEffect, useCallback, useRef } from 'react';
 
 interface UseTrackVolume {
   volume: number;
-  lastVolumeValue: number;
-  isMuted: boolean;
   setTrackVolume: (e: Event, value: number | number[]) => void;
   muteTrack: () => void;
 }
 
 export const useTrackVolume = (audioRef: MutableRefObject<HTMLAudioElement>): UseTrackVolume => {
   const [volume, setVolume] = useState<number>(50);
-  const [isMuted, setIsMuted] = useState<boolean>(false);
-  const [lastVolumeValue, setLastVolumeValue] = useState<number>(50);
+  const lastVolumeValue = useRef<number>(50);
+  const isMuted = useRef<boolean>(false);
 
   useEffect(() => {
     audioRef.current.volume = volume / 100;
   }, [audioRef, volume]);
 
-  useEffect(() => {
-    if (!isMuted) {
-      setVolume(lastVolumeValue);
+  const setTrackVolume = useCallback((e: Event, value: number | number[]): void => {
+    const trackVolume = Array.isArray(value) ? value[0] : value;
+
+    setVolume(trackVolume);
+    lastVolumeValue.current = trackVolume;
+  }, []);
+
+  const muteTrack = useCallback((): void => {
+    isMuted.current = !isMuted.current;
+
+    if (!isMuted.current) {
+      setVolume(lastVolumeValue.current);
 
       return;
     }
 
     setVolume(0);
-  }, [isMuted, lastVolumeValue]);
-
-  const setTrackVolume = useCallback((e: Event, value: number | number[]): void => {
-    const trackVolume = Array.isArray(value) ? value[0] : value;
-
-    setVolume(trackVolume);
-    setLastVolumeValue(trackVolume);
   }, []);
-
-  const muteTrack = useCallback((): void => setIsMuted((currentValue) => !currentValue), []);
 
   return {
     volume,
-    lastVolumeValue,
-    isMuted,
     setTrackVolume,
     muteTrack,
   };

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { removeTrack } from '@/features/Tracks/tracksSlice';
 import { SearchBar } from '@/components/SearchBar/SearchBar';
 import { EmptyMessage } from '@/components/EmptyMessage/EmptyMessage';
-import { useSearchTrack } from '@/utils/hooks/useSearch';
+import { useSearchTrack } from '@/features/Tracks/hooks/useSearchTrack';
 import { FC } from 'react';
 import { Page } from '@/interfaces/Page';
 
@@ -29,7 +29,7 @@ const Tracks: FC<Page> = ({ title }: Page): JSX.Element => {
     <section className={`tracks _page`}>
       <div className={`tracks__inner _container`}>
         <h2 className={`tracks__pageTitle _pageTitle`}>{title}</h2>
-        <SearchBar onInput={searchTrack} />
+        <SearchBar onChange={searchTrack} />
         {tracks.length > 0 ? displaySearchResults() : <EmptyMessage title={'The tracklist is empty'} />}
       </div>
     </section>
