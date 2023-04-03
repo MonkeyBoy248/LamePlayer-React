@@ -1,7 +1,6 @@
 import { TrackModel } from '@/interfaces/Track';
 import { useCallback, useMemo, useState } from 'react';
-import { filterArrayByKeys } from '../../../utils/helpers/filterArrayByKeys';
-
+import { filterArrayByKeys } from '@/utils/helpers/filterArrayByKeys/filterArrayByKeys';
 interface UseSearchTrack {
   searchResults: TrackModel[];
   searchTrack: (e: React.FormEvent<HTMLInputElement>) => void;
