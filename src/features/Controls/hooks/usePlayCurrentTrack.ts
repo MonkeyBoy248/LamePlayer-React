@@ -12,10 +12,7 @@ export const usePlayCurrentTrack = (
   const dispatch = useDispatch();
   const { id, src } = currentTrack ?? {};
   const isTrackReady = useRef<boolean>(false);
-
-  useEffect(() => {
-    isTrackReady.current = isPlaying;
-  }, [isPlaying]);
+  isTrackReady.current = isPlaying;
 
   useEffect(() => {
     if (!isPlaying) {
