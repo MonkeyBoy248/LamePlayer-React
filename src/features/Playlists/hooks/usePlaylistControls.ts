@@ -21,22 +21,22 @@ export const usePlaylistControls = (playlist: PlaylistModel): UsePlaylistControl
     (trackId: string): void => {
       dispatch(removeTrackFromPlaylist({ trackId, playlistId: playlist.id }));
     },
-    [playlist]
+    [playlist, dispatch]
   );
 
   const runPlayllist = useCallback((): void => {
     dispatch(setPlaybackQueue(playlist.tracks));
     dispatch(setCurrentTrackIndex(0));
-  }, [playlist]);
+  }, [playlist, dispatch]);
 
   const removePlaylist = useCallback((): void => {
     dispatch(removePlaylistById(playlist.id));
     navigate('/playlists');
-  }, [playlist]);
+  }, [playlist, dispatch, navigate]);
 
   const addPlaylistTracksToPlaybackQueue = useCallback((): void => {
     dispatch(addToPlaybackQueue(playlist.tracks));
-  }, [playlist]);
+  }, [playlist, dispatch]);
 
   return {
     deleteTrackFromPlaylist,

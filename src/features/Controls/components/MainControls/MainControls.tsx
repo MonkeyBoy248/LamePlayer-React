@@ -1,4 +1,4 @@
-import { FC, useCallback } from 'react';
+import { FC } from 'react';
 import styles from './MainControls.module.scss';
 import { iconIds } from '@utils/config/iconIds';
 import { useDispatch } from 'react-redux';
@@ -21,7 +21,7 @@ import { PlaybackQueuePopUp } from '@/features/Tracks/components/PlaybackQueuePo
 const MainControls: FC = (): JSX.Element => {
   const dispatch: AppDispatch = useDispatch();
   const { playbackQueue, currentTrack, isPlaying, audioRef } = useInitAudioControls();
-  const { currentTime, duration, hasEnded, setTrackCurrentTime } = useTrackProgress(audioRef);
+  const { currentTime, duration, hasEnded } = useTrackProgress(audioRef);
   const { isLooped, isShuffled, nextTrack, previousTrack, toggleShuffleStatus, toggleLoopStatus } = usePlaybackQueue(
     audioRef,
     playbackQueue,
@@ -44,26 +44,6 @@ const MainControls: FC = (): JSX.Element => {
     return currentTrackIndex === disableIndex;
   };
 
-  const pauseAudioWhileDragging = useCallback((): void => {
-    dispatch(setIsPlaying(false));
-
-    document.addEventListener(
-      'mouseup',
-      () => {
-        dispatch(setIsPlaying(true));
-      },
-      { once: true }
-    );
-  }, []);
-
-  const setProgressBarValueAsAudioCurrentTime = useCallback((e: Event, value: number | number[]): void => {
-    const rangeValue = Array.isArray(value) ? value[0] : value;
-
-    audioRef.current.currentTime = rangeValue;
-
-    setTrackCurrentTime(rangeValue);
-  }, []);
-
   const showTrackMenu = (e: React.MouseEvent<HTMLButtonElement>): void => {
     setAnchor(e.currentTarget);
     toggleMenu();
@@ -75,13 +55,7 @@ const MainControls: FC = (): JSX.Element => {
 
   return (
     <div className={styles.controls}>
-      <TrackProgress
-        disabled={!currentTrack}
-        duration={duration}
-        currentTime={currentTime}
-        onMouseDown={pauseAudioWhileDragging}
-        onChange={setProgressBarValueAsAudioCurrentTime}
-      />
+      <TrackProgress disabled={!currentTrack} duration={duration} currentTime={currentTime} audioRef={audioRef} />
       <div className={`${styles.controls__inner} _container`}>
         <div className={styles.controls__mainControls}>
           <IconButton

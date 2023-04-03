@@ -1,5 +1,5 @@
 import { useEventListener } from '@/utils/hooks/useEventListener';
-import { MutableRefObject, useCallback, useEffect, useState } from 'react';
+import { MutableRefObject, useCallback, useState } from 'react';
 
 interface UseTrackProgress {
   currentTime: number;
@@ -28,17 +28,13 @@ export const useTrackProgress = (audioRef: MutableRefObject<HTMLAudioElement>): 
     setHasEnded(trackHasEnded);
   }, []);
 
+  const timeUpdateHandler = (): void => {
+    setTrackHasEnded(audioRef.current.ended);
+    setTrackCurrentTime(audioRef.current.currentTime);
+  };
+
   useEventListener(audioRef, 'loadedmetadata', setTrackTimeData);
-  useEventListener(audioRef, 'ended', () => setTrackHasEnded(true));
-  useEventListener(audioRef, 'timeupdate', () => setTrackCurrentTime(audioRef.current.currentTime));
-
-  useEffect(() => {
-    if (currentTime !== duration) {
-      return;
-    }
-
-    setHasEnded(false);
-  }, [currentTime, duration]);
+  useEventListener(audioRef, 'timeupdate', timeUpdateHandler);
 
   return {
     currentTime,

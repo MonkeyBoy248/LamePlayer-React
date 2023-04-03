@@ -34,7 +34,7 @@ export const usePlaylistTitle = (playlist: PlaylistModel): UsePlaylistTitle => {
     }
 
     dispatch(changePlaylistTitle({ id: playlist.id, title }));
-  }, [title, playlist]);
+  }, [title, playlist, dispatch]);
 
   const handleEnterKeyDown = useCallback((e: React.KeyboardEvent<HTMLInputElement>): void => {
     if (e.key !== 'Enter') {

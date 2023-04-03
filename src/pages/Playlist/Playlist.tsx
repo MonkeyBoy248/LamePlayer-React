@@ -10,7 +10,7 @@ import { usePlaylistControls } from '@/features/Playlists/hooks/usePlaylistContr
 import { usePlaylistTitle } from '@/features/Playlists/hooks/usePlaylistTitle';
 import TrackList from '@/features/Tracks/components/TrackList/TrackList';
 import { iconIds } from '@/utils/config/iconIds';
-import { useSearchTrack } from '@/utils/hooks/useSearch';
+import { useSearchTrack } from '@/features/Tracks/hooks/useSearchTrack';
 import { FC } from 'react';
 import styles from './Playlist.module.scss';
 import { useModals } from '@/contexts/ModalsContext';
@@ -112,7 +112,7 @@ export const Playlist: FC = (): JSX.Element => {
             </div>
           </div>
         </header>
-        <SearchBar onInput={searchTrack} />
+        <SearchBar onChange={searchTrack} />
         {playlist.tracks.length > 0 ? (
           displaySearchResults()
         ) : (

@@ -1,5 +1,9 @@
+import { AppDispatch } from '@/app/store';
+import { setIsPlaying } from '@/features/Tracks/tracksSlice';
 import { formatTime } from '@/utils/helpers/formatTime';
-import { FC, MouseEventHandler } from 'react';
+import { FC } from 'react';
+import { useDispatch } from 'react-redux';
+import { useTrackProgress } from '../../hooks/useTrackProgress';
 import { ProgressBar } from '../ProgressBar/ProgressBar';
 import styles from './TrackProgress.module.scss';
 
@@ -7,8 +11,7 @@ interface TrackProgressProps {
   duration: number;
   currentTime: number;
   disabled: boolean;
-  onMouseDown: MouseEventHandler<HTMLSpanElement>;
-  onChange: ((event: Event, value: number | number[], activeThumb: number) => void) | undefined;
+  audioRef: React.MutableRefObject<HTMLAudioElement>;
 }
 
 const getDuration = (duration: number): string => {
@@ -21,9 +24,31 @@ export const TrackProgress: FC<TrackProgressProps> = ({
   duration,
   currentTime,
   disabled,
-  onMouseDown,
-  onChange,
+  audioRef,
 }: TrackProgressProps): JSX.Element => {
+  const dispatch: AppDispatch = useDispatch();
+  const { setTrackCurrentTime } = useTrackProgress(audioRef);
+
+  const pauseAudioWhileDragging = (): void => {
+    dispatch(setIsPlaying(false));
+
+    document.addEventListener(
+      'mouseup',
+      () => {
+        dispatch(setIsPlaying(true));
+      },
+      { once: true }
+    );
+  };
+
+  const setProgressBarValueAsAudioCurrentTime = (e: Event, value: number | number[]): void => {
+    const rangeValue = Array.isArray(value) ? value[0] : value;
+
+    audioRef.current.currentTime = rangeValue;
+
+    setTrackCurrentTime(rangeValue);
+  };
+
   return (
     <div className={styles.progress__container}>
       {
@@ -37,8 +62,8 @@ export const TrackProgress: FC<TrackProgressProps> = ({
         disabled={disabled}
         max={duration}
         value={currentTime}
-        onMouseDown={onMouseDown}
-        onChange={onChange}
+        onMouseDown={pauseAudioWhileDragging}
+        onChange={setProgressBarValueAsAudioCurrentTime}
       ></ProgressBar>
     </div>
   );

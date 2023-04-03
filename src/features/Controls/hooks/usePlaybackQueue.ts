@@ -24,14 +24,6 @@ export const usePlaybackQueue = (
   const [isShuffled, setIsShuffled] = useState<boolean>(false);
   const dispatch: AppDispatch = useDispatch();
 
-  useEffect(() => {
-    if (!hasEnded) {
-      return;
-    }
-
-    isLooped ? audioRef.current.play().then() : nextTrack();
-  }, [hasEnded, isLooped]);
-
   const toggleShuffleStatus = useCallback((): void => {
     setIsShuffled((currentValue) => !currentValue);
   }, []);
@@ -39,6 +31,12 @@ export const usePlaybackQueue = (
   const toggleLoopStatus = useCallback((): void => {
     setIsLooped((currentValue) => !currentValue);
   }, []);
+
+  const setRandomTrack = useCallback((): void => {
+    const randomTrackIndex = getRandomIndex(playbackQueue);
+
+    dispatch(setCurrentTrackIndex(randomTrackIndex));
+  }, [dispatch, playbackQueue]);
 
   const previousTrack = useCallback((): void => {
     if (!currentTrack) {
@@ -55,7 +53,7 @@ export const usePlaybackQueue = (
     const previousTrackIndex = currentTrackIndex - 1;
 
     dispatch(setCurrentTrackIndex(previousTrackIndex));
-  }, [currentTrack, isShuffled]);
+  }, [currentTrack, isShuffled, dispatch, playbackQueue, setRandomTrack]);
 
   const nextTrack = useCallback((): void => {
     if (!currentTrack) {
@@ -72,13 +70,15 @@ export const usePlaybackQueue = (
     const nextTrackIndex = currentTrackIndex === playbackQueue.length - 1 ? 0 : currentTrackIndex + 1;
 
     dispatch(setCurrentTrackIndex(nextTrackIndex));
-  }, [currentTrack, isShuffled]);
+  }, [currentTrack, isShuffled, dispatch, playbackQueue, setRandomTrack]);
 
-  const setRandomTrack = (): void => {
-    const randomTrackIndex = getRandomIndex(playbackQueue);
+  useEffect(() => {
+    if (!hasEnded) {
+      return;
+    }
 
-    dispatch(setCurrentTrackIndex(randomTrackIndex));
-  };
+    isLooped ? audioRef.current.play().then() : nextTrack();
+  }, [hasEnded, isLooped, audioRef, nextTrack]);
 
   return {
     isLooped,
