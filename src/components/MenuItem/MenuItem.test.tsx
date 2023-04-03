@@ -1,5 +1,6 @@
 import { iconIds } from '@/utils/config/iconIds';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { describe, vi } from 'vitest';
 import { MenuItem } from './MenuItem';
 
@@ -18,13 +19,13 @@ describe('MenuItem component', () => {
     expect(menuItemElement).toMatchSnapshot();
   });
 
-  it('should fire a click event', () => {
+  it('should fire a click event', async () => {
     render(<MenuItem iconId={iconId} title={title} onClick={onClickMock} />);
 
     const menuItemElement = screen.getByTestId('menuItem');
 
     expect(menuItemElement).toBeInTheDocument();
-    fireEvent.click(menuItemElement);
+    await userEvent.click(menuItemElement);
     expect(onClickMock).toHaveBeenCalledTimes(1);
   });
 });
