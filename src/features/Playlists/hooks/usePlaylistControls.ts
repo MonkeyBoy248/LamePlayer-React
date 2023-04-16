@@ -5,6 +5,7 @@ import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { removeTrackFromPlaylist, removePlaylistById } from '../playlistsSlice';
+import { useModals } from '@/contexts/ModalsContext';
 
 interface UsePlaylistControls {
   deleteTrackFromPlaylist: (trackId: string) => void;
@@ -15,6 +16,7 @@ interface UsePlaylistControls {
 
 export const usePlaylistControls = (playlist: PlaylistModel): UsePlaylistControls => {
   const dispatch: AppDispatch = useDispatch();
+  const { closeModal } = useModals();
   const navigate = useNavigate();
 
   const deleteTrackFromPlaylist = useCallback(
@@ -31,8 +33,9 @@ export const usePlaylistControls = (playlist: PlaylistModel): UsePlaylistControl
 
   const removePlaylist = useCallback((): void => {
     dispatch(removePlaylistById(playlist.id));
-    navigate('/playlists');
-  }, [playlist, dispatch, navigate]);
+    closeModal();
+    navigate(`/playlists`);
+  }, [playlist, dispatch, navigate, closeModal]);
 
   const addPlaylistTracksToPlaybackQueue = useCallback((): void => {
     dispatch(addToPlaybackQueue(playlist.tracks));
