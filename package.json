@@ -14,9 +14,9 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "vite",
+    "dev": "vite",
     "build": "tsc && vite build",
-    "serve": "vite preview",
+    "preview": "vite preview",
     "lint:fix": "eslint ./src --ext .ts,.tsx --fix",
     "lint": "eslint ./src --ext .ts,.tsx",
     "prepare": "husky install"
