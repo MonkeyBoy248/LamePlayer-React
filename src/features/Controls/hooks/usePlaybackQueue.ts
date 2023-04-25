@@ -1,9 +1,10 @@
 import { AppDispatch } from '@/app/store';
+import { selectCurrentTrack, selectPlaybackQueue } from '@/features/Tracks/selectors';
 import { setCurrentTrackIndex } from '@/features/Tracks/tracksSlice';
-import { TrackModel } from '@/interfaces/Track';
 import { getRandomIndex } from '@/utils/helpers/getRandomIndex';
 import { MutableRefObject, useCallback, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useTrackProgress } from './useTrackProgress';
 
 interface UsePlaybackQueue {
   isLooped: boolean;
@@ -14,15 +15,13 @@ interface UsePlaybackQueue {
   toggleLoopStatus: () => void;
 }
 
-export const usePlaybackQueue = (
-  audioRef: MutableRefObject<HTMLAudioElement>,
-  playbackQueue: TrackModel[],
-  currentTrack: TrackModel | null,
-  hasEnded: boolean
-): UsePlaybackQueue => {
+export const usePlaybackQueue = (audioRef: MutableRefObject<HTMLAudioElement>): UsePlaybackQueue => {
   const [isLooped, setIsLooped] = useState<boolean>(false);
   const [isShuffled, setIsShuffled] = useState<boolean>(false);
   const dispatch: AppDispatch = useDispatch();
+  const playbackQueue = useSelector(selectPlaybackQueue);
+  const currentTrack = useSelector(selectCurrentTrack);
+  const { hasEnded } = useTrackProgress(audioRef);
 
   const toggleShuffleStatus = useCallback((): void => {
     setIsShuffled((currentValue) => !currentValue);
