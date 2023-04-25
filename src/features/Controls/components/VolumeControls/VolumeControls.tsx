@@ -1,16 +1,17 @@
 import { iconIds } from '@/utils/config/iconIds';
-import { FC, MouseEventHandler } from 'react';
+import { FC } from 'react';
 import styles from './VolumeControls.module.scss';
 import { VolumeSlider } from '../VolumeSlider/VolumeSlider';
 import { IconButton } from '@/components/IconButton/IconButton';
+import { useTrackVolume } from '../../hooks/useTrackVolume';
 
-export interface VolumeProps {
-  volume: number;
-  onChange: ((event: Event, value: number | number[], activeThumb: number) => void) | undefined;
-  onClick: MouseEventHandler<HTMLButtonElement>;
+interface VolumeControlsProps {
+  audioRef: React.MutableRefObject<HTMLAudioElement>;
 }
 
-export const VolumeControls: FC<VolumeProps> = ({ volume, onChange, onClick }: VolumeProps): JSX.Element => {
+export const VolumeControls: FC<VolumeControlsProps> = ({ audioRef }: VolumeControlsProps): JSX.Element => {
+  const { volume, setTrackVolume, muteTrack } = useTrackVolume(audioRef);
+
   const getVolumeIcon = (): string => {
     switch (true) {
       case volume === 0:
@@ -31,7 +32,7 @@ export const VolumeControls: FC<VolumeProps> = ({ volume, onChange, onClick }: V
           min={0}
           value={volume}
           valueLabelDisplay="auto"
-          onChange={onChange}
+          onChange={setTrackVolume}
         ></VolumeSlider>
       </div>
       <IconButton
@@ -40,7 +41,7 @@ export const VolumeControls: FC<VolumeProps> = ({ volume, onChange, onClick }: V
         width="2.5em"
         height="2.5em"
         className={styles.controls__volumeButton}
-        onClick={onClick}
+        onClick={muteTrack}
       />
     </div>
   );

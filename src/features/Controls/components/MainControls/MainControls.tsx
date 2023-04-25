@@ -10,7 +10,6 @@ import { useInitAudioControls } from '../../hooks/useInitAudioControls';
 import { usePlaybackQueue } from '../../hooks/usePlaybackQueue';
 import { usePlayCurrentTrack } from '../../hooks/usePlayCurrentTrack';
 import { useTrackProgress } from '../../hooks/useTrackProgress';
-import { useTrackVolume } from '../../hooks/useTrackVolume';
 import { FavoritesButton } from '@/components/FavoritesButton';
 import { IconButton } from '@/components/IconButton/IconButton';
 import { TrackContextMenu } from '@/features/Tracks/components/TrackMenu/TrackMenu';
@@ -28,7 +27,6 @@ const MainControls: FC = (): JSX.Element => {
     currentTrack,
     hasEnded
   );
-  const { volume, setTrackVolume, muteTrack } = useTrackVolume(audioRef);
   const { isMenuOpen, anchorElement, setAnchor, closeMenu, toggleMenu } = useMenu<HTMLButtonElement>();
   const { isPopUpOpen, showPopUp, closePopUp } = usePopUp();
 
@@ -135,7 +133,7 @@ const MainControls: FC = (): JSX.Element => {
               height="2em"
               onClick={toggleShuffleStatus}
             />
-            <VolumeControls volume={volume} onChange={setTrackVolume} onClick={muteTrack} />
+            <VolumeControls audioRef={audioRef} />
           </div>
         )}
       </div>
