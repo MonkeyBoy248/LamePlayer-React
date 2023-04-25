@@ -6,11 +6,9 @@ import { useDispatch } from 'react-redux';
 import { useTrackProgress } from '../../hooks/useTrackProgress';
 import { ProgressBar } from '../ProgressBar/ProgressBar';
 import styles from './TrackProgress.module.scss';
+import { useInitAudioControls } from '../../hooks/useInitAudioControls';
 
 interface TrackProgressProps {
-  duration: number;
-  currentTime: number;
-  disabled: boolean;
   audioRef: React.MutableRefObject<HTMLAudioElement>;
 }
 
@@ -20,13 +18,10 @@ const getDuration = (duration: number): string => {
   return formatTime(totalDuration);
 };
 
-export const TrackProgress: FC<TrackProgressProps> = ({
-  duration,
-  currentTime,
-  disabled,
-  audioRef,
-}: TrackProgressProps): JSX.Element => {
+export const TrackProgress: FC<TrackProgressProps> = ({ audioRef }: TrackProgressProps): JSX.Element => {
   const dispatch: AppDispatch = useDispatch();
+  const { currentTrack } = useInitAudioControls();
+  const { currentTime, duration } = useTrackProgress(audioRef);
   const { setTrackCurrentTime } = useTrackProgress(audioRef);
 
   const pauseAudioWhileDragging = (): void => {
@@ -59,7 +54,7 @@ export const TrackProgress: FC<TrackProgressProps> = ({
       }
       <ProgressBar
         min={0}
-        disabled={disabled}
+        disabled={!currentTrack}
         max={duration}
         value={currentTime}
         onMouseDown={pauseAudioWhileDragging}
