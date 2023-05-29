@@ -25,15 +25,11 @@ export const TrackProgress: FC<TrackProgressProps> = ({ audioRef, currentTrack }
 
   const pauseAudioWhileDragging = (): void => {
     dispatch(setIsPlaying(false));
-
-    document.addEventListener(
-      'mouseup',
-      () => {
-        dispatch(setIsPlaying(true));
-      },
-      { once: true }
-    );
   };
+
+  const playAudioWhenChangeComitted = (): void => {
+    dispatch(setIsPlaying(true));
+  }
 
   const setProgressBarValueAsAudioCurrentTime = (e: Event, value: number | number[]): void => {
     const rangeValue = Array.isArray(value) ? value[0] : value;
@@ -58,6 +54,7 @@ export const TrackProgress: FC<TrackProgressProps> = ({ audioRef, currentTrack }
         value={currentTime}
         onMouseDown={pauseAudioWhileDragging}
         onChange={setProgressBarValueAsAudioCurrentTime}
+        onChangeCommitted={playAudioWhenChangeComitted}
       ></ProgressBar>
     </div>
   );
