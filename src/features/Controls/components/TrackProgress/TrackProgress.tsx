@@ -6,12 +6,11 @@ import { useDispatch } from 'react-redux';
 import { useTrackProgress } from '../../hooks/useTrackProgress';
 import { ProgressBar } from '../ProgressBar/ProgressBar';
 import styles from './TrackProgress.module.scss';
+import { TrackModel } from '@/interfaces/Track';
 
 interface TrackProgressProps {
-  duration: number;
-  currentTime: number;
-  disabled: boolean;
   audioRef: React.MutableRefObject<HTMLAudioElement>;
+  currentTrack: TrackModel | null;
 }
 
 const getDuration = (duration: number): string => {
@@ -20,26 +19,17 @@ const getDuration = (duration: number): string => {
   return formatTime(totalDuration);
 };
 
-export const TrackProgress: FC<TrackProgressProps> = ({
-  duration,
-  currentTime,
-  disabled,
-  audioRef,
-}: TrackProgressProps): JSX.Element => {
+export const TrackProgress: FC<TrackProgressProps> = ({ audioRef, currentTrack }: TrackProgressProps): JSX.Element => {
   const dispatch: AppDispatch = useDispatch();
-  const { setTrackCurrentTime } = useTrackProgress(audioRef);
+  const { currentTime, duration, setTrackCurrentTime } = useTrackProgress(audioRef);
 
   const pauseAudioWhileDragging = (): void => {
     dispatch(setIsPlaying(false));
-
-    document.addEventListener(
-      'mouseup',
-      () => {
-        dispatch(setIsPlaying(true));
-      },
-      { once: true }
-    );
   };
+
+  const playAudioWhenChangeComitted = (): void => {
+    dispatch(setIsPlaying(true));
+  }
 
   const setProgressBarValueAsAudioCurrentTime = (e: Event, value: number | number[]): void => {
     const rangeValue = Array.isArray(value) ? value[0] : value;
@@ -59,11 +49,12 @@ export const TrackProgress: FC<TrackProgressProps> = ({
       }
       <ProgressBar
         min={0}
-        disabled={disabled}
+        disabled={!currentTrack}
         max={duration}
         value={currentTime}
         onMouseDown={pauseAudioWhileDragging}
         onChange={setProgressBarValueAsAudioCurrentTime}
+        onChangeCommitted={playAudioWhenChangeComitted}
       ></ProgressBar>
     </div>
   );

@@ -8,6 +8,7 @@ export interface TrackState {
   tracklist: TrackModel[];
   currentTrackIndex: number;
   isPlaying: boolean;
+  hasEnded: boolean;
   playbackQueue: TrackModel[];
 }
 
@@ -22,12 +23,17 @@ export const trackSlice = createSlice({
     setCurrentTrackIndex: (state, action: PayloadAction<number>) => {
       state.currentTrackIndex = action.payload;
       state.isPlaying = true;
+      state.hasEnded = false;
 
       setItemToLocalStorage(currentTrackKey, action.payload);
     },
 
     setIsPlaying: (state, action: PayloadAction<boolean>) => {
       state.isPlaying = action.payload;
+    },
+
+    setHasEnded: (state, action: PayloadAction<boolean>) => {
+      state.hasEnded = action.payload;
     },
 
     setPlaybackQueue: (state, action: PayloadAction<TrackModel[]>) => {
@@ -96,6 +102,7 @@ function getInitialState(): TrackState {
     tracklist,
     playbackQueue,
     isPlaying: false,
+    hasEnded: false,
   };
 }
 
@@ -107,5 +114,6 @@ export const {
   removeTrack,
   clearPlaybackQueue,
   removeFromPlaybackQueue,
+  setHasEnded,
 } = trackSlice.actions;
 export default trackSlice.reducer;

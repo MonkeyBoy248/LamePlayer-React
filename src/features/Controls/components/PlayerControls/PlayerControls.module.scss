@@ -1,0 +1,73 @@
+.controls {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 10;
+  background-color: var(--main-controls);
+
+  button {
+    opacity: 0.7;
+    transition: opacity .2s ease-in-out;
+
+    &:hover {
+      opacity: 1;
+    }
+
+    &:disabled {
+      opacity: 0.3;
+      cursor: auto;
+    }
+  }
+
+  &__progressBar {
+    height: 0.8em;
+    background-color: var(--secondary);
+    z-index: -1;
+    cursor: pointer;
+
+    &:hover .controls__progressThumb {
+      scale: 1;
+    }
+  }
+
+  &__progress {
+    height: 0.75em;
+    background-color: var(--accent);
+    display: flex;
+    justify-content: end;
+    align-items: center;
+
+    &:hover .controls__progressThumb {
+      scale: 1.2;
+    }
+  }
+
+  &__progressThumb {
+    display: block;
+    scale: 0;
+    content: '';
+    min-height: 1rem;
+    min-width: 1rem;
+    border-radius: 50%;
+    background-color: var(--accent);
+    position: relative;
+    left: 0.75rem;
+    transition: .1s ease-in-out;
+  }
+
+  &__timeInfo {
+    width: 100%;
+    padding-inline: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    top: -1.5rem;
+    position: absolute;
+  }
+
+  &__timeLabel {
+    color: var(--text);
+    font-size: 0.75rem;
+  }
+}
