@@ -15,6 +15,27 @@ export const usePlayCurrentTrack = (
   isTrackReady.current = isPlaying;
 
   useEffect(() => {
+    if (!id || !src) {
+      return;
+    }
+
+    audioRef.current.src = getTrackFullSrc(src);
+
+    if (!isTrackReady.current) {
+      return;
+    }
+
+
+    audioRef.current
+      .play()
+      .then()
+      .catch((e) => {
+        console.log(e);
+        dispatch(setIsPlaying(false));
+      });
+  }, [id, src, dispatch, audioRef]);
+
+  useEffect(() => {
     if (!isPlaying) {
       audioRef.current.pause();
 
@@ -29,24 +50,4 @@ export const usePlayCurrentTrack = (
         dispatch(setIsPlaying(false));
       });
   }, [isPlaying, audioRef, dispatch]);
-
-  useEffect(() => {
-    if (!id || !src) {
-      return;
-    }
-
-    audioRef.current.src = getTrackFullSrc(src);
-
-    if (!isTrackReady.current) {
-      return;
-    }
-
-    audioRef.current
-      .play()
-      .then()
-      .catch((e) => {
-        console.log(e);
-        dispatch(setIsPlaying(false));
-      });
-  }, [id, src, dispatch, audioRef]);
 };

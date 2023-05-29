@@ -4,16 +4,13 @@ import { MutableRefObject, useCallback, useState } from 'react';
 interface UseTrackProgress {
   currentTime: number;
   duration: number;
-  hasEnded: boolean;
   setTrackCurrentTime: (trackCurrentTime: number) => void;
   setTrackTimeData: () => void;
-  setTrackHasEnded: (trackHasEnded: boolean) => void;
 }
 
 export const useTrackProgress = (audioRef: MutableRefObject<HTMLAudioElement>): UseTrackProgress => {
   const [duration, setDuration] = useState<number>(0);
   const [currentTime, setCurrentTime] = useState<number>(0);
-  const [hasEnded, setHasEnded] = useState<boolean>(false);
 
   const setTrackTimeData = useCallback((): void => {
     setDuration(audioRef.current.duration);
@@ -24,12 +21,7 @@ export const useTrackProgress = (audioRef: MutableRefObject<HTMLAudioElement>): 
     setCurrentTime(trackCurrentTime);
   }, []);
 
-  const setTrackHasEnded = useCallback((trackHasEnded: boolean): void => {
-    setHasEnded(trackHasEnded);
-  }, []);
-
   const timeUpdateHandler = (): void => {
-    setTrackHasEnded(audioRef.current.ended);
     setTrackCurrentTime(audioRef.current.currentTime);
   };
 
@@ -39,9 +31,7 @@ export const useTrackProgress = (audioRef: MutableRefObject<HTMLAudioElement>): 
   return {
     currentTime,
     duration,
-    hasEnded,
     setTrackCurrentTime,
     setTrackTimeData,
-    setTrackHasEnded,
   };
 };
