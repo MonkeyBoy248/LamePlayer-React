@@ -15,3 +15,4 @@ export const selectCurrentTrack = (state: RootState): TrackModel | null => {
 export const selectPlayingStatus = (state: RootState): boolean => state.tracks.isPlaying;
 export const selectPlaybackQueue = (state: RootState): TrackModel[] => state.tracks.playbackQueue;
 export const selectCurrentTrackIndex = (state: RootState): number => state.tracks.currentTrackIndex;
+export const setlectHasEnded = (state: RootState): boolean => state.tracks.hasEnded;
