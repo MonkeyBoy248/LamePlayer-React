@@ -11,16 +11,17 @@ import { useDispatch } from 'react-redux';
 import { FC } from 'react';
 import { TrackModel } from '@/interfaces/Track';
 import { PlaybackQueuePopUp } from '@/features/Tracks/components/PlaybackQueuePopUp/PlaybackQueuePopUp';
+import { TrackInfo } from '../TrackInfo/TrackInfo';
 
 interface MainControlsProps {
-  audioRef: React.MutableRefObject<HTMLAudioElement>;
   currentTrack: TrackModel | null;
+  isShuffled: boolean;
 }
 
-export const MainControls: FC<MainControlsProps> = ({ audioRef, currentTrack }: MainControlsProps) => {
+export const MainControls: FC<MainControlsProps> = ({ currentTrack, isShuffled }: MainControlsProps) => {
   const dispatch: AppDispatch = useDispatch();
   const { playbackQueue, isPlaying } = useInitAudioControls();
-  const { isLooped, isShuffled, nextTrack, previousTrack, toggleLoopStatus } = usePlaybackQueue(audioRef);
+  const { isLooped, moveToNewTrack, toggleLoopStatus } = usePlaybackQueue(currentTrack);
   const { isPopUpOpen, closePopUp, showPopUp } = usePopUp();
 
   const isDisabled = (disableIndex: number): boolean => {
@@ -46,7 +47,7 @@ export const MainControls: FC<MainControlsProps> = ({ audioRef, currentTrack }: 
         width="1.5em"
         height="1.5em"
         isDisabled={!isShuffled && isDisabled(0)}
-        onClick={previousTrack}
+        onClick={(): void => moveToNewTrack('PREV')}
       />
       <IconButton
         className={styles.mainControls__playButton}
@@ -64,7 +65,7 @@ export const MainControls: FC<MainControlsProps> = ({ audioRef, currentTrack }: 
         width="1.5em"
         height="1.5em"
         isDisabled={!isShuffled && isDisabled(playbackQueue.length - 1)}
-        onClick={nextTrack}
+        onClick={(): void => moveToNewTrack('NEXT')}
       />
       {currentTrack && (
         <>
@@ -84,16 +85,7 @@ export const MainControls: FC<MainControlsProps> = ({ audioRef, currentTrack }: 
             height="2em"
             onClick={showPopUp}
           />
-          <div className={styles.mainControls__trackInfo}>
-            <figure className={styles.mainControls__trackCoverWrapper}>
-              <img src={`/images/covers/${currentTrack.coverUrl}`} alt={currentTrack.src} />
-            </figure>
-            <div className={styles.mainControls__trackDetails}>
-              <p className={`${styles.mainControls__trackTitle} _text`}>{currentTrack.title}</p>
-              <p className={`${styles.mainControls__artist} _text`}>{currentTrack.artist}</p>
-            </div>
-          </div>
-          <FavoritesButton track={currentTrack} width="2em" height="2em" />
+          <TrackInfo currentTrack={currentTrack} />
         </>
       )}
       <PlaybackQueuePopUp isOpen={isPopUpOpen} closePopUp={closePopUp} />

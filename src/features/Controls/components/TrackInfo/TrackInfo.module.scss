@@ -1,0 +1,36 @@
+.trackInfo {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+
+  &__trackCoverWrapper {
+    height: 3.5em;
+    flex-basis: 3.5em;
+    flex-shrink: 0;
+    border-radius: 5px;
+
+    img {
+      border-radius: 5px;
+      display: block;
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__trackDetails {
+    text-align: left;
+    color: var(--text);
+  }
+
+  &__artist {
+    font-size: 0.875em;
+    opacity: 0.8;
+  }
+
+  &__trackTitle {
+    font-family: MontserratMedium, Montserrat, Arial, Helvetica, sans-serif;
+    font-size: 1em;
+    margin-bottom: 0.25em;
+  }
+}

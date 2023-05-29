@@ -56,18 +56,6 @@
     transition: .1s ease-in-out;
   }
 
-  &__inner {
-    padding-block: 0.75em;
-    display: flex;
-    justify-content: space-between;
-  }
-
-  &__secondaryControlsWrapper {
-    display: flex;
-    align-items: center;
-    gap: 1.5em;
-  }
-
   &__timeInfo {
     width: 100%;
     padding-inline: 0.5rem;

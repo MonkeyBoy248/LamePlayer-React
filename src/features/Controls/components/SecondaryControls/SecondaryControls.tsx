@@ -6,14 +6,20 @@ import { usePlaybackQueue } from '../../hooks/usePlaybackQueue';
 import { useMenu } from '@/utils/hooks/useMenu';
 import { FC } from 'react';
 import { TrackContextMenu } from '@/features/Tracks/components/TrackMenu/TrackMenu';
+import VolumeControls from '../VolumeControls/VolumeControls';
 
 interface SecondaryControlsProps {
   currentTrack: TrackModel;
   audioRef: React.MutableRefObject<HTMLAudioElement>;
+  isShuffled: boolean;
 }
 
-export const SecondaryControls: FC<SecondaryControlsProps> = ({ currentTrack, audioRef }: SecondaryControlsProps) => {
-  const { isShuffled, toggleShuffleStatus } = usePlaybackQueue(audioRef);
+export const SecondaryControls: FC<SecondaryControlsProps> = ({
+  currentTrack,
+  audioRef,
+  isShuffled,
+}: SecondaryControlsProps) => {
+  const { toggleShuffleStatus } = usePlaybackQueue(currentTrack);
   const { isMenuOpen, anchorElement, closeMenu, setAnchor, toggleMenu } = useMenu<HTMLButtonElement>();
 
   const showTrackMenu = (e: React.MouseEvent<HTMLButtonElement>): void => {
@@ -41,6 +47,7 @@ export const SecondaryControls: FC<SecondaryControlsProps> = ({ currentTrack, au
         onClick={toggleShuffleStatus}
       />
       <TrackContextMenu anchorElement={anchorElement} onClose={closeMenu} track={currentTrack} isOpen={isMenuOpen} />
+      <VolumeControls audioRef={audioRef} />
     </div>
   );
 };

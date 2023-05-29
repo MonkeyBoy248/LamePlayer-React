@@ -1,27 +1,21 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import styles from './PlayerControls.module.scss';
-import VolumeControls from '../VolumeControls/VolumeControls';
 import { TrackProgress } from '../TrackProgress/TrackProgress';
 import { useInitAudioControls } from '../../hooks/useInitAudioControls';
+import { TrackControls } from '../TrackControls/TrackControls';
 import { usePlayCurrentTrack } from '../../hooks/usePlayCurrentTrack';
-import { MainControls } from '../MainControls/MainControls';
-import { SecondaryControls } from '../SecondaryControls/SecondaryControls';
+import { useTrackEnded } from '../../hooks/useTrackEnded';
 
 const PlayerControls: FC = (): JSX.Element => {
   const { currentTrack, isPlaying, audioRef } = useInitAudioControls();
 
+  useTrackEnded(currentTrack, audioRef);
   usePlayCurrentTrack(audioRef, isPlaying, currentTrack);
 
   return (
     <div className={styles.controls}>
-      <TrackProgress audioRef={audioRef} />
-      <div className={`${styles.controls__inner} _container`}>
-        <MainControls audioRef={audioRef} currentTrack={currentTrack} />
-        <div className={styles.controls__secondaryControlsWrapper}>
-          {currentTrack && <SecondaryControls audioRef={audioRef} currentTrack={currentTrack} />}
-          <VolumeControls audioRef={audioRef} />
-        </div>
-      </div>
+      <TrackProgress audioRef={audioRef} currentTrack={currentTrack} />
+      <TrackControls audioRef={audioRef} currentTrack={currentTrack} />
     </div>
   );
 };
